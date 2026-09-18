@@ -658,14 +658,17 @@ Located 1.5 miles from I-85 in Jackson County..." class="w-full bg-slate-950 bor
             ctx.drawImage(img, 0, 0, w, h);
             
             const compressedBase64 = canvas.toDataURL('image/jpeg', 0.7);
-            document.getElementById(targetInputId).value = compressedBase64;
+            
+            // Store the base64 data in the input value (used by getFormData)
+            const input = document.getElementById(targetInputId);
+            input.value = compressedBase64;
             
             if (targetInputId === 'global-logo') {
                saveGlobalBranding();
             } else {
                triggerPreviewCalc();
             }
-            showToast('Image uploaded successfully!');
+            showToast('Image uploaded! It will appear in "Save File" downloads. Share links use the default image.');
           };
           img.src = e.target.result;
         };
@@ -1032,6 +1035,17 @@ Located 1.5 miles from I-85 in Jackson County..." class="w-full bg-slate-950 bor
       const data = getFormData();
       const cleanData = { ...data };
       delete cleanData.id;
+      
+      // Strip base64 image data — it's way too large for a URL.
+      // Uploaded images only work with "Save File" (standalone HTML download).
+      // Normal web URLs (https://...) are fine and will pass through.
+      if (cleanData.imageUrl && cleanData.imageUrl.startsWith('data:')) {
+        cleanData.imageUrl = '';
+      }
+      if (cleanData.brokerLogo && cleanData.brokerLogo.startsWith('data:')) {
+        cleanData.brokerLogo = '';
+      }
+      
       const jsonStr = JSON.stringify(cleanData);
       const encoded = btoa(unescape(encodeURIComponent(jsonStr)));
       
@@ -1048,15 +1062,24 @@ Located 1.5 miles from I-85 in Jackson County..." class="w-full bg-slate-950 bor
 
     function launchClientPresentation() {
       saveAndApplyDeal();
+      const imageUrl = document.getElementById('form-image').value.trim();
+      if (imageUrl.startsWith('data:')) {
+        showToast('Note: Uploaded photos only appear in "Save File" downloads, not in browser preview links.');
+      }
       const url = getClientPresentationUrl();
       window.open(url, '_blank');
     }
 
     function copyClientShareLink() {
       saveAndApplyDeal();
+      const imageUrl = document.getElementById('form-image').value.trim();
+      if (imageUrl.startsWith('data:')) {
+        showToast('Uploaded photos are too large for share links. Use "Save File" to include images. Link copied without photo.');
+      } else {
+        showToast('Client presentation link copied to clipboard!');
+      }
       const url = getClientPresentationUrl();
       navigator.clipboard.writeText(url).then(() => {
-        showToast(' Client-Only Presentation Link copied to clipboard!');
       }).catch(() => {
         prompt('Copy client presentation link:', url);
       });
