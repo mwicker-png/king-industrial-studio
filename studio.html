@@ -286,6 +286,38 @@ Located 1.5 miles from I-85 in Jackson County..." class="w-full bg-slate-950 bor
       <!-- COLUMN 2: FULL PROPERTY SPECS & FINANCIAL ASSUMPTIONS (7 Cols)            -->
       <!-- ========================================================================= -->
       <div class="lg:col-span-7 space-y-6">
+
+        <!-- CARD: GLOBAL BRANDING & SETTINGS -->
+        <div class="bg-slate-900 border border-slate-800 rounded-lg p-5 shadow-md space-y-4">
+          <div class="flex items-center justify-between border-b border-slate-800 pb-3">
+            <h2 class="text-sm font-bold uppercase tracking-wider text-white">Global Brand & Broker Settings</h2>
+          </div>
+          <p class="text-[10px] text-slate-400">These settings are saved to your browser and automatically applied to all deals you share or print.</p>
+          <div class="space-y-3">
+            <div>
+              <label class="block text-[11px] font-semibold text-slate-300 mb-1">Company Logo URL (PNG/SVG/JPG)</label>
+              <input id="global-logo" type="text" placeholder="https://example.com/logo.png" class="w-full bg-slate-950 border border-slate-800 rounded-md px-3 py-2 text-xs text-white focus:ring-1 focus:ring-blue-500" onchange="saveGlobalBranding()">
+            </div>
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+              <div>
+                <label class="block text-[11px] font-semibold text-slate-300 mb-1">Broker Name</label>
+                <input id="global-broker-name" type="text" placeholder="John Doe" class="w-full bg-slate-950 border border-slate-800 rounded-md px-3 py-2 text-xs text-white focus:ring-1 focus:ring-blue-500" onchange="saveGlobalBranding()">
+              </div>
+              <div>
+                <label class="block text-[11px] font-semibold text-slate-300 mb-1">Broker Title</label>
+                <input id="global-broker-title" type="text" placeholder="Senior Vice President" class="w-full bg-slate-950 border border-slate-800 rounded-md px-3 py-2 text-xs text-white focus:ring-1 focus:ring-blue-500" onchange="saveGlobalBranding()">
+              </div>
+              <div>
+                <label class="block text-[11px] font-semibold text-slate-300 mb-1">Broker Phone</label>
+                <input id="global-broker-phone" type="text" placeholder="404.555.1234" class="w-full bg-slate-950 border border-slate-800 rounded-md px-3 py-2 text-xs text-white focus:ring-1 focus:ring-blue-500" onchange="saveGlobalBranding()">
+              </div>
+              <div>
+                <label class="block text-[11px] font-semibold text-slate-300 mb-1">Broker Email</label>
+                <input id="global-broker-email" type="text" placeholder="jdoe@company.com" class="w-full bg-slate-950 border border-slate-800 rounded-md px-3 py-2 text-xs text-white focus:ring-1 focus:ring-blue-500" onchange="saveGlobalBranding()">
+              </div>
+            </div>
+          </div>
+        </div>
         
         <div class="bg-slate-900 border border-slate-800 rounded-lg p-6 shadow-md space-y-5">
           
@@ -591,8 +623,33 @@ Located 1.5 miles from I-85 in Jackson County..." class="w-full bg-slate-950 bor
     let deals = [];
     let currentDeal = null;
 
-    async function initStudio() {
-      const saved = localStorage.getItem('king_deals_v1');
+      function loadGlobalBranding() {
+        try {
+          const b = JSON.parse(localStorage.getItem('king_branding_v1') || '{}');
+          document.getElementById('global-logo').value = b.logo || '';
+          document.getElementById('global-broker-name').value = b.name || '';
+          document.getElementById('global-broker-title').value = b.title || '';
+          document.getElementById('global-broker-phone').value = b.phone || '';
+          document.getElementById('global-broker-email').value = b.email || '';
+        } catch (e) {}
+      }
+
+      function saveGlobalBranding() {
+        const b = {
+          logo: document.getElementById('global-logo').value.trim(),
+          name: document.getElementById('global-broker-name').value.trim(),
+          title: document.getElementById('global-broker-title').value.trim(),
+          phone: document.getElementById('global-broker-phone').value.trim(),
+          email: document.getElementById('global-broker-email').value.trim()
+        };
+        localStorage.setItem('king_branding_v1', JSON.stringify(b));
+        showToast('Global branding settings saved.');
+        saveAndApplyDeal(); // trigger resave so active deal gets these updates
+      }
+
+      async function initStudio() {
+        loadGlobalBranding();
+        const saved = localStorage.getItem('king_deals_v1');
       if (saved) {
         try {
           deals = JSON.parse(saved);
@@ -812,7 +869,12 @@ Located 1.5 miles from I-85 in Jackson County..." class="w-full bg-slate-950 bor
           interestRate: parseFloat(document.getElementById('form-interest').value) || 0.065,
           amortYears: 25,
           columnGrid: document.getElementById('form-grid').value.trim() || '',
-          notes: document.getElementById('form-notes').value.trim() || ''
+          notes: document.getElementById('form-notes').value.trim() || '',
+          brandLogo: document.getElementById('global-logo').value.trim(),
+          brokerName: document.getElementById('global-broker-name').value.trim(),
+          brokerTitle: document.getElementById('global-broker-title').value.trim(),
+          brokerPhone: document.getElementById('global-broker-phone').value.trim(),
+          brokerEmail: document.getElementById('global-broker-email').value.trim()
         };
       }
 

@@ -84,7 +84,7 @@
       
       <!-- Brand Logo -->
       <div class="flex items-center gap-3 shrink-0">
-        <div class="w-10 h-10 rounded bg-red-600 flex items-center justify-center font-black text-xl shadow-lg shadow-red-600/20 text-white tracking-tighter" style="font-style: italic;">
+        <div id="brand-logo-container" class="w-10 h-10 rounded bg-red-600 flex items-center justify-center font-black text-xl shadow-lg shadow-red-600/20 text-white tracking-tighter overflow-hidden" style="font-style: italic;">
           KING
         </div>
         <div>
@@ -94,7 +94,7 @@
           </div>
           <p class="text-[10px] text-slate-400 no-print">Institutional Logistics Underwriting & Feasibility Suite</p>
           <!-- Print-only agent info below the logo -->
-          <p class="text-xs text-slate-500 font-medium print-only mt-0.5">Prepared by: Wilson Covington, SIOR | 404.942.2073 | wcovington@kingindustrial.com</p>
+          <p id="agent-profile" class="text-xs text-slate-500 font-medium print-only mt-0.5">Prepared by: Wilson Covington, SIOR | 404.942.2073 | wcovington@kingindustrial.com</p>
         </div>
       </div>
 
@@ -742,6 +742,19 @@
 
       const heroImg = document.getElementById('heroImage');
       if (heroImg) heroImg.src = d.imageUrl || 'apex_logistics_hub.jpg';
+
+      if (d.brandLogo) {
+        document.getElementById('brand-logo-container').innerHTML = `<img src="${d.brandLogo}" class="w-full h-full object-contain bg-white">`;
+        document.getElementById('brand-logo-container').className = "w-10 h-10 shrink-0 bg-transparent rounded overflow-hidden";
+      }
+
+      if (d.brokerName || d.brokerPhone || d.brokerEmail) {
+        const titleText = d.brokerTitle ? `, ${d.brokerTitle}` : '';
+        const nameText = d.brokerName || 'Agent';
+        const phoneText = d.brokerPhone ? ` | ${d.brokerPhone}` : '';
+        const emailText = d.brokerEmail ? ` | ${d.brokerEmail}` : '';
+        document.getElementById('agent-profile').textContent = `Prepared by: ${nameText}${titleText}${phoneText}${emailText}`;
+      }
 
       document.getElementById('in-sf').value = d.sf;
       document.getElementById('in-cost-psf').value = d.costPsf;
