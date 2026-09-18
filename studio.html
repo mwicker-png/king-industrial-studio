@@ -124,64 +124,62 @@
       </div>
     </div>
 
-    <!-- Main 2-Column Grid: Left Setup & Publishing / Right Spec Editor -->
-    <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+    
+    <!-- NEW STACKED WORKFLOW LAYOUT -->
+    <div class="w-full max-w-5xl mx-auto space-y-8 pb-12">
 
-      <!-- ========================================================================= -->
-      <!-- COLUMN 1: TOOLS & ACTIONS (4 Cols)                   -->
-      <!-- ========================================================================= -->
-      <div class="lg:col-span-4 space-y-6">
-        
-        <!-- CARD A: CLIENT PRESENTATION HUB (Zero Clutter Link) -->
-        <div class="bg-gradient-to-br from-blue-950/40 via-slate-900 to-indigo-950/40 border-2 border-blue-500/40 rounded-lg p-5 shadow-lg space-y-3 relative overflow-hidden">
-          <div class="flex items-center justify-between">
-            <div class="flex items-center gap-2">
-              <span class="text-base"></span>
-              <h2 class="text-sm font-bold uppercase tracking-wider text-white">Share Deal with Client</h2>
+
+        <!-- BRAND & BROKER SETTINGS (COLLAPSIBLE) -->
+        <details class="bg-slate-900 border border-slate-800 rounded-lg shadow-sm group mb-6">
+          <summary class="cursor-pointer p-4 font-bold text-xs uppercase tracking-wider text-slate-400 hover:text-white list-none flex items-center gap-2">
+            <svg class="w-4 h-4 text-blue-500 group-hover:text-blue-400 transition" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
+            <span>Brand & Broker Settings</span>
+            <span class="text-[10px] normal-case font-normal ml-2 opacity-60">(Optional / Set Once)</span>
+          </summary>
+          <div class="p-4 border-t border-slate-800">
+            <div class="space-y-3">
+            <div>
+              <label class="block text-[11px] font-semibold text-slate-300 mb-1">Company Logo (Upload or URL)</label>
+              <div class="flex items-center gap-3">
+                <button type="button" onclick="document.getElementById('global-logo-file').click()" class="shrink-0 px-3 py-2 bg-slate-800 hover:bg-slate-700 text-xs font-bold text-slate-200 border border-slate-700 rounded-md transition flex items-center gap-2">
+                  <svg class="w-3.5 h-3.5 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12"/></svg>
+                  Upload
+                </button>
+                <input type="file" id="global-logo-file" accept="image/*" class="hidden" onchange="handleImageUpload(event, 'global-logo')">
+                <span class="text-[10px] text-slate-500 font-bold uppercase shrink-0">OR</span>
+                <input id="global-logo" type="text" placeholder="Paste Logo URL..." class="w-full bg-slate-950 border border-slate-800 rounded-md px-3 py-2 text-xs text-white focus:ring-1 focus:ring-blue-500" oninput="saveGlobalBranding()">
+              </div>
             </div>
-            <span class="text-[10px] px-2.5 py-0.5 rounded-full bg-emerald-500/20 text-emerald-300 border border-emerald-500/40 font-extrabold uppercase tracking-wide">
-              Client-Only View
-            </span>
-          </div>
-
-          <p class="text-xs text-slate-300">
-            This link opens the clean executive presentation for <strong id="share-card-property-name" class="text-blue-300">this active deal</strong>. The client will see <em>zero</em> setup buttons, upload tools, or other listings.
-          </p>
-
-          <!-- Read-only Share URL Box -->
-          <div class="space-y-1">
-            <div class="flex items-center gap-2">
-              <input id="client-share-url-box" type="text" readonly class="w-full bg-slate-950 border border-slate-700 rounded-md px-3 py-2 text-xs font-mono text-blue-400 select-all focus:outline-none focus:border-blue-500">
-              <button onclick="copyClientShareLink()" class="px-4 py-2 rounded-md bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs shrink-0 flex items-center gap-1.5 shadow-md shadow-emerald-600/30 transition">
-                <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2v-1M8 5a2 2 0 002 2h2a2 2 0 002-2M8 5a2 2 0 012-2h2a2 2 0 012 2m0 0h2a2 2 0 012 2v3m2 4H10m0 0l3-3m-3 3l3 3"/></svg>
-                <span>Copy</span>
-              </button>
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+              <div>
+                <label class="block text-[11px] font-semibold text-slate-300 mb-1">Broker Name</label>
+                <input id="global-broker-name" type="text" placeholder="John Doe" class="w-full bg-slate-950 border border-slate-800 rounded-md px-3 py-2 text-xs text-white focus:ring-1 focus:ring-blue-500" onchange="saveGlobalBranding()">
+              </div>
+              <div>
+                <label class="block text-[11px] font-semibold text-slate-300 mb-1">Broker Title</label>
+                <input id="global-broker-title" type="text" placeholder="Senior Vice President" class="w-full bg-slate-950 border border-slate-800 rounded-md px-3 py-2 text-xs text-white focus:ring-1 focus:ring-blue-500" onchange="saveGlobalBranding()">
+              </div>
+              <div>
+                <label class="block text-[11px] font-semibold text-slate-300 mb-1">Broker Phone</label>
+                <input id="global-broker-phone" type="text" placeholder="404.555.1234" class="w-full bg-slate-950 border border-slate-800 rounded-md px-3 py-2 text-xs text-white focus:ring-1 focus:ring-blue-500" onchange="saveGlobalBranding()">
+              </div>
+              <div>
+                <label class="block text-[11px] font-semibold text-slate-300 mb-1">Broker Email</label>
+                <input id="global-broker-email" type="text" placeholder="jdoe@company.com" class="w-full bg-slate-950 border border-slate-800 rounded-md px-3 py-2 text-xs text-white focus:ring-1 focus:ring-blue-500" onchange="saveGlobalBranding()">
+              </div>
             </div>
           </div>
-
-          <!-- Quick Actions Grid -->
-          <div class="grid grid-cols-3 gap-2 pt-1">
-            <button onclick="launchClientPresentation()" class="py-2.5 px-3 rounded-md bg-blue-600 hover:bg-blue-500 text-white font-bold text-xs flex items-center justify-center gap-1.5 shadow-sm transition">
-              <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
-              <span>Preview</span>
-            </button>
-            <button onclick="openQrModal()" class="py-2.5 px-3 rounded-md bg-slate-800 hover:bg-slate-700 text-slate-300 border border-slate-700 font-semibold text-xs flex items-center justify-center gap-1.5 transition">
-              <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v1m6 11h2m-6 0h-2v4m0-11v3m0 0h.01M12 12h4.01M16 20h4M4 12h4m12 0h.01M5 8h2a1 1 0 001-1V5a1 1 0 00-1-1H5a1 1 0 00-1 1v2a1 1 0 001 1zm12 0h2a1 1 0 001-1V5a1 1 0 00-1-1h-2a1 1 0 00-1 1v2a1 1 0 001 1zM5 20h2a1 1 0 001-1v-2a1 1 0 00-1-1H5a1 1 0 00-1 1v2a1 1 0 001 1z"/></svg>
-              <span>QR Code</span>
-            </button>
-            <button onclick="downloadStandaloneHtml()" class="py-2.5 px-3 rounded-md bg-slate-800 hover:bg-slate-700 text-blue-300 border border-slate-700 font-semibold text-xs flex items-center justify-center gap-1.5 transition" title="Download standalone single-file HTML to email directly or host anywhere">
-              <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/></svg>
-              <span>Save File</span>
-            </button>
           </div>
-        </div>
+        </details>
+    
 
-        <!-- CARD B: SMART FLYER & BROCHURE UPLOAD EXTRACTOR -->
+      <!-- STEP 1: FLYER EXTRACTOR -->
+      <!-- CARD B: SMART FLYER & BROCHURE UPLOAD EXTRACTOR -->
         <div class="bg-slate-900 border border-slate-800 rounded-lg p-5 shadow-md space-y-4">
           <div class="flex items-center justify-between border-b border-slate-800 pb-3">
             <div class="flex items-center gap-2">
               <span class="text-base"></span>
-              <h2 class="text-sm font-bold uppercase tracking-wider text-white">Property Flyer Extractor</h2>
+              <h2 class="text-sm font-bold uppercase tracking-wider text-white"><span class="text-blue-500 mr-1">STEP 1:</span> Property Flyer Extractor</h2>
             </div>
             <span class="text-[10px] px-2 py-0.5 rounded-full bg-emerald-500/10 text-blue-400 border border-emerald-500/30 font-semibold">
               PDF &bull; DOCX &bull; TXT
@@ -245,7 +243,179 @@ Located 1.5 miles from I-85 in Jackson County..." class="w-full bg-slate-950 bor
           <p id="flyer-status" class="text-[11px] text-slate-400 text-center font-mono">Ready to extract</p>
         </div>
 
-        <!-- CARD C: LIVE RETURN PREVIEW -->
+      <!-- STEP 2: UNDERWRITING -->
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
+        <div class="lg:col-span-9">
+          <div class="bg-slate-900 border border-slate-800 rounded-lg p-6 shadow-md space-y-5">
+          
+          <div class="flex items-center justify-between border-b border-slate-800 pb-3">
+            <div>
+              <h2 class="text-sm font-bold uppercase tracking-wider text-white flex items-center gap-2">
+                <span class="text-blue-500">STEP 2:</span>
+                <span> Property & Underwriting Specifications</span>
+              </h2>
+              <p class="text-xs text-slate-400">Edit specs directly or fine-tune after flyer auto-extraction</p>
+            </div>
+            <button onclick="saveAndApplyDeal()" class="px-5 py-2 rounded-md text-xs font-bold bg-blue-600 hover:bg-blue-500 text-white shadow-sm transition flex items-center gap-1.5">
+              <span>Save & Update Deal</span>
+            </button>
+          </div>
+
+          <!-- Section 1: General Info -->
+          <div class="bg-slate-950/60 p-4 rounded-md border border-slate-800 space-y-4">
+            <h3 class="text-xs font-bold uppercase tracking-wider text-blue-400">1. Property Identification</h3>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div>
+                <label class="block text-[11px] font-semibold text-slate-300 mb-1">Deal / Property Name</label>
+                <input id="form-name" type="text" placeholder="Braselton Logistics Gateway" class="w-full bg-slate-900 border border-slate-800 rounded-lg px-3 py-2 text-xs text-white focus:ring-1 focus:ring-blue-500" oninput="triggerPreviewCalc()">
+              </div>
+              <div>
+                <label class="block text-[11px] font-semibold text-slate-300 mb-1">Submarket Corridor</label>
+                <select id="form-corridor" class="w-full bg-slate-900 border border-slate-800 rounded-lg px-3 py-2 text-xs text-white focus:ring-1 focus:ring-blue-500" onchange="triggerPreviewCalc()">
+                  <option value="I-85 North Corridor (Jackson / Gwinnett)">I-85 North (Jackson / Gwinnett)</option>
+                  <option value="I-20 West / Fulton Industrial">I-20 West / Fulton Industrial</option>
+                  <option value="I-75 South / Henry & Clayton">I-75 South / Henry & Clayton</option>
+                  <option value="Airport / Aerotropolis South">Airport / Aerotropolis South</option>
+                  <option value="I-85 South / Coweta & Meriwether">I-85 South / Coweta & Meriwether</option>
+                  <option value="I-75 North / Northwest Atlanta">I-75 North / Northwest Atlanta</option>
+                </select>
+              </div>
+            </div>
+            <div>
+              <label class="block text-[11px] font-semibold text-slate-300 mb-1">Street Address / City</label>
+              <input id="form-address" type="text" placeholder="1250 Logistics Pkwy, Braselton, GA" class="w-full bg-slate-900 border border-slate-800 rounded-lg px-3 py-2 text-xs text-white focus:ring-1 focus:ring-blue-500" oninput="triggerPreviewCalc()">
+            </div>
+            <div>
+              <label class="block text-[11px] font-semibold text-slate-300 mb-1">Hero Image (Upload File or Paste URL)</label>
+              <div class="flex items-center gap-3">
+                <button type="button" onclick="document.getElementById('form-image-file').click()" class="shrink-0 px-3 py-2 bg-blue-600/20 hover:bg-blue-600 text-blue-400 hover:text-white text-xs font-bold border border-blue-500/30 rounded-md transition flex items-center gap-2">
+                  <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12"/></svg>
+                  Upload Photo
+                </button>
+                <input type="file" id="form-image-file" accept="image/*" class="hidden" onchange="handleImageUpload(event, 'form-image')">
+                <span class="text-[10px] text-slate-500 font-bold uppercase shrink-0">OR</span>
+                <input id="form-image" type="text" placeholder="https://..." class="w-full bg-slate-900 border border-slate-800 rounded-lg px-3 py-2 text-xs text-white focus:ring-1 focus:ring-blue-500" oninput="triggerPreviewCalc()">
+              </div>
+            </div>
+          </div>
+
+          <!-- Section 2: Physical Specs -->
+          <div class="bg-slate-950/60 p-4 rounded-md border border-slate-800 space-y-3">
+            <h3 class="text-xs font-bold uppercase tracking-wider text-blue-400">2. Physical Building & Logistics Architecture</h3>
+            <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-3 gap-3">
+              <div>
+                <label class="block text-[11px] text-slate-400 mb-1">Rentable SF</label>
+                <input id="form-sf" type="number" step="1000" class="w-full bg-slate-900 border border-slate-800 rounded-lg px-3 py-2 text-xs text-white" oninput="triggerPreviewCalc()">
+              </div>
+              <div>
+                <label class="block text-[11px] text-slate-400 mb-1">Clear Height (ft)</label>
+                <input id="form-clear" type="number" step="1" class="w-full bg-slate-900 border border-slate-800 rounded-lg px-3 py-2 text-xs text-white" oninput="triggerPreviewCalc()">
+              </div>
+              <div>
+                <label class="block text-[11px] text-slate-400 mb-1">Dock-High Doors</label>
+                <input id="form-docks" type="number" step="1" class="w-full bg-slate-900 border border-slate-800 rounded-lg px-3 py-2 text-xs text-white" oninput="triggerPreviewCalc()">
+              </div>
+              <div>
+                <label class="block text-[11px] text-slate-400 mb-1">Drive-In Ramps</label>
+                <input id="form-drivein" type="number" step="1" class="w-full bg-slate-900 border border-slate-800 rounded-lg px-3 py-2 text-xs text-white" oninput="triggerPreviewCalc()">
+              </div>
+              <div>
+                <label class="block text-[11px] text-slate-400 mb-1">Truck Court (ft)</label>
+                <input id="form-court" type="number" step="5" class="w-full bg-slate-900 border border-slate-800 rounded-lg px-3 py-2 text-xs text-white" oninput="triggerPreviewCalc()">
+              </div>
+              <div>
+                <label class="block text-[11px] text-slate-400 mb-1">Trailer Stalls</label>
+                <input id="form-trailers" type="number" step="1" class="w-full bg-slate-900 border border-slate-800 rounded-lg px-3 py-2 text-xs text-white" oninput="triggerPreviewCalc()">
+              </div>
+              <div>
+                <label class="block text-[11px] text-slate-400 mb-1">Layout Configuration</label>
+                <select id="form-layout" class="w-full bg-slate-900 border border-slate-800 rounded-lg px-3 py-2 text-xs text-white" onchange="triggerPreviewCalc()">
+                  <option value="crossdock">Cross-Dock Facility</option>
+                  <option value="singleload">Rear-Load / Single Load</option>
+                </select>
+              </div>
+              <div>
+                <label class="block text-[11px] text-slate-400 mb-1">Fire Suppression</label>
+                <input id="form-sprinkler" type="text" value="ESFR K-25.2 Heads" class="w-full bg-slate-900 border border-slate-800 rounded-lg px-3 py-2 text-xs text-white" oninput="triggerPreviewCalc()">
+              </div>
+              <div>
+                <label class="block text-[11px] text-slate-400 mb-1">Column Grid Spec</label>
+                <input id="form-grid" type="text" value="54' x 50' Bay Spacing with 60' Speed Bays" class="w-full bg-slate-900 border border-slate-800 rounded-lg px-3 py-2 text-xs text-white" oninput="triggerPreviewCalc()">
+              </div>
+            </div>
+          </div>
+
+          <!-- Section 3: Financial Underwriting -->
+          <div class="bg-slate-950/60 p-4 rounded-md border border-slate-800 space-y-3">
+            <h3 class="text-xs font-bold uppercase tracking-wider text-blue-400">3. Capital & Financial Underwriting</h3>
+            <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-3 gap-4">
+              <div>
+                <label class="block text-[11px] text-slate-400 mb-1">Starting Rent ($/SF NNN)</label>
+                <input id="form-rent" type="number" step="0.05" class="w-full bg-slate-900 border border-slate-800 rounded-lg px-3 py-2 text-xs text-white" oninput="triggerPreviewCalc()">
+              </div>
+              <div>
+                <label class="block text-[11px] text-slate-400 mb-1">Annual Escalator (%)</label>
+                <input id="form-escalation" type="number" step="0.25" class="w-full bg-slate-900 border border-slate-800 rounded-lg px-3 py-2 text-xs text-white" oninput="triggerPreviewCalc()">
+              </div>
+              <div>
+                <label class="block text-[11px] text-slate-400 mb-1">Cost Basis PSF ($)</label>
+                <input id="form-cost-psf" type="number" step="1" class="w-full bg-slate-900 border border-slate-800 rounded-lg px-3 py-2 text-xs text-white" oninput="triggerPreviewCalc()">
+              </div>
+              <div>
+                <label class="block text-[11px] text-slate-400 mb-1">Target Exit Cap (%)</label>
+                <input id="form-cap" type="number" step="0.05" class="w-full bg-slate-900 border border-slate-800 rounded-lg px-3 py-2 text-xs text-white" oninput="triggerPreviewCalc()">
+              </div>
+              <div>
+                <label class="block text-[11px] text-slate-400 mb-1">Loan-to-Cost (LTC)</label>
+                <select id="form-ltc" class="w-full bg-slate-900 border border-slate-800 rounded-lg px-3 py-2 text-xs text-white" onchange="triggerPreviewCalc()">
+                  <option value="0.50">50% LTC</option>
+                  <option value="0.60">60% LTC</option>
+                  <option value="0.65" selected>65% LTC</option>
+                  <option value="0.70">70% LTC</option>
+                  <option value="0.00">0% (All Cash)</option>
+                </select>
+              </div>
+              <div>
+                <label class="block text-[11px] text-slate-400 mb-1">Debt Interest Rate</label>
+                <select id="form-interest" class="w-full bg-slate-900 border border-slate-800 rounded-lg px-3 py-2 text-xs text-white" onchange="triggerPreviewCalc()">
+                  <option value="0.055">5.50%</option>
+                  <option value="0.060">6.00%</option>
+                  <option value="0.065" selected>6.50%</option>
+                  <option value="0.070">7.00%</option>
+                  <option value="0.075">7.50%</option>
+                </select>
+              </div>
+            </div>
+          </div>
+
+          <!-- Section 4: Notes & Location Highlights -->
+          <div class="space-y-1.5">
+            <label class="block text-xs font-semibold text-slate-300">4. Key Selling Points / Infrastructure Notes (Used in Client AI Deal Memo)</label>
+            <textarea id="form-notes" rows="2" placeholder="e.g. Immediate access to I-85 Exit 129, heavy power (4,000A, 480V 3-phase), Tier-1 Georgia job tax credit eligibility..." class="w-full bg-slate-950 border border-slate-800 rounded-md p-2.5 text-xs text-white focus:ring-1 focus:ring-blue-500" oninput="triggerPreviewCalc()"></textarea>
+          </div>
+
+          <!-- Action Footers -->
+          <div class="pt-4 border-t border-slate-800 flex flex-wrap items-center justify-between gap-3">
+            <div class="flex items-center gap-2">
+              <button onclick="launchClientPresentation()" class="px-5 py-2.5 rounded-md bg-blue-700 hover:bg-blue-600 text-white font-bold text-xs flex items-center gap-2 shadow-sm transition">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
+                <span>Launch Client Presentation</span>
+              </button>
+              <button onclick="copyClientShareLink()" class="px-4 py-2.5 rounded-md bg-slate-800 hover:bg-slate-700 text-blue-400 hover:text-emerald-300 font-bold text-xs border border-slate-700 transition flex items-center gap-1.5">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2v-1M8 5a2 2 0 002 2h2a2 2 0 002-2M8 5a2 2 0 012-2h2a2 2 0 012 2m0 0h2a2 2 0 012 2v3m2 4H10m0 0l3-3m-3 3l3 3"/></svg>
+                <span>Copy Client Link</span>
+              </button>
+            </div>
+
+            <button onclick="saveAndApplyDeal()" class="px-5 py-2.5 rounded-md bg-blue-600 hover:bg-blue-500 text-white font-bold text-xs shadow-sm transition">
+              Save Deal
+            </button>
+          </div>
+
+        </div>
+        </div>
+        <div class="lg:col-span-3 sticky top-6">
+          <!-- CARD C: LIVE RETURN PREVIEW -->
         <div class="bg-slate-900 border border-slate-800 rounded-lg p-5 shadow-md space-y-3">
           <h3 class="text-xs font-bold uppercase tracking-wider text-slate-300 border-b border-slate-800 pb-2 flex items-center justify-between">
             <span>Model Return Highlights</span>
@@ -496,223 +666,53 @@ Located 1.5 miles from I-85 in Jackson County..." class="w-full bg-slate-950 bor
             </div>
           </div>
         </div>
-
-        <!-- CARD: GLOBAL BRANDING & SETTINGS -->
-        <div class="bg-slate-900 border border-slate-800 rounded-lg p-5 shadow-md space-y-4">
-          <div class="flex items-center justify-between border-b border-slate-800 pb-3">
-            <h2 class="text-sm font-bold uppercase tracking-wider text-white"><span class="text-slate-500 mr-1">OPTIONAL:</span> Global Brand & Broker Settings</h2>
-          </div>
-          <p class="text-[10px] text-slate-400">These settings are saved to your browser and automatically applied to all deals you share or print.</p>
-          <div class="space-y-3">
-            <div>
-              <label class="block text-[11px] font-semibold text-slate-300 mb-1">Company Logo (Upload or URL)</label>
-              <div class="flex items-center gap-3">
-                <button type="button" onclick="document.getElementById('global-logo-file').click()" class="shrink-0 px-3 py-2 bg-slate-800 hover:bg-slate-700 text-xs font-bold text-slate-200 border border-slate-700 rounded-md transition flex items-center gap-2">
-                  <svg class="w-3.5 h-3.5 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12"/></svg>
-                  Upload
-                </button>
-                <input type="file" id="global-logo-file" accept="image/*" class="hidden" onchange="handleImageUpload(event, 'global-logo')">
-                <span class="text-[10px] text-slate-500 font-bold uppercase shrink-0">OR</span>
-                <input id="global-logo" type="text" placeholder="Paste Logo URL..." class="w-full bg-slate-950 border border-slate-800 rounded-md px-3 py-2 text-xs text-white focus:ring-1 focus:ring-blue-500" oninput="saveGlobalBranding()">
-              </div>
-            </div>
-            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
-              <div>
-                <label class="block text-[11px] font-semibold text-slate-300 mb-1">Broker Name</label>
-                <input id="global-broker-name" type="text" placeholder="John Doe" class="w-full bg-slate-950 border border-slate-800 rounded-md px-3 py-2 text-xs text-white focus:ring-1 focus:ring-blue-500" onchange="saveGlobalBranding()">
-              </div>
-              <div>
-                <label class="block text-[11px] font-semibold text-slate-300 mb-1">Broker Title</label>
-                <input id="global-broker-title" type="text" placeholder="Senior Vice President" class="w-full bg-slate-950 border border-slate-800 rounded-md px-3 py-2 text-xs text-white focus:ring-1 focus:ring-blue-500" onchange="saveGlobalBranding()">
-              </div>
-              <div>
-                <label class="block text-[11px] font-semibold text-slate-300 mb-1">Broker Phone</label>
-                <input id="global-broker-phone" type="text" placeholder="404.555.1234" class="w-full bg-slate-950 border border-slate-800 rounded-md px-3 py-2 text-xs text-white focus:ring-1 focus:ring-blue-500" onchange="saveGlobalBranding()">
-              </div>
-              <div>
-                <label class="block text-[11px] font-semibold text-slate-300 mb-1">Broker Email</label>
-                <input id="global-broker-email" type="text" placeholder="jdoe@company.com" class="w-full bg-slate-950 border border-slate-800 rounded-md px-3 py-2 text-xs text-white focus:ring-1 focus:ring-blue-500" onchange="saveGlobalBranding()">
-              </div>
-            </div>
-          </div>
         </div>
-
       </div>
 
-      <!-- ========================================================================= -->
-      <!-- COLUMN 2: THE UNDERWRITING WORKSPACE (8 Cols)            -->
-      <!-- ========================================================================= -->
-      <div class="lg:col-span-8 space-y-6">
-        
-        <div class="bg-slate-900 border border-slate-800 rounded-lg p-6 shadow-md space-y-5">
-          
-          <div class="flex items-center justify-between border-b border-slate-800 pb-3">
-            <div>
-              <h2 class="text-sm font-bold uppercase tracking-wider text-white flex items-center gap-2">
-                <span class="text-blue-500">STEP 2:</span>
-                <span> Property & Underwriting Specifications</span>
-              </h2>
-              <p class="text-xs text-slate-400">Edit specs directly or fine-tune after flyer auto-extraction</p>
-            </div>
-            <button onclick="saveAndApplyDeal()" class="px-5 py-2 rounded-md text-xs font-bold bg-blue-600 hover:bg-blue-500 text-white shadow-sm transition flex items-center gap-1.5">
-              <span>Save & Update Deal</span>
-            </button>
-          </div>
-
-          <!-- Section 1: General Info -->
-          <div class="bg-slate-950/60 p-4 rounded-md border border-slate-800 space-y-4">
-            <h3 class="text-xs font-bold uppercase tracking-wider text-blue-400">1. Property Identification</h3>
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-              <div>
-                <label class="block text-[11px] font-semibold text-slate-300 mb-1">Deal / Property Name</label>
-                <input id="form-name" type="text" placeholder="Braselton Logistics Gateway" class="w-full bg-slate-900 border border-slate-800 rounded-lg px-3 py-2 text-xs text-white focus:ring-1 focus:ring-blue-500" oninput="triggerPreviewCalc()">
-              </div>
-              <div>
-                <label class="block text-[11px] font-semibold text-slate-300 mb-1">Submarket Corridor</label>
-                <select id="form-corridor" class="w-full bg-slate-900 border border-slate-800 rounded-lg px-3 py-2 text-xs text-white focus:ring-1 focus:ring-blue-500" onchange="triggerPreviewCalc()">
-                  <option value="I-85 North Corridor (Jackson / Gwinnett)">I-85 North (Jackson / Gwinnett)</option>
-                  <option value="I-20 West / Fulton Industrial">I-20 West / Fulton Industrial</option>
-                  <option value="I-75 South / Henry & Clayton">I-75 South / Henry & Clayton</option>
-                  <option value="Airport / Aerotropolis South">Airport / Aerotropolis South</option>
-                  <option value="I-85 South / Coweta & Meriwether">I-85 South / Coweta & Meriwether</option>
-                  <option value="I-75 North / Northwest Atlanta">I-75 North / Northwest Atlanta</option>
-                </select>
-              </div>
-            </div>
-            <div>
-              <label class="block text-[11px] font-semibold text-slate-300 mb-1">Street Address / City</label>
-              <input id="form-address" type="text" placeholder="1250 Logistics Pkwy, Braselton, GA" class="w-full bg-slate-900 border border-slate-800 rounded-lg px-3 py-2 text-xs text-white focus:ring-1 focus:ring-blue-500" oninput="triggerPreviewCalc()">
-            </div>
-            <div>
-              <label class="block text-[11px] font-semibold text-slate-300 mb-1">Hero Image (Upload File or Paste URL)</label>
-              <div class="flex items-center gap-3">
-                <button type="button" onclick="document.getElementById('form-image-file').click()" class="shrink-0 px-3 py-2 bg-blue-600/20 hover:bg-blue-600 text-blue-400 hover:text-white text-xs font-bold border border-blue-500/30 rounded-md transition flex items-center gap-2">
-                  <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12"/></svg>
-                  Upload Photo
-                </button>
-                <input type="file" id="form-image-file" accept="image/*" class="hidden" onchange="handleImageUpload(event, 'form-image')">
-                <span class="text-[10px] text-slate-500 font-bold uppercase shrink-0">OR</span>
-                <input id="form-image" type="text" placeholder="https://..." class="w-full bg-slate-900 border border-slate-800 rounded-lg px-3 py-2 text-xs text-white focus:ring-1 focus:ring-blue-500" oninput="triggerPreviewCalc()">
-              </div>
-            </div>
-          </div>
-
-          <!-- Section 2: Physical Specs -->
-          <div class="bg-slate-950/60 p-4 rounded-md border border-slate-800 space-y-3">
-            <h3 class="text-xs font-bold uppercase tracking-wider text-blue-400">2. Physical Building & Logistics Architecture</h3>
-            <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-3 gap-3">
-              <div>
-                <label class="block text-[11px] text-slate-400 mb-1">Rentable SF</label>
-                <input id="form-sf" type="number" step="1000" class="w-full bg-slate-900 border border-slate-800 rounded-lg px-3 py-2 text-xs text-white" oninput="triggerPreviewCalc()">
-              </div>
-              <div>
-                <label class="block text-[11px] text-slate-400 mb-1">Clear Height (ft)</label>
-                <input id="form-clear" type="number" step="1" class="w-full bg-slate-900 border border-slate-800 rounded-lg px-3 py-2 text-xs text-white" oninput="triggerPreviewCalc()">
-              </div>
-              <div>
-                <label class="block text-[11px] text-slate-400 mb-1">Dock-High Doors</label>
-                <input id="form-docks" type="number" step="1" class="w-full bg-slate-900 border border-slate-800 rounded-lg px-3 py-2 text-xs text-white" oninput="triggerPreviewCalc()">
-              </div>
-              <div>
-                <label class="block text-[11px] text-slate-400 mb-1">Drive-In Ramps</label>
-                <input id="form-drivein" type="number" step="1" class="w-full bg-slate-900 border border-slate-800 rounded-lg px-3 py-2 text-xs text-white" oninput="triggerPreviewCalc()">
-              </div>
-              <div>
-                <label class="block text-[11px] text-slate-400 mb-1">Truck Court (ft)</label>
-                <input id="form-court" type="number" step="5" class="w-full bg-slate-900 border border-slate-800 rounded-lg px-3 py-2 text-xs text-white" oninput="triggerPreviewCalc()">
-              </div>
-              <div>
-                <label class="block text-[11px] text-slate-400 mb-1">Trailer Stalls</label>
-                <input id="form-trailers" type="number" step="1" class="w-full bg-slate-900 border border-slate-800 rounded-lg px-3 py-2 text-xs text-white" oninput="triggerPreviewCalc()">
-              </div>
-              <div>
-                <label class="block text-[11px] text-slate-400 mb-1">Layout Configuration</label>
-                <select id="form-layout" class="w-full bg-slate-900 border border-slate-800 rounded-lg px-3 py-2 text-xs text-white" onchange="triggerPreviewCalc()">
-                  <option value="crossdock">Cross-Dock Facility</option>
-                  <option value="singleload">Rear-Load / Single Load</option>
-                </select>
-              </div>
-              <div>
-                <label class="block text-[11px] text-slate-400 mb-1">Fire Suppression</label>
-                <input id="form-sprinkler" type="text" value="ESFR K-25.2 Heads" class="w-full bg-slate-900 border border-slate-800 rounded-lg px-3 py-2 text-xs text-white" oninput="triggerPreviewCalc()">
-              </div>
-              <div>
-                <label class="block text-[11px] text-slate-400 mb-1">Column Grid Spec</label>
-                <input id="form-grid" type="text" value="54' x 50' Bay Spacing with 60' Speed Bays" class="w-full bg-slate-900 border border-slate-800 rounded-lg px-3 py-2 text-xs text-white" oninput="triggerPreviewCalc()">
-              </div>
-            </div>
-          </div>
-
-          <!-- Section 3: Financial Underwriting -->
-          <div class="bg-slate-950/60 p-4 rounded-md border border-slate-800 space-y-3">
-            <h3 class="text-xs font-bold uppercase tracking-wider text-blue-400">3. Capital & Financial Underwriting</h3>
-            <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-3 gap-4">
-              <div>
-                <label class="block text-[11px] text-slate-400 mb-1">Starting Rent ($/SF NNN)</label>
-                <input id="form-rent" type="number" step="0.05" class="w-full bg-slate-900 border border-slate-800 rounded-lg px-3 py-2 text-xs text-white" oninput="triggerPreviewCalc()">
-              </div>
-              <div>
-                <label class="block text-[11px] text-slate-400 mb-1">Annual Escalator (%)</label>
-                <input id="form-escalation" type="number" step="0.25" class="w-full bg-slate-900 border border-slate-800 rounded-lg px-3 py-2 text-xs text-white" oninput="triggerPreviewCalc()">
-              </div>
-              <div>
-                <label class="block text-[11px] text-slate-400 mb-1">Cost Basis PSF ($)</label>
-                <input id="form-cost-psf" type="number" step="1" class="w-full bg-slate-900 border border-slate-800 rounded-lg px-3 py-2 text-xs text-white" oninput="triggerPreviewCalc()">
-              </div>
-              <div>
-                <label class="block text-[11px] text-slate-400 mb-1">Target Exit Cap (%)</label>
-                <input id="form-cap" type="number" step="0.05" class="w-full bg-slate-900 border border-slate-800 rounded-lg px-3 py-2 text-xs text-white" oninput="triggerPreviewCalc()">
-              </div>
-              <div>
-                <label class="block text-[11px] text-slate-400 mb-1">Loan-to-Cost (LTC)</label>
-                <select id="form-ltc" class="w-full bg-slate-900 border border-slate-800 rounded-lg px-3 py-2 text-xs text-white" onchange="triggerPreviewCalc()">
-                  <option value="0.50">50% LTC</option>
-                  <option value="0.60">60% LTC</option>
-                  <option value="0.65" selected>65% LTC</option>
-                  <option value="0.70">70% LTC</option>
-                  <option value="0.00">0% (All Cash)</option>
-                </select>
-              </div>
-              <div>
-                <label class="block text-[11px] text-slate-400 mb-1">Debt Interest Rate</label>
-                <select id="form-interest" class="w-full bg-slate-900 border border-slate-800 rounded-lg px-3 py-2 text-xs text-white" onchange="triggerPreviewCalc()">
-                  <option value="0.055">5.50%</option>
-                  <option value="0.060">6.00%</option>
-                  <option value="0.065" selected>6.50%</option>
-                  <option value="0.070">7.00%</option>
-                  <option value="0.075">7.50%</option>
-                </select>
-              </div>
-            </div>
-          </div>
-
-          <!-- Section 4: Notes & Location Highlights -->
-          <div class="space-y-1.5">
-            <label class="block text-xs font-semibold text-slate-300">4. Key Selling Points / Infrastructure Notes (Used in Client AI Deal Memo)</label>
-            <textarea id="form-notes" rows="2" placeholder="e.g. Immediate access to I-85 Exit 129, heavy power (4,000A, 480V 3-phase), Tier-1 Georgia job tax credit eligibility..." class="w-full bg-slate-950 border border-slate-800 rounded-md p-2.5 text-xs text-white focus:ring-1 focus:ring-blue-500" oninput="triggerPreviewCalc()"></textarea>
-          </div>
-
-          <!-- Action Footers -->
-          <div class="pt-4 border-t border-slate-800 flex flex-wrap items-center justify-between gap-3">
+      <!-- STEP 3: SHARE OUTPUT -->
+      <!-- CARD A: CLIENT PRESENTATION HUB (Zero Clutter Link) -->
+        <div class="bg-gradient-to-br from-blue-950/40 via-slate-900 to-indigo-950/40 border-2 border-blue-500/40 rounded-lg p-5 shadow-lg space-y-3 relative overflow-hidden">
+          <div class="flex items-center justify-between">
             <div class="flex items-center gap-2">
-              <button onclick="launchClientPresentation()" class="px-5 py-2.5 rounded-md bg-blue-700 hover:bg-blue-600 text-white font-bold text-xs flex items-center gap-2 shadow-sm transition">
-                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
-                <span>Launch Client Presentation</span>
-              </button>
-              <button onclick="copyClientShareLink()" class="px-4 py-2.5 rounded-md bg-slate-800 hover:bg-slate-700 text-blue-400 hover:text-emerald-300 font-bold text-xs border border-slate-700 transition flex items-center gap-1.5">
-                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2v-1M8 5a2 2 0 002 2h2a2 2 0 002-2M8 5a2 2 0 012-2h2a2 2 0 012 2m0 0h2a2 2 0 012 2v3m2 4H10m0 0l3-3m-3 3l3 3"/></svg>
-                <span>Copy Client Link</span>
-              </button>
+              <span class="text-base"></span>
+              <h2 class="text-sm font-bold uppercase tracking-wider text-white"><span class="text-blue-500 mr-1">STEP 3:</span> Generate Presentation & Share</h2>
             </div>
-
-            <button onclick="saveAndApplyDeal()" class="px-5 py-2.5 rounded-md bg-blue-600 hover:bg-blue-500 text-white font-bold text-xs shadow-sm transition">
-              Save Deal
-            </button>
+            <span class="text-[10px] px-2.5 py-0.5 rounded-full bg-emerald-500/20 text-emerald-300 border border-emerald-500/40 font-extrabold uppercase tracking-wide">
+              Client-Only View
+            </span>
           </div>
 
-        </div>
+          <p class="text-xs text-slate-300">
+            This link opens the clean executive presentation for <strong id="share-card-property-name" class="text-blue-300">this active deal</strong>. The client will see <em>zero</em> setup buttons, upload tools, or other listings.
+          </p>
 
-      </div>
+          <!-- Read-only Share URL Box -->
+          <div class="space-y-1">
+            <div class="flex items-center gap-2">
+              <input id="client-share-url-box" type="text" readonly class="w-full bg-slate-950 border border-slate-700 rounded-md px-3 py-2 text-xs font-mono text-blue-400 select-all focus:outline-none focus:border-blue-500">
+              <button onclick="copyClientShareLink()" class="px-4 py-2 rounded-md bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs shrink-0 flex items-center gap-1.5 shadow-md shadow-emerald-600/30 transition">
+                <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2v-1M8 5a2 2 0 002 2h2a2 2 0 002-2M8 5a2 2 0 012-2h2a2 2 0 012 2m0 0h2a2 2 0 012 2v3m2 4H10m0 0l3-3m-3 3l3 3"/></svg>
+                <span>Copy</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- Quick Actions Grid -->
+          <div class="grid grid-cols-3 gap-2 pt-1">
+            <button onclick="launchClientPresentation()" class="py-2.5 px-3 rounded-md bg-blue-600 hover:bg-blue-500 text-white font-bold text-xs flex items-center justify-center gap-1.5 shadow-sm transition">
+              <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
+              <span>Preview</span>
+            </button>
+            <button onclick="openQrModal()" class="py-2.5 px-3 rounded-md bg-slate-800 hover:bg-slate-700 text-slate-300 border border-slate-700 font-semibold text-xs flex items-center justify-center gap-1.5 transition">
+              <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v1m6 11h2m-6 0h-2v4m0-11v3m0 0h.01M12 12h4.01M16 20h4M4 12h4m12 0h.01M5 8h2a1 1 0 001-1V5a1 1 0 00-1-1H5a1 1 0 00-1 1v2a1 1 0 001 1zm12 0h2a1 1 0 001-1V5a1 1 0 00-1-1h-2a1 1 0 00-1 1v2a1 1 0 001 1zM5 20h2a1 1 0 001-1v-2a1 1 0 00-1-1H5a1 1 0 00-1 1v2a1 1 0 001 1z"/></svg>
+              <span>QR Code</span>
+            </button>
+            <button onclick="downloadStandaloneHtml()" class="py-2.5 px-3 rounded-md bg-slate-800 hover:bg-slate-700 text-blue-300 border border-slate-700 font-semibold text-xs flex items-center justify-center gap-1.5 transition" title="Download standalone single-file HTML to email directly or host anywhere">
+              <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/></svg>
+              <span>Save File</span>
+            </button>
+          </div>
+        </div>
 
     </div>
 
