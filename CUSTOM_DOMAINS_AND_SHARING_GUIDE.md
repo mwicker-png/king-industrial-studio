@@ -3,9 +3,23 @@
 
 This guide outlines how any broker, analyst, or team member at King Industrial can deploy and share this application using clean, memorable, professional links.
 
+## 🔑 The Two-Tier Architecture (Setup vs. Client View)
+
+To ensure clients never see internal draft setups, flyer upload tools, or other deals in your portfolio, the platform is cleanly separated into two distinct systems:
+
+1. **Broker Deal Studio (`studio.html`) — For You & Your Team**:
+   - **Link:** `https://mwicker-png.github.io/king-industrial-studio/studio.html`
+   - **What it does:** Drag and drop PDF/Word flyers, extract specs, customize underwriting, manage multiple listings separately, duplicate deals to test variations (e.g. Option B), and export/import deal templates.
+   - **Sharing with colleagues:** Send fellow brokers this studio link or export a Deal JSON file so they can build listings using the same template.
+
+2. **Client Presentation Portal (`index.html`) — For Clients & Investors**:
+   - **Link:** Generated via 1-click in the Studio (`.../index.html?data=...`)
+   - **What the client sees:** ONLY that specific property's executive presentation. Zero upload tools, zero editor forms, zero links to the studio, and zero dropdowns to other deals.
+   - **What the client can do:** Explore interactive sliders (rent/SF/exit cap), view the 10-year DCF pro-forma, test the 5x5 sensitivity matrix, simulate truck docking in the 2D CAD viewer, and export the AI deal memo.
+
 ---
 
-## 🚀 Overview of Options
+## 🚀 Overview of Options for Sharing & Deployment
 
 | Method | Setup Time | Cost | Best For | Example URL |
 | :--- | :--- | :--- | :--- | :--- |

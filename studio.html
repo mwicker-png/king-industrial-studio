@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
-  <title>KING INDUSTRIAL // Broker Studio & Flyer Extractor</title>
+  <title>KING INDUSTRIAL // Broker Deal Studio & Flyer Extractor</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <!-- Client-Side Document Parsing & QR Libraries -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
@@ -58,23 +58,22 @@
         <div>
           <div class="flex items-center gap-2">
             <span class="font-extrabold text-base tracking-tight text-white">KING INDUSTRIAL</span>
-            <span class="text-[10px] px-2 py-0.5 rounded-full bg-blue-500/20 text-blue-400 font-bold border border-blue-500/30 uppercase tracking-wide">Broker Studio</span>
+            <span class="text-[10px] px-2 py-0.5 rounded-full bg-blue-500/20 text-blue-400 font-bold border border-blue-500/30 uppercase tracking-wide">BROKER DEAL STUDIO</span>
           </div>
-          <p class="text-[10px] text-slate-400">Flyer Extractor & Institutional Deal Modeling Suite</p>
+          <p class="text-[10px] text-slate-400">Underwriting Hub, Flyer Extractor & Client Link Generator</p>
         </div>
       </div>
 
-      <!-- Action Buttons -->
-      <div class="flex items-center gap-2.5">
-        <a href="index.html" target="_blank" class="flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-semibold bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 transition">
-          <svg class="w-3.5 h-3.5 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
-          <span class="hidden sm:inline">Open Client Presentation</span>
-          <span class="sm:hidden">Client View</span>
-        </a>
+      <!-- Quick Action Buttons in Nav -->
+      <div class="flex items-center gap-2">
         <button onclick="launchClientPresentation()" class="flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl text-xs font-bold bg-blue-600 hover:bg-blue-500 text-white shadow-lg shadow-blue-600/30 transition">
-          <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
-          <span class="hidden md:inline">Launch Active Deal Live</span>
-          <span class="md:hidden">Launch</span>
+          <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
+          <span class="hidden sm:inline">Preview Client Presentation</span>
+          <span class="sm:hidden">Preview</span>
+        </button>
+        <button onclick="copyStudioToolLink()" class="flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-semibold bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 transition" title="Copy Studio Link to Share with Colleagues">
+          <svg class="w-3.5 h-3.5 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.368 2.684 3 3 0 00-5.368-2.684z"/></svg>
+          <span class="hidden md:inline">Share Studio Tool</span>
         </button>
       </div>
 
@@ -84,43 +83,100 @@
   <!-- Studio Workspace Main -->
   <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 w-full flex-1 space-y-6">
 
-    <!-- Top Portfolio Bar & Deal Selector -->
+    <!-- Top Portfolio Bar: Manage Each Deal Separately -->
     <div class="bg-slate-900/90 border border-slate-800 rounded-2xl p-4 flex flex-col md:flex-row md:items-center justify-between gap-4 shadow-xl">
       <div class="flex items-center gap-3 flex-1 min-w-0">
-        <label class="text-xs font-bold text-slate-400 uppercase tracking-wider shrink-0">Active Property:</label>
+        <label class="text-xs font-bold text-slate-400 uppercase tracking-wider shrink-0 flex items-center gap-1.5">
+          <span class="w-2 h-2 rounded-full bg-blue-400 inline-block"></span>
+          <span>Active Deal:</span>
+        </label>
         <select id="deal-selector" onchange="onDealSelectChange()" class="bg-slate-950 border border-slate-700 hover:border-blue-500 text-xs font-semibold rounded-xl px-3 py-2 text-white focus:outline-none focus:ring-2 focus:ring-blue-500 cursor-pointer truncate max-w-md w-full">
           <!-- Dynamically populated -->
         </select>
-        <button onclick="createNewDeal()" title="Create New Listing" class="shrink-0 px-3 py-2 rounded-xl bg-blue-600/20 text-blue-400 hover:bg-blue-600 hover:text-white border border-blue-500/30 text-xs font-bold transition flex items-center gap-1">
+        
+        <!-- Add New Deal -->
+        <button onclick="createNewDeal()" title="Create Blank Deal" class="shrink-0 px-3 py-2 rounded-xl bg-blue-600/20 text-blue-400 hover:bg-blue-600 hover:text-white border border-blue-500/30 text-xs font-bold transition flex items-center gap-1">
           <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/></svg>
-          <span>New Property</span>
+          <span>New Deal</span>
+        </button>
+
+        <!-- Duplicate Deal (Variation) -->
+        <button onclick="duplicateCurrentDeal()" title="Duplicate this deal to test variations (e.g. Option B, different rent/size)" class="shrink-0 px-3 py-2 rounded-xl bg-indigo-600/20 text-indigo-400 hover:bg-indigo-600 hover:text-white border border-indigo-500/30 text-xs font-bold transition flex items-center gap-1">
+          <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7v8a2 2 0 002 2h6M8 7V5a2 2 0 012-2h4.586a1 1 0 01.707.293l4.414 4.414a1 1 0 01.293.707V15a2 2 0 01-2 2h-2M8 7H6a2 2 0 00-2 2v10a2 2 0 002 2h8a2 2 0 002-2v-2"/></svg>
+          <span class="hidden sm:inline">Duplicate Variation</span>
         </button>
       </div>
 
       <div class="flex items-center gap-2 shrink-0">
-        <button onclick="copyClientShareLink()" class="flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-semibold bg-slate-800 hover:bg-slate-700 text-emerald-400 border border-slate-700 transition">
-          <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2v-1M8 5a2 2 0 002 2h2a2 2 0 002-2M8 5a2 2 0 012-2h2a2 2 0 012 2m0 0h2a2 2 0 012 2v3m2 4H10m0 0l3-3m-3 3l3 3"/></svg>
-          <span>Copy Client Link</span>
+        <button onclick="exportCurrentDealJson()" title="Export this deal as a JSON file" class="px-3 py-1.5 rounded-xl text-xs font-semibold bg-slate-800 hover:bg-slate-700 text-slate-300 border border-slate-700 transition flex items-center gap-1">
+          <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12"/></svg>
+          <span>Export JSON</span>
         </button>
-        <button onclick="openQrModal()" class="flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-semibold bg-slate-800 hover:bg-slate-700 text-purple-400 border border-slate-700 transition">
-          <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v1m6 11h2m-6 0h-2v4m0-11v3m0 0h.01M12 12h4.01M16 20h4M4 12h4m12 0h.01M5 8h2a1 1 0 001-1V5a1 1 0 00-1-1H5a1 1 0 00-1 1v2a1 1 0 001 1zm12 0h2a1 1 0 001-1V5a1 1 0 00-1-1h-2a1 1 0 00-1 1v2a1 1 0 001 1zM5 20h2a1 1 0 001-1v-2a1 1 0 00-1-1H5a1 1 0 00-1 1v2a1 1 0 001 1z"/></svg>
-          <span>QR Code</span>
+        <button onclick="document.getElementById('importJsonInput').click()" title="Import a deal from JSON file" class="px-3 py-1.5 rounded-xl text-xs font-semibold bg-slate-800 hover:bg-slate-700 text-slate-300 border border-slate-700 transition flex items-center gap-1">
+          <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/></svg>
+          <span>Import JSON</span>
         </button>
-        <button onclick="deleteCurrentDeal()" class="p-2 rounded-xl text-xs bg-slate-800 hover:bg-rose-950/60 text-rose-400 hover:text-rose-300 border border-slate-700 hover:border-rose-800/50 transition" title="Delete Property">
+        <input type="file" id="importJsonInput" accept=".json" class="hidden" onchange="importDealJson(event)">
+        
+        <button onclick="deleteCurrentDeal()" class="p-2 rounded-xl text-xs bg-slate-800 hover:bg-rose-950/60 text-rose-400 hover:text-rose-300 border border-slate-700 hover:border-rose-800/50 transition" title="Delete Active Deal">
           <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/></svg>
         </button>
       </div>
     </div>
 
-    <!-- Main 2-Column Studio Grid: Left Extractor / Right Editor -->
+    <!-- Main 2-Column Grid: Left Setup & Publishing / Right Spec Editor -->
     <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
 
       <!-- ========================================================================= -->
-      <!-- COLUMN 1: SMART FLYER & BROCHURE UPLOAD EXTRACTOR (5 Cols)                -->
+      <!-- COLUMN 1: CLIENT SHARING HUB & FLYER EXTRACTOR (5 Cols)                   -->
       <!-- ========================================================================= -->
       <div class="lg:col-span-5 space-y-6">
         
-        <!-- Flyer Dropzone Card -->
+        <!-- CARD A: CLIENT PRESENTATION HUB (Zero Clutter Link) -->
+        <div class="bg-gradient-to-br from-blue-950/40 via-slate-900 to-indigo-950/40 border-2 border-blue-500/40 rounded-2xl p-5 shadow-2xl space-y-3 relative overflow-hidden">
+          <div class="flex items-center justify-between">
+            <div class="flex items-center gap-2">
+              <span class="text-base">🚀</span>
+              <h2 class="text-sm font-bold uppercase tracking-wider text-white">Share Deal with Client</h2>
+            </div>
+            <span class="text-[10px] px-2.5 py-0.5 rounded-full bg-emerald-500/20 text-emerald-300 border border-emerald-500/40 font-extrabold uppercase tracking-wide">
+              Client-Only View
+            </span>
+          </div>
+
+          <p class="text-xs text-slate-300">
+            This link opens the clean executive presentation for <strong id="share-card-property-name" class="text-blue-300">this active deal</strong>. The client will see <em>zero</em> setup buttons, upload tools, or other listings.
+          </p>
+
+          <!-- Read-only Share URL Box -->
+          <div class="space-y-1">
+            <div class="flex items-center gap-2">
+              <input id="client-share-url-box" type="text" readonly class="w-full bg-slate-950 border border-slate-700 rounded-xl px-3 py-2 text-xs font-mono text-emerald-400 select-all focus:outline-none focus:border-blue-500">
+              <button onclick="copyClientShareLink()" class="px-4 py-2 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs shrink-0 flex items-center gap-1.5 shadow-md shadow-emerald-600/30 transition">
+                <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2v-1M8 5a2 2 0 002 2h2a2 2 0 002-2M8 5a2 2 0 012-2h2a2 2 0 012 2m0 0h2a2 2 0 012 2v3m2 4H10m0 0l3-3m-3 3l3 3"/></svg>
+                <span>Copy</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- Quick Actions Grid -->
+          <div class="grid grid-cols-3 gap-2 pt-1">
+            <button onclick="launchClientPresentation()" class="py-2.5 px-3 rounded-xl bg-blue-600 hover:bg-blue-500 text-white font-bold text-xs flex items-center justify-center gap-1.5 shadow-md shadow-blue-600/30 transition">
+              <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
+              <span>Preview</span>
+            </button>
+            <button onclick="openQrModal()" class="py-2.5 px-3 rounded-xl bg-slate-800 hover:bg-slate-700 text-purple-400 border border-slate-700 font-semibold text-xs flex items-center justify-center gap-1.5 transition">
+              <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v1m6 11h2m-6 0h-2v4m0-11v3m0 0h.01M12 12h4.01M16 20h4M4 12h4m12 0h.01M5 8h2a1 1 0 001-1V5a1 1 0 00-1-1H5a1 1 0 00-1 1v2a1 1 0 001 1zm12 0h2a1 1 0 001-1V5a1 1 0 00-1-1h-2a1 1 0 00-1 1v2a1 1 0 001 1zM5 20h2a1 1 0 001-1v-2a1 1 0 00-1-1H5a1 1 0 00-1 1v2a1 1 0 001 1z"/></svg>
+              <span>QR Code</span>
+            </button>
+            <button onclick="downloadStandaloneHtml()" class="py-2.5 px-3 rounded-xl bg-slate-800 hover:bg-slate-700 text-blue-300 border border-slate-700 font-semibold text-xs flex items-center justify-center gap-1.5 transition" title="Download standalone single-file HTML to email directly or host anywhere">
+              <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/></svg>
+              <span>Save File</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- CARD B: SMART FLYER & BROCHURE UPLOAD EXTRACTOR -->
         <div class="bg-slate-900 border border-slate-800 rounded-2xl p-5 shadow-xl space-y-4">
           <div class="flex items-center justify-between border-b border-slate-800 pb-3">
             <div class="flex items-center gap-2">
@@ -133,7 +189,7 @@
           </div>
 
           <p class="text-xs text-slate-300">
-            Upload an existing marketing brochure, flyer, or OM. The studio automatically parses specs and populates your deal model:
+            Drop an existing PDF marketing flyer, brochure, or CoStar spec sheet. The extractor parses all data points directly into this deal:
           </p>
 
           <!-- Drag and Drop Zone -->
@@ -167,7 +223,7 @@
               <label class="text-xs font-semibold text-slate-300">Extracted Flyer Text (or paste directly):</label>
               <button onclick="document.getElementById('flyer-text-input').value = ''" class="text-[11px] text-slate-500 hover:text-slate-300">Clear</button>
             </div>
-            <textarea id="flyer-text-input" rows="7" placeholder="Paste flyer text here or drop a file above...
+            <textarea id="flyer-text-input" rows="6" placeholder="Paste flyer text here or drop a file above...
 Example:
 KING LOGISTICS CENTER - BUILDING 100
 1250 Logistics Parkway, Braselton, GA 30517
@@ -183,14 +239,13 @@ Located 1.5 miles from I-85 in Jackson County..." class="w-full bg-slate-950 bor
           <div class="flex items-center justify-between gap-2 pt-1">
             <button onclick="parseFlyerText()" class="w-full py-2.5 px-4 rounded-xl bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 text-white font-bold text-xs flex items-center justify-center gap-2 shadow-lg shadow-blue-600/30 transition">
               <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
-              <span>Auto-Extract & Populate Specs</span>
+              <span>Auto-Extract Specs & Populate Deal</span>
             </button>
           </div>
           <p id="flyer-status" class="text-[11px] text-slate-400 text-center font-mono">Ready to extract</p>
-
         </div>
 
-        <!-- Quick Underwriting Live KPI Preview -->
+        <!-- CARD C: LIVE RETURN PREVIEW -->
         <div class="bg-slate-900 border border-slate-800 rounded-2xl p-5 shadow-xl space-y-3">
           <h3 class="text-xs font-bold uppercase tracking-wider text-slate-300 border-b border-slate-800 pb-2 flex items-center justify-between">
             <span>Model Return Highlights</span>
@@ -241,8 +296,8 @@ Located 1.5 miles from I-85 in Jackson County..." class="w-full bg-slate-950 bor
               </h2>
               <p class="text-xs text-slate-400">Edit specs directly or fine-tune after flyer auto-extraction</p>
             </div>
-            <button onclick="saveAndApplyDeal()" class="px-4 py-2 rounded-xl text-xs font-bold bg-blue-600 hover:bg-blue-500 text-white shadow-lg shadow-blue-600/30 transition flex items-center gap-1.5">
-              <span>Save & Update</span>
+            <button onclick="saveAndApplyDeal()" class="px-5 py-2 rounded-xl text-xs font-bold bg-blue-600 hover:bg-blue-500 text-white shadow-lg shadow-blue-600/30 transition flex items-center gap-1.5">
+              <span>💾 Save & Update Deal</span>
             </button>
           </div>
 
@@ -376,12 +431,12 @@ Located 1.5 miles from I-85 in Jackson County..." class="w-full bg-slate-950 bor
               </button>
               <button onclick="copyClientShareLink()" class="px-4 py-2.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-emerald-400 hover:text-emerald-300 font-bold text-xs border border-slate-700 transition flex items-center gap-1.5">
                 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2v-1M8 5a2 2 0 002 2h2a2 2 0 002-2M8 5a2 2 0 012-2h2a2 2 0 012 2m0 0h2a2 2 0 012 2v3m2 4H10m0 0l3-3m-3 3l3 3"/></svg>
-                <span>Copy Shareable Link</span>
+                <span>Copy Client Link</span>
               </button>
             </div>
 
-            <button onclick="saveAndApplyDeal()" class="px-5 py-2.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 font-bold text-xs border border-slate-700 transition">
-              💾 Save Property
+            <button onclick="saveAndApplyDeal()" class="px-5 py-2.5 rounded-xl bg-blue-600 hover:bg-blue-500 text-white font-bold text-xs shadow-md shadow-blue-600/30 transition">
+              💾 Save Deal
             </button>
           </div>
 
@@ -410,7 +465,7 @@ Located 1.5 miles from I-85 in Jackson County..." class="w-full bg-slate-950 bor
       </div>
 
       <p class="text-xs text-slate-300">
-        Instant mobile access for <strong id="qr-property-name" class="text-white">this property</strong>. Download or copy into marketing flyers:
+        Instant mobile presentation for <strong id="qr-property-name" class="text-white">this property</strong>. Download or copy into marketing flyers:
       </p>
 
       <!-- QR Display Container -->
@@ -443,7 +498,7 @@ Located 1.5 miles from I-85 in Jackson County..." class="w-full bg-slate-950 bor
 
   <!-- Footer -->
   <footer class="border-t border-slate-800/80 bg-slate-900/60 py-4 mt-auto text-xs text-slate-400 text-center">
-    King Industrial Realty &bull; Institutional Logistics Studio &bull; <a href="index.html" class="text-blue-400 hover:underline">Switch to Client Presentation Portal &rarr;</a>
+    King Industrial Realty &bull; Institutional Logistics Studio (Broker Portal) &bull; Confidential Internal Tool
   </footer>
 
   <!-- Script Engine -->
@@ -566,7 +621,7 @@ Located 1.5 miles from I-85 in Jackson County..." class="w-full bg-slate-950 bor
         currentDeal = found;
         loadDealIntoForm(found);
         triggerPreviewCalc();
-        showToast('Loaded property: ' + found.name);
+        showToast('Active deal: ' + found.name);
       }
     }
 
@@ -601,7 +656,22 @@ Located 1.5 miles from I-85 in Jackson County..." class="w-full bg-slate-950 bor
       populateDealSelector();
       loadDealIntoForm(newDeal);
       triggerPreviewCalc();
-      showToast('Created new blank property profile. Upload flyer or enter specs.');
+      showToast('Created new blank property profile.');
+    }
+
+    // Duplicate deal to easily test variations
+    function duplicateCurrentDeal() {
+      if (!currentDeal) return;
+      const copy = JSON.parse(JSON.stringify(currentDeal));
+      copy.id = 'deal-' + Date.now();
+      copy.name = `${copy.name} (Option B)`;
+      deals.unshift(copy);
+      currentDeal = copy;
+      saveDealsToStorage();
+      populateDealSelector();
+      loadDealIntoForm(copy);
+      triggerPreviewCalc();
+      showToast(`✓ Cloned variation: "${copy.name}"`);
     }
 
     function deleteCurrentDeal() {
@@ -609,15 +679,64 @@ Located 1.5 miles from I-85 in Jackson County..." class="w-full bg-slate-950 bor
         alert('You must maintain at least one property.');
         return;
       }
-      if (confirm(`Remove "${currentDeal.name}" from your portfolio?`)) {
+      if (confirm(`Are you sure you want to remove "${currentDeal.name}" from your studio portfolio?`)) {
         deals = deals.filter(d => d.id !== currentDeal.id);
         currentDeal = deals[0];
         saveDealsToStorage();
         populateDealSelector();
         loadDealIntoForm(currentDeal);
         triggerPreviewCalc();
-        showToast('Property deleted.');
+        showToast('Property removed.');
       }
+    }
+
+    function exportCurrentDealJson() {
+      if (!currentDeal) return;
+      const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(currentDeal, null, 2));
+      const downloadAnchor = document.createElement('a');
+      const filename = `${(currentDeal.name || 'Property').replace(/\s+/g, '_')}_King_Deal.json`;
+      downloadAnchor.setAttribute("href", dataStr);
+      downloadAnchor.setAttribute("download", filename);
+      document.body.appendChild(downloadAnchor);
+      downloadAnchor.click();
+      downloadAnchor.remove();
+      showToast('Deal JSON exported!');
+    }
+
+    function importDealJson(event) {
+      const file = event.target.files[0];
+      if (!file) return;
+      const reader = new FileReader();
+      reader.onload = function(e) {
+        try {
+          const imported = JSON.parse(e.target.result);
+          if (imported.name && imported.sf) {
+            imported.id = 'deal-' + Date.now();
+            deals.unshift(imported);
+            currentDeal = imported;
+            saveDealsToStorage();
+            populateDealSelector();
+            loadDealIntoForm(imported);
+            triggerPreviewCalc();
+            showToast('✓ Successfully imported deal: ' + imported.name);
+          } else {
+            alert('Invalid deal JSON format.');
+          }
+        } catch (err) {
+          alert('Error parsing JSON file: ' + err.message);
+        }
+      };
+      reader.readAsText(file);
+      event.target.value = '';
+    }
+
+    function copyStudioToolLink() {
+      const studioUrl = `${window.location.origin}${window.location.pathname}`;
+      navigator.clipboard.writeText(studioUrl).then(() => {
+        showToast('🔗 Studio Tool URL copied! Send to colleagues to use this template.');
+      }).catch(() => {
+        prompt('Copy Studio URL:', studioUrl);
+      });
     }
 
     function loadDealIntoForm(d) {
@@ -681,7 +800,7 @@ Located 1.5 miles from I-85 in Jackson County..." class="w-full bg-slate-950 bor
       saveDealsToStorage();
       populateDealSelector();
       triggerPreviewCalc();
-      showToast('✓ Saved: ' + data.name);
+      showToast('✓ Saved and updated: ' + data.name);
     }
 
     function fmt(val) {
@@ -718,6 +837,8 @@ Located 1.5 miles from I-85 in Jackson County..." class="w-full bg-slate-950 bor
 
     function triggerPreviewCalc() {
       const d = getFormData();
+      document.getElementById('share-card-property-name').textContent = d.name;
+
       const totalCost = d.sf * d.costPsf;
       const debt = totalCost * d.ltc;
       const equity = totalCost - debt;
@@ -760,9 +881,14 @@ Located 1.5 miles from I-85 in Jackson County..." class="w-full bg-slate-950 bor
       document.getElementById('prev-yield').textContent = yieldCost.toFixed(2) + '%';
       document.getElementById('prev-exit').textContent = fmt(yr5ExitVal);
       document.getElementById('prev-irr').textContent = (irr * 100).toFixed(1) + '%';
+
+      // Update the Share URL Box
+      const shareUrl = getClientPresentationUrl();
+      const urlBox = document.getElementById('client-share-url-box');
+      if (urlBox) urlBox.value = shareUrl;
     }
 
-    // Client Link Generation (clean URL pointing to index.html)
+    // Client Link Generation (clean URL pointing to index.html with base64 data)
     function getClientPresentationUrl() {
       const data = getFormData();
       const cleanData = { ...data };
@@ -770,9 +896,15 @@ Located 1.5 miles from I-85 in Jackson County..." class="w-full bg-slate-950 bor
       const jsonStr = JSON.stringify(cleanData);
       const encoded = btoa(unescape(encodeURIComponent(jsonStr)));
       
-      // Determine index.html relative / absolute location
-      const path = window.location.pathname.replace('studio.html', 'index.html');
-      return `${window.location.origin}${path}?data=${encoded}`;
+      let basePath = window.location.pathname;
+      if (basePath.includes('studio.html')) {
+        basePath = basePath.replace('studio.html', 'index.html');
+      } else if (basePath.endsWith('/')) {
+        basePath += 'index.html';
+      } else {
+        basePath = basePath.substring(0, basePath.lastIndexOf('/') + 1) + 'index.html';
+      }
+      return `${window.location.origin}${basePath}?data=${encoded}`;
     }
 
     function launchClientPresentation() {
@@ -785,10 +917,42 @@ Located 1.5 miles from I-85 in Jackson County..." class="w-full bg-slate-950 bor
       saveAndApplyDeal();
       const url = getClientPresentationUrl();
       navigator.clipboard.writeText(url).then(() => {
-        showToast('🔗 Client Presentation Link copied to clipboard!');
+        showToast('🔗 Client-Only Presentation Link copied to clipboard!');
       }).catch(() => {
-        prompt('Copy client link:', url);
+        prompt('Copy client presentation link:', url);
       });
+    }
+
+    // Download a Standalone .html file for this exact deal
+    async function downloadStandaloneHtml() {
+      saveAndApplyDeal();
+      const d = getFormData();
+      showToast('Generating standalone client HTML file...');
+
+      try {
+        const resp = await fetch('index.html');
+        if (!resp.ok) throw new Error('Could not read index.html template');
+        let htmlText = await resp.text();
+
+        // Inject this specific deal as the sole DEFAULT_DEALS array
+        const customDealsScript = `const DEFAULT_DEALS = [ ${JSON.stringify(d, null, 2)} ];`;
+        htmlText = htmlText.replace(/const DEFAULT_DEALS = \[[\s\S]*?\];/, customDealsScript);
+
+        const blob = new Blob([htmlText], { type: 'text/html;charset=utf-8' });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        const filename = `${(d.name || 'Property').replace(/\s+/g, '_')}_Client_Presentation.html`;
+        a.href = url;
+        a.download = filename;
+        document.body.appendChild(a);
+        a.click();
+        a.remove();
+        URL.revokeObjectURL(url);
+        showToast(`✓ Downloaded ${filename}! Ready to email to client.`);
+      } catch (err) {
+        console.error('Failed to generate standalone HTML:', err);
+        alert('Notice: Standalone generator ready via web link.');
+      }
     }
 
     // QR Code Modal
