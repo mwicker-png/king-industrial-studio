@@ -1096,7 +1096,7 @@ Located 1.5 miles from I-85 in Jackson County..." class="w-full bg-slate-950 bor
       }
     }
 
-    // Pattern Extractor
+    // Multi-Pattern Intelligent Spec Extractor with Auto-Save
     function parseFlyerText() {
       const text = document.getElementById('flyer-text-input').value;
       if (!text.trim()) {
@@ -1105,75 +1105,185 @@ Located 1.5 miles from I-85 in Jackson County..." class="w-full bg-slate-950 bor
       }
 
       const status = document.getElementById('flyer-status');
-      status.textContent = 'Extracting data points...';
+      status.innerHTML = '<span class="text-amber-400 font-mono">⚡ Analyzing text patterns...</span>';
 
-      // SF
-      const sfMatch = text.match(/([\d,]+)\s*(?:sq\.?\s*ft\.?|sf|rsf|square\s+feet)/i);
-      if (sfMatch) {
-        const parsedSF = parseInt(sfMatch[1].replace(/,/g, ''));
-        if (parsedSF > 5000) document.getElementById('form-sf').value = parsedSF;
+      const extractedLog = [];
+
+      // Flexible number finder supporting both "Label: 40" and "40 Label"
+      function matchNumber(regexList, minVal, maxVal) {
+        for (const re of regexList) {
+          const match = text.match(re);
+          if (match) {
+            for (let i = 1; i < match.length; i++) {
+              if (match[i]) {
+                const clean = match[i].replace(/,/g, '').replace(/[^\d.]/g, '');
+                const val = parseFloat(clean);
+                if (!isNaN(val) && val >= minVal && val <= maxVal) {
+                  return val;
+                }
+              }
+            }
+          }
+        }
+        return null;
       }
 
-      // Rent $/SF
-      const rentMatch = text.match(/\$\s*(\d{1,2}(?:\.\d{1,2})?)\s*(?:\/|\s+per\s+)?(?:sf|sq\.?\s*ft\.?|rsf)/i);
-      if (rentMatch) {
-        document.getElementById('form-rent').value = parseFloat(rentMatch[1]);
+      // 1. SQUARE FEET (SF / RSF)
+      const sfVal = matchNumber([
+        /(?:building|available|total|facility|space|size|rentable|rsf)\s*(?:size|area|sf)?[:\s\-=]+[±~]?\s*([\d,]{4,})/i,
+        /[±~]?\s*([\d,]{4,})\s*(?:\+\/-)?\s*(?:sq\.?\s*ft\.?|sf|rsf|square\s+feet)/i,
+        /\(\s*([\d,]{4,})\s*(?:sf|rsf)?\s*\)/i,
+        /([\d]{2,3}(?:,\d{3})+)\s*(?:sf|rsf)?/i
+      ], 5000, 5000000);
+
+      if (sfVal) {
+        document.getElementById('form-sf').value = Math.round(sfVal);
+        extractedLog.push(`SF: ${Math.round(sfVal).toLocaleString()}`);
       }
 
-      // Clear Height
-      const clearMatch = text.match(/(\d{2})['’]?\s*(?:clear(?:\s+height)?|ceiling)/i);
-      if (clearMatch) {
-        document.getElementById('form-clear').value = parseInt(clearMatch[1]);
+      // 2. ASKING RENT ($/SF)
+      const rentVal = matchNumber([
+        /(?:rate|rent|asking|pricing|lease\s*rate)[:\s\-=]+\$\s*(\d{1,2}(?:\.\d{1,2})?)/i,
+        /\$\s*(\d{1,2}(?:\.\d{1,2})?)\s*(?:\/|\s+per\s+)?(?:sf|sq\.?\s*ft\.?|rsf)?\s*(?:nnn|net|gross|\/yr|\/year)?/i
+      ], 1.5, 45.0);
+
+      if (rentVal) {
+        document.getElementById('form-rent').value = rentVal.toFixed(2);
+        extractedLog.push(`Rent: $${rentVal.toFixed(2)}/SF`);
       }
 
-      // Dock Doors
-      const dockMatch = text.match(/(\d{1,3})\s*(?:dock(?:-high)?\s*doors?|docks?)/i);
-      if (dockMatch) {
-        document.getElementById('form-docks').value = parseInt(dockMatch[1]);
+      // 3. CLEAR HEIGHT (FT)
+      const clearVal = matchNumber([
+        /(?:clear(?:\s*height)?|ceiling(?:\s*height)?|min(?:imum)?\s*clear)[:\s\-=]+[±~]?\s*(\d{2})/i,
+        /[±~]?\s*(\d{2})['’]?\s*(?:ft\.?|feet)?\s*(?:min(?:imum)?)?\s*(?:clear|ceiling)/i,
+        /\((\d{2})['’]?\)\s*clear/i
+      ], 18, 65);
+
+      if (clearVal) {
+        document.getElementById('form-clear').value = Math.round(clearVal);
+        extractedLog.push(`Clear: ${Math.round(clearVal)}'`);
       }
 
-      // Drive-In Doors
-      const driveMatch = text.match(/(\d{1,2})\s*(?:drive-in|ramped)/i);
-      if (driveMatch) {
-        document.getElementById('form-drivein').value = parseInt(driveMatch[1]);
+      // 4. DOCK-HIGH DOORS
+      const dockVal = matchNumber([
+        /(?:dock(?:-high)?\s*doors?|docks?|loading\s*docks?|dock\s*positions?)[:\s\-=]+[±~]?\s*(\d{1,3})/i,
+        /[±~]?\s*(\d{1,3})\s*(?:dock(?:-high)?\s*doors?|docks?|loading\s*docks?)/i,
+        /\((\d{1,3})\)\s*(?:\d+['"]\s*x\s*\d+['"]\s*)?(?:dock(?:-high)?|loading)/i
+      ], 1, 350);
+
+      if (dockVal) {
+        document.getElementById('form-docks').value = Math.round(dockVal);
+        extractedLog.push(`Docks: ${Math.round(dockVal)}`);
       }
 
-      // Truck Court
-      const courtMatch = text.match(/(\d{3})['’]?\s*(?:truck\s*court|apron)/i);
-      if (courtMatch) {
-        document.getElementById('form-court').value = parseInt(courtMatch[1]);
+      // 5. DRIVE-IN DOORS / RAMPS
+      const driveVal = matchNumber([
+        /(?:drive-?in\s*doors?|drive-?ins?|ramped\s*doors?|ramps?|grade\s*level)[:\s\-=]+[±~]?\s*(\d{1,2})/i,
+        /[±~]?\s*(\d{1,2})\s*(?:drive-?in|ramped|grade\s*level)/i,
+        /\((\d{1,2})\)\s*(?:\d+['"]\s*x\s*\d+['"]\s*)?(?:drive-?in|ramped|grade\s*level)/i
+      ], 1, 25);
+
+      if (driveVal !== null) {
+        document.getElementById('form-drivein').value = Math.round(driveVal);
+        extractedLog.push(`Drive-in: ${Math.round(driveVal)}`);
       }
 
-      // Trailer Stalls
-      const trailerMatch = text.match(/(\d{1,3})\s*(?:trailer\s*(?:parking|stalls?|spaces?))/i);
-      if (trailerMatch) {
-        document.getElementById('form-trailers').value = parseInt(trailerMatch[1]);
+      // 6. TRUCK COURT DEPTH (FT)
+      const courtVal = matchNumber([
+        /(?:truck\s*court(?:\s*depth)?|apron(?:\s*depth)?|concrete\s*apron)[:\s\-=]+[±~]?\s*(?:[1-2]\d{2}\s*['’]?\s*[-–]\s*)?(\d{2,3})/i,
+        /[±~]?\s*(\d{2,3})['’]?\s*(?:truck\s*court|concrete\s*apron|apron)/i
+      ], 100, 260);
+
+      if (courtVal) {
+        document.getElementById('form-court').value = Math.round(courtVal);
+        extractedLog.push(`Court: ${Math.round(courtVal)}'`);
       }
 
-      // Address & Title Heuristics
-      const cleanLines = text.split('\n').map(l => l.trim()).filter(l => l.length > 3 && !l.includes('http'));
-      if (cleanLines.length > 0) {
-        document.getElementById('form-name').value = cleanLines[0].substring(0, 45);
-      }
-      if (cleanLines.length > 1) {
-        document.getElementById('form-address').value = cleanLines[1].substring(0, 60);
+      // 7. TRAILER PARKING STALLS
+      const trailerVal = matchNumber([
+        /(?:trailer\s*parking|trailer\s*stalls?|trailer\s*spaces?|trailer\s*drops?)[:\s\-=]+[±~]?\s*(\d{1,3})/i,
+        /[±~]?\s*(\d{1,3})\s*(?:trailer\s*(?:parking|stalls?|spaces?|drops?)|trailer\s*spots?)/i,
+        /\((\d{1,3})\)\s*(?:trailer|drops)/i
+      ], 4, 500);
+
+      if (trailerVal) {
+        document.getElementById('form-trailers').value = Math.round(trailerVal);
+        extractedLog.push(`Trailers: ${Math.round(trailerVal)}`);
       }
 
-      // Sprinkler
+      // 8. SPRINKLER SYSTEM
       if (/ESFR/i.test(text)) {
         document.getElementById('form-sprinkler').value = 'ESFR Sprinkler System';
+        extractedLog.push('ESFR Sprinklers');
       }
 
-      // Layout heuristic
+      // 9. LAYOUT TYPE
       if (/cross-?dock/i.test(text)) {
         document.getElementById('form-layout').value = 'crossdock';
-      } else if (/rear-?load/i.test(text) || /single-?load/i.test(text)) {
+        extractedLog.push('Cross-Dock');
+      } else if (/rear-?load/i.test(text) || /single-?load/i.test(text) || /front-?load/i.test(text)) {
         document.getElementById('form-layout').value = 'singleload';
+        extractedLog.push('Rear-Load');
       }
 
-      status.textContent = '✓ Specs extracted successfully!';
-      triggerPreviewCalc();
-      showToast('✨ Specs extracted from flyer! Review and click Save & Update.');
+      // 10. SUBMARKET CORRIDOR AUTO-DETECTION
+      if (/Jackson|Braselton|Gwinnett|Buford|I-85\s*North/i.test(text)) {
+        document.getElementById('form-corridor').value = 'I-85 North Corridor (Jackson / Gwinnett)';
+        extractedLog.push('I-85 N Corridor');
+      } else if (/Fulton\s*Industrial|I-20\s*West|Douglasville|Lithia/i.test(text)) {
+        document.getElementById('form-corridor').value = 'I-20 West / Fulton Industrial';
+        extractedLog.push('I-20 W Corridor');
+      } else if (/Henry|Clayton|McDonough|Locust\s*Grove|I-75\s*South/i.test(text)) {
+        document.getElementById('form-corridor').value = 'I-75 South / Henry & Clayton';
+        extractedLog.push('I-75 S Corridor');
+      } else if (/Aerotropolis|Airport|Hartsfield|College\s*Park|South\s*Fulton/i.test(text)) {
+        document.getElementById('form-corridor').value = 'Airport / Aerotropolis South';
+        extractedLog.push('Airport Corridor');
+      } else if (/Coweta|Newnan|Meriwether|I-85\s*South/i.test(text)) {
+        document.getElementById('form-corridor').value = 'I-85 South / Coweta & Meriwether';
+        extractedLog.push('I-85 S Corridor');
+      } else if (/Bartow|Cartersville|Cherokee|Cobb|I-75\s*North/i.test(text)) {
+        document.getElementById('form-corridor').value = 'I-75 North / Northwest Atlanta';
+        extractedLog.push('I-75 N Corridor');
+      }
+
+      // 11. ADDRESS & PROPERTY TITLE DETECTION
+      const lines = text.split('\n')
+        .map(l => l.trim())
+        .filter(l => l.length > 3 && !l.toLowerCase().includes('http') && !l.toLowerCase().includes('costar') && !l.toLowerCase().includes('copyright'));
+
+      const streetRegex = /\d+\s+[A-Za-z0-9\s.,]+(?:Parkway|Pkwy|Highway|Hwy|Boulevard|Blvd|Road|Rd|Street|St|Avenue|Ave|Drive|Dr|Way|Lane|Ln)/i;
+      const addrLine = lines.find(l => streetRegex.test(l));
+      if (addrLine) {
+        document.getElementById('form-address').value = addrLine.substring(0, 70);
+        extractedLog.push(`Address: ${addrLine.substring(0, 25)}...`);
+      }
+
+      const titleLine = lines.find(l => /(?:logistics|industrial|distribution|center|park|gateway|hub|building|warehouse)/i.test(l) && !streetRegex.test(l) && l.length < 60);
+      if (titleLine) {
+        document.getElementById('form-name').value = titleLine.substring(0, 50);
+        extractedLog.push(`Name: ${titleLine.substring(0, 30)}`);
+      }
+
+      // 12. NOTES / HIGHLIGHTS EXTRACTION (Power, Location, Rail)
+      const highlights = [];
+      const powerMatch = text.match(/(\d{1,2}(?:,\d{3})*|\d+)\s*(?:amps?|a\b|480v|3-?phase)/i);
+      if (powerMatch) highlights.push(`Heavy Power (${powerMatch[0].trim()})`);
+      if (/rail|norfolk\s*southern|csx/i.test(text)) highlights.push('Rail / Intermodal Proximity');
+      if (/tier[- ]1|job\s*tax\s*credit|opportunity\s*zone/i.test(text)) highlights.push('Tier-1 Job Tax Credit Eligibility');
+      if (highlights.length > 0) {
+        document.getElementById('form-notes').value = highlights.join(' • ');
+      }
+
+      // 13. AUTOMATICALLY APPLY & SAVE TO ACTIVE DEAL IMMEDIATELY!
+      if (extractedLog.length > 0) {
+        saveAndApplyDeal();
+        status.innerHTML = `<span class="text-emerald-400 font-bold">✓ Extracted & Applied ${extractedLog.length} Specs:</span> <span class="text-slate-200">${extractedLog.join(' &bull; ')}</span>`;
+        showToast(`✓ Extracted & applied ${extractedLog.length} specs directly into active deal!`);
+      } else {
+        status.innerHTML = '<span class="text-rose-400 font-semibold">⚠ Could not detect standard spec keywords. Please check flyer text or enter specs in form.</span>';
+        showToast('Notice: No specs automatically matched in text.');
+      }
     }
 
     function showToast(text) {
