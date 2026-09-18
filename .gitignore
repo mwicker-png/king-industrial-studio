@@ -1,0 +1,12 @@
+# Browser automation / testing debug artifacts (Playwright, Claude in Chrome, etc.)
+.playwright-mcp/
+test-results/
+playwright-report/
+
+# Ad-hoc debug/testing screenshots left behind by agent sessions
+hero_before.png
+hero_after.png
+hero_restored.png
+index_full.png
+index_zoom*.png
+studio_full.png
