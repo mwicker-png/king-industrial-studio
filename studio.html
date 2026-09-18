@@ -505,8 +505,16 @@ Located 1.5 miles from I-85 in Jackson County..." class="w-full bg-slate-950 bor
           <p class="text-[10px] text-slate-400">These settings are saved to your browser and automatically applied to all deals you share or print.</p>
           <div class="space-y-3">
             <div>
-              <label class="block text-[11px] font-semibold text-slate-300 mb-1">Company Logo URL (PNG/SVG/JPG)</label>
-              <input id="global-logo" type="text" placeholder="https://example.com/logo.png" class="w-full bg-slate-950 border border-slate-800 rounded-md px-3 py-2 text-xs text-white focus:ring-1 focus:ring-blue-500" onchange="saveGlobalBranding()">
+              <label class="block text-[11px] font-semibold text-slate-300 mb-1">Company Logo (Upload or URL)</label>
+              <div class="flex items-center gap-3">
+                <button type="button" onclick="document.getElementById('global-logo-file').click()" class="shrink-0 px-3 py-2 bg-slate-800 hover:bg-slate-700 text-xs font-bold text-slate-200 border border-slate-700 rounded-md transition flex items-center gap-2">
+                  <svg class="w-3.5 h-3.5 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12"/></svg>
+                  Upload
+                </button>
+                <input type="file" id="global-logo-file" accept="image/*" class="hidden" onchange="handleImageUpload(event, 'global-logo')">
+                <span class="text-[10px] text-slate-500 font-bold uppercase shrink-0">OR</span>
+                <input id="global-logo" type="text" placeholder="Paste Logo URL..." class="w-full bg-slate-950 border border-slate-800 rounded-md px-3 py-2 text-xs text-white focus:ring-1 focus:ring-blue-500" oninput="saveGlobalBranding()">
+              </div>
             </div>
             <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
               <div>
@@ -552,9 +560,9 @@ Located 1.5 miles from I-85 in Jackson County..." class="w-full bg-slate-950 bor
           </div>
 
           <!-- Section 1: General Info -->
-          <div class="bg-slate-950/60 p-4 rounded-md border border-slate-800 space-y-3">
+          <div class="bg-slate-950/60 p-4 rounded-md border border-slate-800 space-y-4">
             <h3 class="text-xs font-bold uppercase tracking-wider text-blue-400">1. Property Identification</h3>
-            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div>
                 <label class="block text-[11px] font-semibold text-slate-300 mb-1">Deal / Property Name</label>
                 <input id="form-name" type="text" placeholder="Braselton Logistics Gateway" class="w-full bg-slate-900 border border-slate-800 rounded-lg px-3 py-2 text-xs text-white focus:ring-1 focus:ring-blue-500" oninput="triggerPreviewCalc()">
@@ -570,12 +578,20 @@ Located 1.5 miles from I-85 in Jackson County..." class="w-full bg-slate-950 bor
                   <option value="I-75 North / Northwest Atlanta">I-75 North / Northwest Atlanta</option>
                 </select>
               </div>
-              <div>
-                <label class="block text-[11px] font-semibold text-slate-300 mb-1">Street Address / City</label>
-                <input id="form-address" type="text" placeholder="1250 Logistics Pkwy, Braselton, GA" class="w-full bg-slate-900 border border-slate-800 rounded-lg px-3 py-2 text-xs text-white focus:ring-1 focus:ring-blue-500" oninput="triggerPreviewCalc()">
-              </div>
-              <div>
-                <label class="block text-[11px] font-semibold text-slate-300 mb-1">Hero Image URL</label>
+            </div>
+            <div>
+              <label class="block text-[11px] font-semibold text-slate-300 mb-1">Street Address / City</label>
+              <input id="form-address" type="text" placeholder="1250 Logistics Pkwy, Braselton, GA" class="w-full bg-slate-900 border border-slate-800 rounded-lg px-3 py-2 text-xs text-white focus:ring-1 focus:ring-blue-500" oninput="triggerPreviewCalc()">
+            </div>
+            <div>
+              <label class="block text-[11px] font-semibold text-slate-300 mb-1">Hero Image (Upload File or Paste URL)</label>
+              <div class="flex items-center gap-3">
+                <button type="button" onclick="document.getElementById('form-image-file').click()" class="shrink-0 px-3 py-2 bg-blue-600/20 hover:bg-blue-600 text-blue-400 hover:text-white text-xs font-bold border border-blue-500/30 rounded-md transition flex items-center gap-2">
+                  <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12"/></svg>
+                  Upload Photo
+                </button>
+                <input type="file" id="form-image-file" accept="image/*" class="hidden" onchange="handleImageUpload(event, 'form-image')">
+                <span class="text-[10px] text-slate-500 font-bold uppercase shrink-0">OR</span>
                 <input id="form-image" type="text" placeholder="https://..." class="w-full bg-slate-900 border border-slate-800 rounded-lg px-3 py-2 text-xs text-white focus:ring-1 focus:ring-blue-500" oninput="triggerPreviewCalc()">
               </div>
             </div>
@@ -839,6 +855,43 @@ Located 1.5 miles from I-85 in Jackson County..." class="w-full bg-slate-950 bor
 
     let deals = [];
     let currentDeal = null;
+
+      
+      function handleImageUpload(event, targetInputId) {
+        const file = event.target.files[0];
+        if (!file) return;
+        
+        const reader = new FileReader();
+        reader.onload = function(e) {
+          const img = new Image();
+          img.onload = function() {
+            const canvas = document.createElement('canvas');
+            let w = img.width;
+            let h = img.height;
+            const maxW = 800;
+            if (w > maxW) {
+              h = (maxW / w) * h;
+              w = maxW;
+            }
+            canvas.width = w;
+            canvas.height = h;
+            const ctx = canvas.getContext('2d');
+            ctx.drawImage(img, 0, 0, w, h);
+            
+            const compressedBase64 = canvas.toDataURL('image/jpeg', 0.7);
+            document.getElementById(targetInputId).value = compressedBase64;
+            
+            if (targetInputId === 'global-logo') {
+               saveGlobalBranding();
+            } else {
+               triggerPreviewCalc();
+            }
+            showToast('Image uploaded successfully!');
+          };
+          img.src = e.target.result;
+        };
+        reader.readAsDataURL(file);
+      }
 
       function loadGlobalBranding() {
         try {
