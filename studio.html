@@ -654,11 +654,11 @@ Located 1.5 miles from I-85 in Jackson County..." class="w-full bg-slate-950 bor
     function createNewDeal() {
       const newDeal = {
         id: 'deal-' + Date.now(),
-        name: 'New Logistics Facility',
-        address: 'Metro Atlanta, GA',
+        name: '',
+        address: '',
         corridor: 'I-85 North Corridor (Jackson / Gwinnett)',
         typeBadge: 'Class-A Industrial Facility',
-        sf: 300000,
+        sf: '',
         costPsf: 120,
         rentPsf: 8.00,
         escalation: 3.50,
@@ -667,12 +667,6 @@ Located 1.5 miles from I-85 in Jackson County..." class="w-full bg-slate-950 bor
         interestRate: 0.065,
         amortYears: 25,
         layout: 'crossdock',
-        courtDepth: 185,
-        clearHeight: 36,
-        dockDoors: 48,
-        driveinDoors: 2,
-        trailerStalls: 80,
-        columnGrid: "54' x 50' Grid",
         sprinkler: 'ESFR Sprinkler System',
         notes: 'Strategic highway access with heavy industrial power.'
       };
@@ -787,32 +781,32 @@ Located 1.5 miles from I-85 in Jackson County..." class="w-full bg-slate-950 bor
       document.getElementById('form-notes').value = d.notes || '';
     }
 
-    function getFormData() {
-      return {
-        id: currentDeal ? currentDeal.id : ('deal-' + Date.now()),
-        name: document.getElementById('form-name').value.trim() || 'Untitled Industrial Property',
-        address: document.getElementById('form-address').value.trim() || 'Metro Atlanta, GA',
-        corridor: document.getElementById('form-corridor').value,
-        typeBadge: 'Class-A Industrial Facility',
-        sf: parseFloat(document.getElementById('form-sf').value) || 300000,
-        clearHeight: parseFloat(document.getElementById('form-clear').value) || 36,
-        dockDoors: parseInt(document.getElementById('form-docks').value) || 40,
-        driveinDoors: parseInt(document.getElementById('form-drivein').value) || 2,
-        courtDepth: parseFloat(document.getElementById('form-court').value) || 185,
-        trailerStalls: parseInt(document.getElementById('form-trailers').value) || 60,
-        layout: document.getElementById('form-layout').value,
-        sprinkler: document.getElementById('form-sprinkler').value.trim() || 'ESFR Sprinkler System',
-        rentPsf: parseFloat(document.getElementById('form-rent').value) || 8.00,
-        escalation: parseFloat(document.getElementById('form-escalation').value) || 3.50,
-        costPsf: parseFloat(document.getElementById('form-cost-psf').value) || 115,
-        exitCap: parseFloat(document.getElementById('form-cap').value) || 5.50,
-        ltc: parseFloat(document.getElementById('form-ltc').value) || 0.65,
-        interestRate: parseFloat(document.getElementById('form-interest').value) || 0.065,
-        amortYears: 25,
-        columnGrid: document.getElementById('form-grid').value.trim() || "54' x 50' Grid",
-        notes: document.getElementById('form-notes').value.trim() || ''
-      };
-    }
+      function getFormData() {
+        return {
+          id: currentDeal ? currentDeal.id : ('deal-' + Date.now()),
+          name: document.getElementById('form-name').value.trim() || '',
+          address: document.getElementById('form-address').value.trim() || '',
+          corridor: document.getElementById('form-corridor').value,
+          typeBadge: 'Class-A Industrial Facility',
+          sf: parseFloat(document.getElementById('form-sf').value) || '',
+          clearHeight: parseFloat(document.getElementById('form-clear').value) || '',
+          dockDoors: parseInt(document.getElementById('form-docks').value) || '',
+          driveinDoors: parseInt(document.getElementById('form-drivein').value) || '',
+          courtDepth: parseFloat(document.getElementById('form-court').value) || '',
+          trailerStalls: parseInt(document.getElementById('form-trailers').value) || '',
+          layout: document.getElementById('form-layout').value,
+          sprinkler: document.getElementById('form-sprinkler').value.trim() || '',
+          rentPsf: parseFloat(document.getElementById('form-rent').value) || '',
+          escalation: parseFloat(document.getElementById('form-escalation').value) || 3.50,
+          costPsf: parseFloat(document.getElementById('form-cost-psf').value) || 120,
+          exitCap: parseFloat(document.getElementById('form-cap').value) || 5.50,
+          ltc: parseFloat(document.getElementById('form-ltc').value) || 0.65,
+          interestRate: parseFloat(document.getElementById('form-interest').value) || 0.065,
+          amortYears: 25,
+          columnGrid: document.getElementById('form-grid').value.trim() || '',
+          notes: document.getElementById('form-notes').value.trim() || ''
+        };
+      }
 
     function saveAndApplyDeal() {
       const data = getFormData();
