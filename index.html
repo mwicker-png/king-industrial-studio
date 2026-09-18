@@ -643,7 +643,38 @@
     let deals = [];
     let currentDeal = null;
 
-    function initStorage() {
+    async function initStorage() {
+      const urlParams = new URLSearchParams(window.location.search);
+
+      // 1. Permanent Cloud / Repo Deal via ?deal=slug (e.g. ?deal=braselton)
+      if (urlParams.has('deal')) {
+        const slug = urlParams.get('deal').replace(/[^a-zA-Z0-9_-]/g, '');
+        try {
+          const resp = await fetch(`deals/${slug}.json`);
+          if (resp.ok) {
+            const cloudDeal = await resp.json();
+            currentDeal = cloudDeal;
+            loadDealIntoUI(currentDeal);
+            return;
+          }
+        } catch (err) {
+          console.warn('Could not load deal file from cloud/repo:', err);
+        }
+      }
+
+      // 2. Self-Contained Encoded URL via ?data=...
+      if (urlParams.has('data')) {
+        try {
+          const decoded = JSON.parse(decodeURIComponent(escape(atob(urlParams.get('data')))));
+          currentDeal = decoded;
+          loadDealIntoUI(currentDeal);
+          return;
+        } catch (err) {
+          console.error('Failed to parse URL deal:', err);
+        }
+      }
+
+      // 3. Fallback to Local Storage or Default
       const saved = localStorage.getItem('king_deals_v1');
       if (saved) {
         try {
@@ -653,25 +684,8 @@
         }
       } else {
         deals = [...DEFAULT_DEALS];
-        saveDealsToStorage();
       }
-
-      const urlParams = new URLSearchParams(window.location.search);
-      if (urlParams.has('data')) {
-        try {
-          const decoded = JSON.parse(decodeURIComponent(escape(atob(urlParams.get('data')))));
-          decoded.id = 'deal-shared-' + Date.now();
-          deals.unshift(decoded);
-          currentDeal = decoded;
-          showToast('Loaded shared property: ' + decoded.name);
-        } catch (err) {
-          console.error('Failed to parse URL deal:', err);
-          currentDeal = deals[0];
-        }
-      } else {
-        currentDeal = deals[0];
-      }
-
+      currentDeal = deals[0] || DEFAULT_DEALS[0];
       loadDealIntoUI(currentDeal);
     }
 

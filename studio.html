@@ -586,7 +586,7 @@ Located 1.5 miles from I-85 in Jackson County..." class="w-full bg-slate-950 bor
     let deals = [];
     let currentDeal = null;
 
-    function initStudio() {
+    async function initStudio() {
       const saved = localStorage.getItem('king_deals_v1');
       if (saved) {
         try {
@@ -599,7 +599,33 @@ Located 1.5 miles from I-85 in Jackson County..." class="w-full bg-slate-950 bor
         saveDealsToStorage();
       }
 
-      currentDeal = deals[0];
+      const urlParams = new URLSearchParams(window.location.search);
+      if (urlParams.has('deal')) {
+        const slug = urlParams.get('deal').replace(/[^a-zA-Z0-9_-]/g, '');
+        try {
+          const resp = await fetch(`deals/${slug}.json`);
+          if (resp.ok) {
+            const cloudDeal = await resp.json();
+            const existingIdx = deals.findIndex(d => d.id === cloudDeal.id);
+            if (existingIdx >= 0) {
+              deals[existingIdx] = cloudDeal;
+            } else {
+              deals.unshift(cloudDeal);
+            }
+            currentDeal = cloudDeal;
+            saveDealsToStorage();
+            populateDealSelector();
+            loadDealIntoForm(currentDeal);
+            triggerPreviewCalc();
+            showToast('Loaded deal file: ' + cloudDeal.name);
+            return;
+          }
+        } catch (e) {
+          console.warn('Could not fetch deal file:', e);
+        }
+      }
+
+      currentDeal = deals[0] || DEFAULT_DEALS[0];
       populateDealSelector();
       loadDealIntoForm(currentDeal);
       triggerPreviewCalc();
