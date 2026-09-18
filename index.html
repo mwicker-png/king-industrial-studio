@@ -740,6 +740,9 @@
       document.getElementById('heroTypeBadge').textContent = d.typeBadge || 'Class-A Industrial Logistics';
       document.getElementById('heroSpecsSummary').innerHTML = `${d.clearHeight}' Clear Height &bull; ${d.courtDepth}' Truck Court &bull; ${d.dockDoors} Dock Doors &bull; ${d.sprinkler}`;
 
+      const heroImg = document.getElementById('heroImage');
+      if (heroImg) heroImg.src = d.imageUrl || 'apex_logistics_hub.jpg';
+
       document.getElementById('in-sf').value = d.sf;
       document.getElementById('in-cost-psf').value = d.costPsf;
       document.getElementById('in-rent').value = d.rentPsf;

@@ -52,7 +52,7 @@
       
       <!-- Brand Logo & Studio Tag -->
       <div class="flex items-center gap-3">
-        <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-blue-600 to-indigo-500 flex items-center justify-center font-black text-xl shadow-lg shadow-blue-500/20 text-white tracking-tighter">
+        <div class="w-10 h-10 rounded-md bg-slate-800 border border-slate-700 flex items-center justify-center font-bold text-xl shadow-lg shadow-blue-500/20 text-white tracking-tighter">
           KI
         </div>
         <div>
@@ -66,12 +66,12 @@
 
       <!-- Quick Action Buttons in Nav -->
       <div class="flex items-center gap-2">
-        <button onclick="launchClientPresentation()" class="flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl text-xs font-bold bg-blue-600 hover:bg-blue-500 text-white shadow-lg shadow-blue-600/30 transition">
+        <button onclick="launchClientPresentation()" class="flex items-center gap-1.5 px-3.5 py-1.5 rounded-md text-xs font-bold bg-blue-600 hover:bg-blue-500 text-white shadow-sm transition">
           <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
           <span class="hidden sm:inline">Preview Client Presentation</span>
           <span class="sm:hidden">Preview</span>
         </button>
-        <button onclick="copyStudioToolLink()" class="flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-semibold bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 transition" title="Copy Studio Link to Share with Colleagues">
+        <button onclick="copyStudioToolLink()" class="flex items-center gap-1.5 px-3 py-1.5 rounded-md text-xs font-semibold bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 transition" title="Copy Studio Link to Share with Colleagues">
           <svg class="w-3.5 h-3.5 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.368 2.684 3 3 0 00-5.368-2.684z"/></svg>
           <span class="hidden md:inline">Share Studio Tool</span>
         </button>
@@ -84,41 +84,41 @@
   <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 w-full flex-1 space-y-6">
 
     <!-- Top Portfolio Bar: Manage Each Deal Separately -->
-    <div class="bg-slate-900/90 border border-slate-800 rounded-2xl p-4 flex flex-col md:flex-row md:items-center justify-between gap-4 shadow-xl">
+    <div class="bg-slate-900/90 border border-slate-800 rounded-lg p-4 flex flex-col md:flex-row md:items-center justify-between gap-4 shadow-md">
       <div class="flex items-center gap-3 flex-1 min-w-0">
         <label class="text-xs font-bold text-slate-400 uppercase tracking-wider shrink-0 flex items-center gap-1.5">
           <span class="w-2 h-2 rounded-full bg-blue-400 inline-block"></span>
           <span>Active Deal:</span>
         </label>
-        <select id="deal-selector" onchange="onDealSelectChange()" class="bg-slate-950 border border-slate-700 hover:border-blue-500 text-xs font-semibold rounded-xl px-3 py-2 text-white focus:outline-none focus:ring-2 focus:ring-blue-500 cursor-pointer truncate max-w-md w-full">
+        <select id="deal-selector" onchange="onDealSelectChange()" class="bg-slate-950 border border-slate-700 hover:border-blue-500 text-xs font-semibold rounded-md px-3 py-2 text-white focus:outline-none focus:ring-2 focus:ring-blue-500 cursor-pointer truncate max-w-md w-full">
           <!-- Dynamically populated -->
         </select>
         
         <!-- Add New Deal -->
-        <button onclick="createNewDeal()" title="Create Blank Deal" class="shrink-0 px-3 py-2 rounded-xl bg-blue-600/20 text-blue-400 hover:bg-blue-600 hover:text-white border border-blue-500/30 text-xs font-bold transition flex items-center gap-1">
+        <button onclick="createNewDeal()" title="Create Blank Deal" class="shrink-0 px-3 py-2 rounded-md bg-blue-600/20 text-blue-400 hover:bg-blue-600 hover:text-white border border-blue-500/30 text-xs font-bold transition flex items-center gap-1">
           <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/></svg>
           <span>New Deal</span>
         </button>
 
         <!-- Duplicate Deal (Variation) -->
-        <button onclick="duplicateCurrentDeal()" title="Duplicate this deal to test variations (e.g. Option B, different rent/size)" class="shrink-0 px-3 py-2 rounded-xl bg-indigo-600/20 text-indigo-400 hover:bg-indigo-600 hover:text-white border border-indigo-500/30 text-xs font-bold transition flex items-center gap-1">
+        <button onclick="duplicateCurrentDeal()" title="Duplicate this deal to test variations (e.g. Option B, different rent/size)" class="shrink-0 px-3 py-2 rounded-md bg-indigo-600/20 text-indigo-400 hover:bg-indigo-600 hover:text-white border border-indigo-500/30 text-xs font-bold transition flex items-center gap-1">
           <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7v8a2 2 0 002 2h6M8 7V5a2 2 0 012-2h4.586a1 1 0 01.707.293l4.414 4.414a1 1 0 01.293.707V15a2 2 0 01-2 2h-2M8 7H6a2 2 0 00-2 2v10a2 2 0 002 2h8a2 2 0 002-2v-2"/></svg>
           <span class="hidden sm:inline">Duplicate Variation</span>
         </button>
       </div>
 
       <div class="flex items-center gap-2 shrink-0">
-        <button onclick="exportCurrentDealJson()" title="Export this deal as a JSON file" class="px-3 py-1.5 rounded-xl text-xs font-semibold bg-slate-800 hover:bg-slate-700 text-slate-300 border border-slate-700 transition flex items-center gap-1">
+        <button onclick="exportCurrentDealJson()" title="Export this deal as a JSON file" class="px-3 py-1.5 rounded-md text-xs font-semibold bg-slate-800 hover:bg-slate-700 text-slate-300 border border-slate-700 transition flex items-center gap-1">
           <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12"/></svg>
           <span>Export JSON</span>
         </button>
-        <button onclick="document.getElementById('importJsonInput').click()" title="Import a deal from JSON file" class="px-3 py-1.5 rounded-xl text-xs font-semibold bg-slate-800 hover:bg-slate-700 text-slate-300 border border-slate-700 transition flex items-center gap-1">
+        <button onclick="document.getElementById('importJsonInput').click()" title="Import a deal from JSON file" class="px-3 py-1.5 rounded-md text-xs font-semibold bg-slate-800 hover:bg-slate-700 text-slate-300 border border-slate-700 transition flex items-center gap-1">
           <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/></svg>
           <span>Import JSON</span>
         </button>
         <input type="file" id="importJsonInput" accept=".json" class="hidden" onchange="importDealJson(event)">
         
-        <button onclick="deleteCurrentDeal()" class="p-2 rounded-xl text-xs bg-slate-800 hover:bg-rose-950/60 text-rose-400 hover:text-rose-300 border border-slate-700 hover:border-rose-800/50 transition" title="Delete Active Deal">
+        <button onclick="deleteCurrentDeal()" class="p-2 rounded-md text-xs bg-slate-800 hover:bg-rose-950/60 text-red-400 hover:text-rose-300 border border-slate-700 hover:border-rose-800/50 transition" title="Delete Active Deal">
           <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/></svg>
         </button>
       </div>
@@ -133,10 +133,10 @@
       <div class="lg:col-span-5 space-y-6">
         
         <!-- CARD A: CLIENT PRESENTATION HUB (Zero Clutter Link) -->
-        <div class="bg-gradient-to-br from-blue-950/40 via-slate-900 to-indigo-950/40 border-2 border-blue-500/40 rounded-2xl p-5 shadow-2xl space-y-3 relative overflow-hidden">
+        <div class="bg-gradient-to-br from-blue-950/40 via-slate-900 to-indigo-950/40 border-2 border-blue-500/40 rounded-lg p-5 shadow-lg space-y-3 relative overflow-hidden">
           <div class="flex items-center justify-between">
             <div class="flex items-center gap-2">
-              <span class="text-base">🚀</span>
+              <span class="text-base"></span>
               <h2 class="text-sm font-bold uppercase tracking-wider text-white">Share Deal with Client</h2>
             </div>
             <span class="text-[10px] px-2.5 py-0.5 rounded-full bg-emerald-500/20 text-emerald-300 border border-emerald-500/40 font-extrabold uppercase tracking-wide">
@@ -151,8 +151,8 @@
           <!-- Read-only Share URL Box -->
           <div class="space-y-1">
             <div class="flex items-center gap-2">
-              <input id="client-share-url-box" type="text" readonly class="w-full bg-slate-950 border border-slate-700 rounded-xl px-3 py-2 text-xs font-mono text-emerald-400 select-all focus:outline-none focus:border-blue-500">
-              <button onclick="copyClientShareLink()" class="px-4 py-2 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs shrink-0 flex items-center gap-1.5 shadow-md shadow-emerald-600/30 transition">
+              <input id="client-share-url-box" type="text" readonly class="w-full bg-slate-950 border border-slate-700 rounded-md px-3 py-2 text-xs font-mono text-blue-400 select-all focus:outline-none focus:border-blue-500">
+              <button onclick="copyClientShareLink()" class="px-4 py-2 rounded-md bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs shrink-0 flex items-center gap-1.5 shadow-md shadow-emerald-600/30 transition">
                 <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2v-1M8 5a2 2 0 002 2h2a2 2 0 002-2M8 5a2 2 0 012-2h2a2 2 0 012 2m0 0h2a2 2 0 012 2v3m2 4H10m0 0l3-3m-3 3l3 3"/></svg>
                 <span>Copy</span>
               </button>
@@ -161,15 +161,15 @@
 
           <!-- Quick Actions Grid -->
           <div class="grid grid-cols-3 gap-2 pt-1">
-            <button onclick="launchClientPresentation()" class="py-2.5 px-3 rounded-xl bg-blue-600 hover:bg-blue-500 text-white font-bold text-xs flex items-center justify-center gap-1.5 shadow-md shadow-blue-600/30 transition">
+            <button onclick="launchClientPresentation()" class="py-2.5 px-3 rounded-md bg-blue-600 hover:bg-blue-500 text-white font-bold text-xs flex items-center justify-center gap-1.5 shadow-sm transition">
               <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
               <span>Preview</span>
             </button>
-            <button onclick="openQrModal()" class="py-2.5 px-3 rounded-xl bg-slate-800 hover:bg-slate-700 text-purple-400 border border-slate-700 font-semibold text-xs flex items-center justify-center gap-1.5 transition">
+            <button onclick="openQrModal()" class="py-2.5 px-3 rounded-md bg-slate-800 hover:bg-slate-700 text-slate-300 border border-slate-700 font-semibold text-xs flex items-center justify-center gap-1.5 transition">
               <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v1m6 11h2m-6 0h-2v4m0-11v3m0 0h.01M12 12h4.01M16 20h4M4 12h4m12 0h.01M5 8h2a1 1 0 001-1V5a1 1 0 00-1-1H5a1 1 0 00-1 1v2a1 1 0 001 1zm12 0h2a1 1 0 001-1V5a1 1 0 00-1-1h-2a1 1 0 00-1 1v2a1 1 0 001 1zM5 20h2a1 1 0 001-1v-2a1 1 0 00-1-1H5a1 1 0 00-1 1v2a1 1 0 001 1z"/></svg>
               <span>QR Code</span>
             </button>
-            <button onclick="downloadStandaloneHtml()" class="py-2.5 px-3 rounded-xl bg-slate-800 hover:bg-slate-700 text-blue-300 border border-slate-700 font-semibold text-xs flex items-center justify-center gap-1.5 transition" title="Download standalone single-file HTML to email directly or host anywhere">
+            <button onclick="downloadStandaloneHtml()" class="py-2.5 px-3 rounded-md bg-slate-800 hover:bg-slate-700 text-blue-300 border border-slate-700 font-semibold text-xs flex items-center justify-center gap-1.5 transition" title="Download standalone single-file HTML to email directly or host anywhere">
               <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/></svg>
               <span>Save File</span>
             </button>
@@ -177,13 +177,13 @@
         </div>
 
         <!-- CARD B: SMART FLYER & BROCHURE UPLOAD EXTRACTOR -->
-        <div class="bg-slate-900 border border-slate-800 rounded-2xl p-5 shadow-xl space-y-4">
+        <div class="bg-slate-900 border border-slate-800 rounded-lg p-5 shadow-md space-y-4">
           <div class="flex items-center justify-between border-b border-slate-800 pb-3">
             <div class="flex items-center gap-2">
-              <span class="text-base">📄</span>
+              <span class="text-base"></span>
               <h2 class="text-sm font-bold uppercase tracking-wider text-white">Property Flyer Extractor</h2>
             </div>
-            <span class="text-[10px] px-2 py-0.5 rounded-full bg-emerald-500/10 text-emerald-400 border border-emerald-500/30 font-semibold">
+            <span class="text-[10px] px-2 py-0.5 rounded-full bg-emerald-500/10 text-blue-400 border border-emerald-500/30 font-semibold">
               PDF &bull; DOCX &bull; TXT
             </span>
           </div>
@@ -193,11 +193,11 @@
           </p>
 
           <!-- Drag and Drop Zone -->
-          <div id="dropzone" class="border-2 border-dashed border-slate-700 hover:border-blue-500 rounded-2xl p-6 text-center transition cursor-pointer bg-slate-950/60 group" onclick="document.getElementById('fileInput').click()" ondragover="event.preventDefault()" ondrop="handleDrop(event)">
+          <div id="dropzone" class="border-2 border-dashed border-slate-700 hover:border-blue-500 rounded-lg p-6 text-center transition cursor-pointer bg-slate-950/60 group" onclick="document.getElementById('fileInput').click()" ondragover="event.preventDefault()" ondrop="handleDrop(event)">
             <input type="file" id="fileInput" accept=".pdf,.docx,.doc,.txt,.json" class="hidden" onchange="handleFileInput(event)">
             <div class="flex flex-col items-center gap-2">
-              <div class="w-12 h-12 rounded-2xl bg-blue-600/15 text-blue-400 flex items-center justify-center text-2xl group-hover:scale-110 transition">
-                📥
+              <div class="w-12 h-12 rounded-lg bg-blue-600/15 text-blue-400 flex items-center justify-center text-2xl group-hover:scale-110 transition">
+                
               </div>
               <div class="text-xs font-bold text-white">
                 Drag & Drop Flyer File Here
@@ -212,7 +212,7 @@
           </div>
 
           <!-- Upload Status Indicator -->
-          <div id="upload-progress" class="hidden bg-blue-950/40 border border-blue-500/30 rounded-xl p-3 text-xs flex items-center gap-3 text-blue-300">
+          <div id="upload-progress" class="hidden bg-blue-950/40 border border-blue-500/30 rounded-md p-3 text-xs flex items-center gap-3 text-blue-300">
             <svg class="animate-spin w-4 h-4 text-blue-400 shrink-0" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8H4z"></path></svg>
             <span id="upload-status-text">Parsing document...</span>
           </div>
@@ -232,12 +232,12 @@ Asking $7.85/SF NNN with 3.5% annual increases.
 40' Clear Height, 68 dock-high doors, 2 drive-in ramps.
 185' truck court with 110 trailer parking spaces.
 ESFR sprinkler system. 4,000 amps, 480V 3-phase power.
-Located 1.5 miles from I-85 in Jackson County..." class="w-full bg-slate-950 border border-slate-800 rounded-xl p-3 text-xs text-slate-200 font-mono focus:ring-1 focus:ring-blue-500"></textarea>
+Located 1.5 miles from I-85 in Jackson County..." class="w-full bg-slate-950 border border-slate-800 rounded-md p-3 text-xs text-slate-200 font-mono focus:ring-1 focus:ring-blue-500"></textarea>
           </div>
 
           <!-- Extract Action Button -->
           <div class="flex items-center justify-between gap-2 pt-1">
-            <button onclick="parseFlyerText()" class="w-full py-2.5 px-4 rounded-xl bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 text-white font-bold text-xs flex items-center justify-center gap-2 shadow-lg shadow-blue-600/30 transition">
+            <button onclick="parseFlyerText()" class="w-full py-2.5 px-4 rounded-md bg-blue-700 hover:bg-blue-600 text-white font-bold text-xs flex items-center justify-center gap-2 shadow-sm transition">
               <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
               <span>Auto-Extract Specs & Populate Deal</span>
             </button>
@@ -246,36 +246,36 @@ Located 1.5 miles from I-85 in Jackson County..." class="w-full bg-slate-950 bor
         </div>
 
         <!-- CARD C: LIVE RETURN PREVIEW -->
-        <div class="bg-slate-900 border border-slate-800 rounded-2xl p-5 shadow-xl space-y-3">
+        <div class="bg-slate-900 border border-slate-800 rounded-lg p-5 shadow-md space-y-3">
           <h3 class="text-xs font-bold uppercase tracking-wider text-slate-300 border-b border-slate-800 pb-2 flex items-center justify-between">
             <span>Model Return Highlights</span>
-            <span class="text-[10px] text-emerald-400 font-mono">Live Computed</span>
+            <span class="text-[10px] text-blue-400 font-mono">Live Computed</span>
           </h3>
 
           <div class="grid grid-cols-2 gap-3 text-center">
-            <div class="bg-slate-950 p-2.5 rounded-xl border border-slate-800">
+            <div class="bg-slate-950 p-2.5 rounded-md border border-slate-800">
               <span class="text-[10px] text-slate-400 uppercase font-semibold">Total Capitalization</span>
-              <div id="prev-cost" class="text-base font-black text-white font-mono mt-0.5">$51.75M</div>
+              <div id="prev-cost" class="text-base font-bold text-white font-mono mt-0.5">$51.75M</div>
             </div>
-            <div class="bg-slate-950 p-2.5 rounded-xl border border-slate-800">
+            <div class="bg-slate-950 p-2.5 rounded-md border border-slate-800">
               <span class="text-[10px] text-slate-400 uppercase font-semibold">Equity Required</span>
-              <div id="prev-equity" class="text-base font-black text-slate-200 font-mono mt-0.5">$18.11M</div>
+              <div id="prev-equity" class="text-base font-bold text-slate-200 font-mono mt-0.5">$18.11M</div>
             </div>
-            <div class="bg-slate-950 p-2.5 rounded-xl border border-slate-800">
+            <div class="bg-slate-950 p-2.5 rounded-md border border-slate-800">
               <span class="text-[10px] text-slate-400 uppercase font-semibold">Yr 1 Net NOI</span>
-              <div id="prev-noi" class="text-base font-black text-blue-400 font-mono mt-0.5">$3.53M</div>
+              <div id="prev-noi" class="text-base font-bold text-blue-400 font-mono mt-0.5">$3.53M</div>
             </div>
-            <div class="bg-slate-950 p-2.5 rounded-xl border border-slate-800">
+            <div class="bg-slate-950 p-2.5 rounded-md border border-slate-800">
               <span class="text-[10px] text-slate-400 uppercase font-semibold">Untapped Yield</span>
-              <div id="prev-yield" class="text-base font-black text-emerald-400 font-mono mt-0.5">6.83%</div>
+              <div id="prev-yield" class="text-base font-bold text-blue-400 font-mono mt-0.5">6.83%</div>
             </div>
-            <div class="bg-slate-950 p-2.5 rounded-xl border border-slate-800">
+            <div class="bg-slate-950 p-2.5 rounded-md border border-slate-800">
               <span class="text-[10px] text-slate-400 uppercase font-semibold">Yr 5 Exit Value</span>
-              <div id="prev-exit" class="text-base font-black text-emerald-400 font-mono mt-0.5">$77.10M</div>
+              <div id="prev-exit" class="text-base font-bold text-blue-400 font-mono mt-0.5">$77.10M</div>
             </div>
-            <div class="bg-slate-950 p-2.5 rounded-xl border border-slate-800">
+            <div class="bg-slate-950 p-2.5 rounded-md border border-slate-800">
               <span class="text-[10px] text-slate-400 uppercase font-semibold">5-Yr Levered IRR</span>
-              <div id="prev-irr" class="text-base font-black text-indigo-400 font-mono mt-0.5">21.4%</div>
+              <div id="prev-irr" class="text-base font-bold text-indigo-400 font-mono mt-0.5">21.4%</div>
             </div>
           </div>
         </div>
@@ -287,17 +287,17 @@ Located 1.5 miles from I-85 in Jackson County..." class="w-full bg-slate-950 bor
       <!-- ========================================================================= -->
       <div class="lg:col-span-7 space-y-6">
         
-        <div class="bg-slate-900 border border-slate-800 rounded-2xl p-6 shadow-xl space-y-5">
+        <div class="bg-slate-900 border border-slate-800 rounded-lg p-6 shadow-md space-y-5">
           
           <div class="flex items-center justify-between border-b border-slate-800 pb-3">
             <div>
               <h2 class="text-sm font-bold uppercase tracking-wider text-white flex items-center gap-2">
-                <span>📝 Property & Underwriting Specifications</span>
+                <span> Property & Underwriting Specifications</span>
               </h2>
               <p class="text-xs text-slate-400">Edit specs directly or fine-tune after flyer auto-extraction</p>
             </div>
-            <button onclick="saveAndApplyDeal()" class="px-5 py-2 rounded-xl text-xs font-bold bg-blue-600 hover:bg-blue-500 text-white shadow-lg shadow-blue-600/30 transition flex items-center gap-1.5">
-              <span>💾 Save & Update Deal</span>
+            <button onclick="saveAndApplyDeal()" class="px-5 py-2 rounded-md text-xs font-bold bg-blue-600 hover:bg-blue-500 text-white shadow-sm transition flex items-center gap-1.5">
+              <span>Save & Update Deal</span>
             </button>
           </div>
 
@@ -305,17 +305,22 @@ Located 1.5 miles from I-85 in Jackson County..." class="w-full bg-slate-950 bor
           <div class="space-y-3">
             <h3 class="text-xs font-bold uppercase tracking-wider text-blue-400">1. Property Identification</h3>
             <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+            <div class="grid grid-cols-1 sm:grid-cols-4 gap-3">
               <div>
                 <label class="block text-[11px] font-semibold text-slate-300 mb-1">Deal / Property Name</label>
-                <input id="form-name" type="text" placeholder="Braselton Logistics Gateway" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-3 py-2 text-xs text-white focus:ring-1 focus:ring-blue-500" oninput="triggerPreviewCalc()">
+                <input id="form-name" type="text" placeholder="Braselton Logistics Gateway" class="w-full bg-slate-950 border border-slate-800 rounded-md px-3 py-2 text-xs text-white focus:ring-1 focus:ring-blue-500" oninput="triggerPreviewCalc()">
               </div>
               <div>
                 <label class="block text-[11px] font-semibold text-slate-300 mb-1">Street Address / City</label>
-                <input id="form-address" type="text" placeholder="1250 Logistics Pkwy, Braselton, GA" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-3 py-2 text-xs text-white focus:ring-1 focus:ring-blue-500" oninput="triggerPreviewCalc()">
+                <input id="form-address" type="text" placeholder="1250 Logistics Pkwy, Braselton, GA" class="w-full bg-slate-950 border border-slate-800 rounded-md px-3 py-2 text-xs text-white focus:ring-1 focus:ring-blue-500" oninput="triggerPreviewCalc()">
+              </div>
+              <div>
+                <label class="block text-[11px] font-semibold text-slate-300 mb-1">Hero Image URL</label>
+                <input id="form-image" type="text" placeholder="https://..." class="w-full bg-slate-950 border border-slate-800 rounded-md px-3 py-2 text-xs text-white focus:ring-1 focus:ring-blue-500" oninput="triggerPreviewCalc()">
               </div>
               <div>
                 <label class="block text-[11px] font-semibold text-slate-300 mb-1">Submarket Corridor</label>
-                <select id="form-corridor" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-3 py-2 text-xs text-white focus:ring-1 focus:ring-blue-500" onchange="triggerPreviewCalc()">
+                <select id="form-corridor" class="w-full bg-slate-950 border border-slate-800 rounded-md px-3 py-2 text-xs text-white focus:ring-1 focus:ring-blue-500" onchange="triggerPreviewCalc()">
                   <option value="I-85 North Corridor (Jackson / Gwinnett)">I-85 North (Jackson / Gwinnett)</option>
                   <option value="I-20 West / Fulton Industrial">I-20 West / Fulton Industrial</option>
                   <option value="I-75 South / Henry & Clayton">I-75 South / Henry & Clayton</option>
@@ -328,7 +333,7 @@ Located 1.5 miles from I-85 in Jackson County..." class="w-full bg-slate-950 bor
           </div>
 
           <!-- Section 2: Physical Specs -->
-          <div class="bg-slate-950/60 p-4 rounded-xl border border-slate-800 space-y-3">
+          <div class="bg-slate-950/60 p-4 rounded-md border border-slate-800 space-y-3">
             <h3 class="text-xs font-bold uppercase tracking-wider text-blue-400">2. Physical Building & Logistics Architecture</h3>
             <div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
               <div>
@@ -370,8 +375,8 @@ Located 1.5 miles from I-85 in Jackson County..." class="w-full bg-slate-950 bor
           </div>
 
           <!-- Section 3: Financial Underwriting -->
-          <div class="bg-slate-950/60 p-4 rounded-xl border border-slate-800 space-y-3">
-            <h3 class="text-xs font-bold uppercase tracking-wider text-emerald-400">3. Capital & Financial Underwriting</h3>
+          <div class="bg-slate-950/60 p-4 rounded-md border border-slate-800 space-y-3">
+            <h3 class="text-xs font-bold uppercase tracking-wider text-blue-400">3. Capital & Financial Underwriting</h3>
             <div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
               <div>
                 <label class="block text-[11px] text-slate-400 mb-1">Starting Rent ($/SF NNN)</label>
@@ -419,24 +424,24 @@ Located 1.5 miles from I-85 in Jackson County..." class="w-full bg-slate-950 bor
           <!-- Section 4: Notes & Location Highlights -->
           <div class="space-y-1.5">
             <label class="block text-xs font-semibold text-slate-300">4. Key Selling Points / Infrastructure Notes (Used in Client AI Deal Memo)</label>
-            <textarea id="form-notes" rows="2" placeholder="e.g. Immediate access to I-85 Exit 129, heavy power (4,000A, 480V 3-phase), Tier-1 Georgia job tax credit eligibility..." class="w-full bg-slate-950 border border-slate-800 rounded-xl p-2.5 text-xs text-white focus:ring-1 focus:ring-blue-500" oninput="triggerPreviewCalc()"></textarea>
+            <textarea id="form-notes" rows="2" placeholder="e.g. Immediate access to I-85 Exit 129, heavy power (4,000A, 480V 3-phase), Tier-1 Georgia job tax credit eligibility..." class="w-full bg-slate-950 border border-slate-800 rounded-md p-2.5 text-xs text-white focus:ring-1 focus:ring-blue-500" oninput="triggerPreviewCalc()"></textarea>
           </div>
 
           <!-- Action Footers -->
           <div class="pt-4 border-t border-slate-800 flex flex-wrap items-center justify-between gap-3">
             <div class="flex items-center gap-2">
-              <button onclick="launchClientPresentation()" class="px-5 py-2.5 rounded-xl bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 text-white font-bold text-xs flex items-center gap-2 shadow-lg shadow-blue-600/30 transition">
+              <button onclick="launchClientPresentation()" class="px-5 py-2.5 rounded-md bg-blue-700 hover:bg-blue-600 text-white font-bold text-xs flex items-center gap-2 shadow-sm transition">
                 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
-                <span>🚀 Launch Client Presentation</span>
+                <span>Launch Client Presentation</span>
               </button>
-              <button onclick="copyClientShareLink()" class="px-4 py-2.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-emerald-400 hover:text-emerald-300 font-bold text-xs border border-slate-700 transition flex items-center gap-1.5">
+              <button onclick="copyClientShareLink()" class="px-4 py-2.5 rounded-md bg-slate-800 hover:bg-slate-700 text-blue-400 hover:text-emerald-300 font-bold text-xs border border-slate-700 transition flex items-center gap-1.5">
                 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2v-1M8 5a2 2 0 002 2h2a2 2 0 002-2M8 5a2 2 0 012-2h2a2 2 0 012 2m0 0h2a2 2 0 012 2v3m2 4H10m0 0l3-3m-3 3l3 3"/></svg>
                 <span>Copy Client Link</span>
               </button>
             </div>
 
-            <button onclick="saveAndApplyDeal()" class="px-5 py-2.5 rounded-xl bg-blue-600 hover:bg-blue-500 text-white font-bold text-xs shadow-md shadow-blue-600/30 transition">
-              💾 Save Deal
+            <button onclick="saveAndApplyDeal()" class="px-5 py-2.5 rounded-md bg-blue-600 hover:bg-blue-500 text-white font-bold text-xs shadow-sm transition">
+              Save Deal
             </button>
           </div>
 
@@ -452,11 +457,11 @@ Located 1.5 miles from I-85 in Jackson County..." class="w-full bg-slate-950 bor
   <!-- MODAL: CLIENT QR CODE MODAL                                               -->
   <!-- ========================================================================= -->
   <div id="qrModal" class="fixed inset-0 z-50 bg-slate-950/80 backdrop-blur-sm hidden flex items-center justify-center p-4">
-    <div class="bg-slate-900 border border-slate-800 rounded-2xl w-full max-w-sm p-6 shadow-2xl flex flex-col items-center text-center space-y-4 animate-in fade-in zoom-in-95 duration-200">
+    <div class="bg-slate-900 border border-slate-800 rounded-lg w-full max-w-sm p-6 shadow-lg flex flex-col items-center text-center space-y-4 animate-in fade-in zoom-in-95 duration-200">
       
       <div class="w-full flex items-center justify-between pb-2 border-b border-slate-800">
         <div class="flex items-center gap-2">
-          <span class="text-base">📱</span>
+          <span class="text-base"></span>
           <h3 class="text-sm font-bold text-white">Client Presentation QR Code</h3>
         </div>
         <button onclick="closeQrModal()" class="text-slate-400 hover:text-white p-1 rounded-lg hover:bg-slate-800 transition">
@@ -469,20 +474,20 @@ Located 1.5 miles from I-85 in Jackson County..." class="w-full bg-slate-950 bor
       </p>
 
       <!-- QR Display Container -->
-      <div class="bg-white p-3.5 rounded-2xl shadow-xl flex items-center justify-center">
+      <div class="bg-white p-3.5 rounded-lg shadow-md flex items-center justify-center">
         <div id="qrcode-canvas" class="flex items-center justify-center"></div>
       </div>
 
       <p class="text-[11px] text-slate-400">
-        💡 <strong>Flyer Pro-Tip:</strong> Paste this QR code on physical brochures so clients can open the interactive model immediately on their phones.
+         <strong>Flyer Pro-Tip:</strong> Paste this QR code on physical brochures so clients can open the interactive model immediately on their phones.
       </p>
 
       <!-- Action Buttons -->
       <div class="w-full grid grid-cols-2 gap-2 pt-2">
-        <button onclick="downloadQrImage()" class="py-2 px-3 rounded-xl bg-slate-800 hover:bg-slate-700 text-xs font-semibold text-white border border-slate-700 transition">
+        <button onclick="downloadQrImage()" class="py-2 px-3 rounded-md bg-slate-800 hover:bg-slate-700 text-xs font-semibold text-white border border-slate-700 transition">
           Download Image
         </button>
-        <button onclick="copyClientShareLink(); closeQrModal();" class="py-2 px-3 rounded-xl bg-blue-600 hover:bg-blue-500 text-xs font-bold text-white shadow-md shadow-blue-600/30 transition">
+        <button onclick="copyClientShareLink(); closeQrModal();" class="py-2 px-3 rounded-md bg-blue-600 hover:bg-blue-500 text-xs font-bold text-white shadow-sm transition">
           Copy Link
         </button>
       </div>
@@ -491,7 +496,7 @@ Located 1.5 miles from I-85 in Jackson County..." class="w-full bg-slate-950 bor
   </div>
 
   <!-- Toast Alert -->
-  <div id="toast" class="fixed bottom-6 right-6 z-50 bg-blue-600 text-white px-4 py-2.5 rounded-xl shadow-2xl text-xs font-semibold transform translate-y-20 opacity-0 transition-all duration-300 pointer-events-none flex items-center gap-2">
+  <div id="toast" class="fixed bottom-6 right-6 z-50 bg-blue-600 text-white px-4 py-2.5 rounded-md shadow-lg text-xs font-semibold transform translate-y-20 opacity-0 transition-all duration-300 pointer-events-none flex items-center gap-2">
     <svg class="w-4 h-4 text-white inline-block" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
     <span id="toast-text">Message</span>
   </div>
@@ -637,7 +642,7 @@ Located 1.5 miles from I-85 in Jackson County..." class="w-full bg-slate-950 bor
 
     function populateDealSelector() {
       const sel = document.getElementById('deal-selector');
-      sel.innerHTML = deals.map(d => `<option value="${d.id}" ${d.id === currentDeal.id ? 'selected' : ''}>🏢 ${d.name} (${d.sf.toLocaleString()} SF)</option>`).join('');
+      sel.innerHTML = deals.map(d => `<option value="${d.id}" ${d.id === currentDeal.id ? 'selected' : ''}> ${d.name} (${d.sf.toLocaleString()} SF)</option>`).join('');
     }
 
     function onDealSelectChange() {
@@ -656,6 +661,7 @@ Located 1.5 miles from I-85 in Jackson County..." class="w-full bg-slate-950 bor
         id: 'deal-' + Date.now(),
         name: '',
         address: '',
+          imageUrl: '',
         corridor: 'I-85 North Corridor (Jackson / Gwinnett)',
         typeBadge: 'Class-A Industrial Facility',
         sf: '',
@@ -691,7 +697,7 @@ Located 1.5 miles from I-85 in Jackson County..." class="w-full bg-slate-950 bor
       populateDealSelector();
       loadDealIntoForm(copy);
       triggerPreviewCalc();
-      showToast(`✓ Cloned variation: "${copy.name}"`);
+      showToast(`Cloned variation: "${copy.name}"`);
     }
 
     function deleteCurrentDeal() {
@@ -738,7 +744,7 @@ Located 1.5 miles from I-85 in Jackson County..." class="w-full bg-slate-950 bor
             populateDealSelector();
             loadDealIntoForm(imported);
             triggerPreviewCalc();
-            showToast('✓ Successfully imported deal: ' + imported.name);
+            showToast('Successfully imported deal: ' + imported.name);
           } else {
             alert('Invalid deal JSON format.');
           }
@@ -753,7 +759,7 @@ Located 1.5 miles from I-85 in Jackson County..." class="w-full bg-slate-950 bor
     function copyStudioToolLink() {
       const studioUrl = `${window.location.origin}${window.location.pathname}`;
       navigator.clipboard.writeText(studioUrl).then(() => {
-        showToast('🔗 Studio Tool URL copied! Send to colleagues to use this template.');
+        showToast(' Studio Tool URL copied! Send to colleagues to use this template.');
       }).catch(() => {
         prompt('Copy Studio URL:', studioUrl);
       });
@@ -762,6 +768,7 @@ Located 1.5 miles from I-85 in Jackson County..." class="w-full bg-slate-950 bor
     function loadDealIntoForm(d) {
       document.getElementById('form-name').value = d.name || '';
       document.getElementById('form-address').value = d.address || '';
+        document.getElementById('form-image').value = d.imageUrl || '';
       document.getElementById('form-corridor').value = d.corridor || 'I-85 North Corridor (Jackson / Gwinnett)';
       document.getElementById('form-sf').value = d.sf || 300000;
       document.getElementById('form-clear').value = d.clearHeight || 36;
@@ -786,6 +793,7 @@ Located 1.5 miles from I-85 in Jackson County..." class="w-full bg-slate-950 bor
           id: currentDeal ? currentDeal.id : ('deal-' + Date.now()),
           name: document.getElementById('form-name').value.trim() || '',
           address: document.getElementById('form-address').value.trim() || '',
+          imageUrl: document.getElementById('form-image').value.trim() || '',
           corridor: document.getElementById('form-corridor').value,
           typeBadge: 'Class-A Industrial Facility',
           sf: parseFloat(document.getElementById('form-sf').value) || '',
@@ -820,7 +828,7 @@ Located 1.5 miles from I-85 in Jackson County..." class="w-full bg-slate-950 bor
       saveDealsToStorage();
       populateDealSelector();
       triggerPreviewCalc();
-      showToast('✓ Saved and updated: ' + data.name);
+      showToast('Saved and updated: ' + data.name);
     }
 
     function fmt(val) {
@@ -937,7 +945,7 @@ Located 1.5 miles from I-85 in Jackson County..." class="w-full bg-slate-950 bor
       saveAndApplyDeal();
       const url = getClientPresentationUrl();
       navigator.clipboard.writeText(url).then(() => {
-        showToast('🔗 Client-Only Presentation Link copied to clipboard!');
+        showToast(' Client-Only Presentation Link copied to clipboard!');
       }).catch(() => {
         prompt('Copy client presentation link:', url);
       });
@@ -968,7 +976,7 @@ Located 1.5 miles from I-85 in Jackson County..." class="w-full bg-slate-950 bor
         a.click();
         a.remove();
         URL.revokeObjectURL(url);
-        showToast(`✓ Downloaded ${filename}! Ready to email to client.`);
+        showToast(`Downloaded ${filename}! Ready to email to client.`);
       } catch (err) {
         console.error('Failed to generate standalone HTML:', err);
         alert('Notice: Standalone generator ready via web link.');
@@ -1062,7 +1070,7 @@ Located 1.5 miles from I-85 in Jackson County..." class="w-full bg-slate-950 bor
           document.getElementById('flyer-text-input').value = fullText;
           prog.classList.add('hidden');
           parseFlyerText();
-          showToast(`✓ Extracted ${pdf.numPages} pages from ${file.name}`);
+          showToast(`Extracted ${pdf.numPages} pages from ${file.name}`);
         } else if (ext === 'docx') {
           statusText.textContent = 'Parsing Word document...';
           const arrayBuffer = await file.arrayBuffer();
@@ -1071,7 +1079,7 @@ Located 1.5 miles from I-85 in Jackson County..." class="w-full bg-slate-950 bor
             document.getElementById('flyer-text-input').value = result.value;
             prog.classList.add('hidden');
             parseFlyerText();
-            showToast(`✓ Extracted text from Word document: ${file.name}`);
+            showToast(`Extracted text from Word document: ${file.name}`);
           } else {
             throw new Error('Word parser library not ready.');
           }
@@ -1081,7 +1089,7 @@ Located 1.5 miles from I-85 in Jackson County..." class="w-full bg-slate-950 bor
           document.getElementById('flyer-text-input').value = text;
           prog.classList.add('hidden');
           parseFlyerText();
-          showToast(`✓ Loaded text file: ${file.name}`);
+          showToast(`Loaded text file: ${file.name}`);
         }
       } catch (err) {
         console.error('File parsing error:', err);
@@ -1099,7 +1107,7 @@ Located 1.5 miles from I-85 in Jackson County..." class="w-full bg-slate-950 bor
       }
 
       const status = document.getElementById('flyer-status');
-      status.innerHTML = '<span class="text-amber-400 font-mono">⚡ Analyzing text patterns...</span>';
+      status.innerHTML = '<span class="text-slate-300 font-mono"> Analyzing text patterns...</span>';
 
       const extractedLog = [];
 
@@ -1149,8 +1157,8 @@ Located 1.5 miles from I-85 in Jackson County..." class="w-full bg-slate-950 bor
       // 3. CLEAR HEIGHT (FT)
       const clearVal = matchNumber([
         /(?:clear(?:\s*height)?|ceiling(?:\s*height)?|min(?:imum)?\s*clear)[:\s\-=]+[±~]?\s*(\d{2})/i,
-        /[±~]?\s*(\d{2})['’]?\s*(?:ft\.?|feet)?\s*(?:min(?:imum)?)?\s*(?:clear|ceiling)/i,
-        /\((\d{2})['’]?\)\s*clear/i
+        /[±~]?\s*(\d{2})[']?\s*(?:ft\.?|feet)?\s*(?:min(?:imum)?)?\s*(?:clear|ceiling)/i,
+        /\((\d{2})[']?\)\s*clear/i
       ], 10, 65);
 
       if (clearVal) {
@@ -1184,8 +1192,8 @@ Located 1.5 miles from I-85 in Jackson County..." class="w-full bg-slate-950 bor
 
       // 6. TRUCK COURT DEPTH (FT)
       const courtVal = matchNumber([
-        /(?:truck\s*court(?:\s*depth)?|apron(?:\s*depth)?|concrete\s*apron)[:\s\-=]+[±~]?\s*(?:[1-2]\d{2}\s*['’]?\s*[-–]\s*)?(\d{2,3})/i,
-        /[±~]?\s*(\d{2,3})['’]?\s*(?:truck\s*court|concrete\s*apron|apron)/i
+        /(?:truck\s*court(?:\s*depth)?|apron(?:\s*depth)?|concrete\s*apron)[:\s\-=]+[±~]?\s*(?:[1-2]\d{2}\s*[']?\s*[-]\s*)?(\d{2,3})/i,
+        /[±~]?\s*(\d{2,3})[']?\s*(?:truck\s*court|concrete\s*apron|apron)/i
       ], 50, 260);
 
       if (courtVal !== null) {
@@ -1266,16 +1274,16 @@ Located 1.5 miles from I-85 in Jackson County..." class="w-full bg-slate-950 bor
       if (/rail|norfolk\s*southern|csx/i.test(text)) highlights.push('Rail / Intermodal Proximity');
       if (/tier[- ]1|job\s*tax\s*credit|opportunity\s*zone/i.test(text)) highlights.push('Tier-1 Job Tax Credit Eligibility');
       if (highlights.length > 0) {
-        document.getElementById('form-notes').value = highlights.join(' • ');
+        document.getElementById('form-notes').value = highlights.join('  ');
       }
 
       // 13. AUTOMATICALLY APPLY & SAVE TO ACTIVE DEAL IMMEDIATELY!
       if (extractedLog.length > 0) {
         saveAndApplyDeal();
-        status.innerHTML = `<span class="text-emerald-400 font-bold">✓ Extracted & Applied ${extractedLog.length} Specs:</span> <span class="text-slate-200">${extractedLog.join(' &bull; ')}</span>`;
-        showToast(`✓ Extracted & applied ${extractedLog.length} specs directly into active deal!`);
+        status.innerHTML = `<span class="text-blue-400 font-bold">Extracted & Applied ${extractedLog.length} Specs:</span> <span class="text-slate-200">${extractedLog.join(' &bull; ')}</span>`;
+        showToast(`Extracted & applied ${extractedLog.length} specs directly into active deal!`);
       } else {
-        status.innerHTML = '<span class="text-rose-400 font-semibold">⚠ Could not detect standard spec keywords. Please check flyer text or enter specs in form.</span>';
+        status.innerHTML = '<span class="text-red-400 font-semibold">Could not detect standard spec keywords. Please check flyer text or enter specs in form.</span>';
         showToast('Notice: No specs automatically matched in text.');
       }
     }
