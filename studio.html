@@ -244,9 +244,7 @@ Located 1.5 miles from I-85 in Jackson County..." class="w-full bg-slate-950 bor
         </div>
 
       <!-- STEP 2: UNDERWRITING -->
-      <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
-        <div class="lg:col-span-9">
-          <div class="bg-slate-900 border border-slate-800 rounded-lg p-6 shadow-md space-y-5">
+      <div class="bg-slate-900 border border-slate-800 rounded-lg p-6 shadow-md space-y-5">
           
           <div class="flex items-center justify-between border-b border-slate-800 pb-3">
             <div>
@@ -394,6 +392,40 @@ Located 1.5 miles from I-85 in Jackson County..." class="w-full bg-slate-950 bor
             <textarea id="form-notes" rows="2" placeholder="e.g. Immediate access to I-85 Exit 129, heavy power (4,000A, 480V 3-phase), Tier-1 Georgia job tax credit eligibility..." class="w-full bg-slate-950 border border-slate-800 rounded-md p-2.5 text-xs text-white focus:ring-1 focus:ring-blue-500" oninput="triggerPreviewCalc()"></textarea>
           </div>
 
+          <!-- Model Return Highlights (Live Computed) -->
+          <div class="bg-slate-950/60 p-4 rounded-md border border-slate-800 space-y-3">
+            <h3 class="text-xs font-bold uppercase tracking-wider text-slate-300 flex items-center justify-between">
+              <span>Model Return Highlights</span>
+              <span class="text-[10px] text-blue-400 font-mono">Live Computed</span>
+            </h3>
+            <div class="grid grid-cols-3 sm:grid-cols-6 gap-3 text-center">
+              <div class="bg-slate-950 p-2.5 rounded-md border border-slate-800">
+                <span class="text-[10px] text-slate-400 uppercase font-semibold">Total Cap</span>
+                <div id="prev-cost" class="text-sm font-bold text-white font-mono mt-0.5">$51.75M</div>
+              </div>
+              <div class="bg-slate-950 p-2.5 rounded-md border border-slate-800">
+                <span class="text-[10px] text-slate-400 uppercase font-semibold">Equity Req</span>
+                <div id="prev-equity" class="text-sm font-bold text-slate-200 font-mono mt-0.5">$18.11M</div>
+              </div>
+              <div class="bg-slate-950 p-2.5 rounded-md border border-slate-800">
+                <span class="text-[10px] text-slate-400 uppercase font-semibold">Yr 1 NOI</span>
+                <div id="prev-noi" class="text-sm font-bold text-blue-400 font-mono mt-0.5">$3.53M</div>
+              </div>
+              <div class="bg-slate-950 p-2.5 rounded-md border border-slate-800">
+                <span class="text-[10px] text-slate-400 uppercase font-semibold">Yield-on-Cost</span>
+                <div id="prev-yield" class="text-sm font-bold text-blue-400 font-mono mt-0.5">6.83%</div>
+              </div>
+              <div class="bg-slate-950 p-2.5 rounded-md border border-slate-800">
+                <span class="text-[10px] text-slate-400 uppercase font-semibold">Yr 5 Exit</span>
+                <div id="prev-exit" class="text-sm font-bold text-blue-400 font-mono mt-0.5">$77.10M</div>
+              </div>
+              <div class="bg-slate-950 p-2.5 rounded-md border border-slate-800">
+                <span class="text-[10px] text-slate-400 uppercase font-semibold">5-Yr IRR</span>
+                <div id="prev-irr" class="text-sm font-bold text-indigo-400 font-mono mt-0.5">21.4%</div>
+              </div>
+            </div>
+          </div>
+
           <!-- Action Footers -->
           <div class="pt-4 border-t border-slate-800 flex flex-wrap items-center justify-between gap-3">
             <div class="flex items-center gap-2">
@@ -413,261 +445,8 @@ Located 1.5 miles from I-85 in Jackson County..." class="w-full bg-slate-950 bor
           </div>
 
         </div>
-        </div>
-        <div class="lg:col-span-3 sticky top-6">
-          <!-- CARD C: LIVE RETURN PREVIEW -->
-        <div class="bg-slate-900 border border-slate-800 rounded-lg p-5 shadow-md space-y-3">
-          <h3 class="text-xs font-bold uppercase tracking-wider text-slate-300 border-b border-slate-800 pb-2 flex items-center justify-between">
-            <span>Model Return Highlights</span>
-            <span class="text-[10px] text-blue-400 font-mono">Live Computed</span>
-          </h3>
-
-          <div class="grid grid-cols-2 gap-3 text-center">
-            <div class="bg-slate-950 p-2.5 rounded-md border border-slate-800">
-              <span class="text-[10px] text-slate-400 uppercase font-semibold">Total Capitalization</span>
-              <div id="prev-cost" class="text-base font-bold text-white font-mono mt-0.5">$51.75M</div>
-            </div>
-            <div class="bg-slate-950 p-2.5 rounded-md border border-slate-800">
-              <span class="text-[10px] text-slate-400 uppercase font-semibold">Equity Required</span>
-              <div id="prev-equity" class="text-base font-bold text-slate-200 font-mono mt-0.5">$18.11M</div>
-            </div>
-            <div class="bg-slate-950 p-2.5 rounded-md border border-slate-800">
-              <span class="text-[10px] text-slate-400 uppercase font-semibold">Yr 1 Net NOI</span>
-              <div id="prev-noi" class="text-base font-bold text-blue-400 font-mono mt-0.5">$3.53M</div>
-            </div>
-            <div class="bg-slate-950 p-2.5 rounded-md border border-slate-800">
-              <span class="text-[10px] text-slate-400 uppercase font-semibold">Untapped Yield</span>
-              <div id="prev-yield" class="text-base font-bold text-blue-400 font-mono mt-0.5">6.83%</div>
-            </div>
-            <div class="bg-slate-950 p-2.5 rounded-md border border-slate-800">
-              <span class="text-[10px] text-slate-400 uppercase font-semibold">Yr 5 Exit Value</span>
-              <div id="prev-exit" class="text-base font-bold text-blue-400 font-mono mt-0.5">$77.10M</div>
-            </div>
-            <div class="bg-slate-950 p-2.5 rounded-md border border-slate-800">
-              <span class="text-[10px] text-slate-400 uppercase font-semibold">5-Yr Levered IRR</span>
-              <div id="prev-irr" class="text-base font-bold text-indigo-400 font-mono mt-0.5">21.4%</div>
-            </div>
-          </div>
-        </div>
-
-        <!-- CARD B: SMART FLYER & BROCHURE UPLOAD EXTRACTOR -->
-        <div class="bg-slate-900 border border-slate-800 rounded-lg p-5 shadow-md space-y-4">
-          <div class="flex items-center justify-between border-b border-slate-800 pb-3">
-            <div class="flex items-center gap-2">
-              <span class="text-base"></span>
-              <h2 class="text-sm font-bold uppercase tracking-wider text-white"><span class="text-blue-500 mr-1">STEP 1:</span> Property Flyer Extractor</h2>
-            </div>
-            <span class="text-[10px] px-2 py-0.5 rounded-full bg-emerald-500/10 text-blue-400 border border-emerald-500/30 font-semibold">
-              PDF &bull; DOCX &bull; TXT
-            </span>
-          </div>
-
-          <p class="text-xs text-slate-300">
-            Drop an existing PDF marketing flyer, brochure, or CoStar spec sheet. The extractor parses all data points directly into this deal:
-          </p>
-
-          <!-- Drag and Drop Zone -->
-          <div id="dropzone" class="border-2 border-dashed border-slate-700 hover:border-blue-500 rounded-lg p-6 text-center transition cursor-pointer bg-slate-950/60 group" onclick="document.getElementById('fileInput').click()" ondragover="event.preventDefault()" ondrop="handleDrop(event)">
-            <input type="file" id="fileInput" accept=".pdf,.docx,.doc,.txt,.json" class="hidden" onchange="handleFileInput(event)">
-            <div class="flex flex-col items-center gap-2">
-              <div class="w-12 h-12 rounded-lg bg-blue-600/15 text-blue-400 flex items-center justify-center text-2xl group-hover:scale-110 transition">
-                
-              </div>
-              <div class="text-xs font-bold text-white">
-                Drag & Drop Flyer File Here
-              </div>
-              <div class="text-[11px] text-slate-400">
-                PDF (.pdf), Word (.docx), or Text &bull; or click to browse
-              </div>
-              <span class="text-[10px] font-semibold px-2.5 py-0.5 rounded-full bg-blue-500/10 text-blue-400 border border-blue-500/20 mt-1">
-                Zero Cloud Upload &bull; 100% Private in Browser
-              </span>
-            </div>
-          </div>
-
-          <!-- Upload Status Indicator -->
-          <div id="upload-progress" class="hidden bg-blue-950/40 border border-blue-500/30 rounded-md p-3 text-xs flex items-center gap-3 text-blue-300">
-            <svg class="animate-spin w-4 h-4 text-blue-400 shrink-0" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8H4z"></path></svg>
-            <span id="upload-status-text">Parsing document...</span>
-          </div>
-
-          <!-- Raw / Extracted Text Area -->
-          <div class="space-y-1.5">
-            <div class="flex items-center justify-between">
-              <label class="text-xs font-semibold text-slate-300">Extracted Flyer Text (or paste directly):</label>
-              <button onclick="document.getElementById('flyer-text-input').value = ''" class="text-[11px] text-slate-500 hover:text-slate-300">Clear</button>
-            </div>
-            <textarea id="flyer-text-input" rows="6" placeholder="Paste flyer text here or drop a file above...
-Example:
-KING LOGISTICS CENTER - BUILDING 100
-1250 Logistics Parkway, Braselton, GA 30517
-450,000 RSF available immediately.
-Asking $7.85/SF NNN with 3.5% annual increases.
-40' Clear Height, 68 dock-high doors, 2 drive-in ramps.
-185' truck court with 110 trailer parking spaces.
-ESFR sprinkler system. 4,000 amps, 480V 3-phase power.
-Located 1.5 miles from I-85 in Jackson County..." class="w-full bg-slate-950 border border-slate-800 rounded-md p-3 text-xs text-slate-200 font-mono focus:ring-1 focus:ring-blue-500"></textarea>
-          </div>
-
-          <!-- Extract Action Button -->
-          <div class="flex items-center justify-between gap-2 pt-1">
-            <button onclick="parseFlyerText()" class="w-full py-2.5 px-4 rounded-md bg-blue-700 hover:bg-blue-600 text-white font-bold text-xs flex items-center justify-center gap-2 shadow-sm transition">
-              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
-              <span>Auto-Extract Specs & Populate Deal</span>
-            </button>
-          </div>
-          <p id="flyer-status" class="text-[11px] text-slate-400 text-center font-mono">Ready to extract</p>
-        </div>
-
-        <!-- CARD A: CLIENT PRESENTATION HUB (Zero Clutter Link) -->
-        <div class="bg-gradient-to-br from-blue-950/40 via-slate-900 to-indigo-950/40 border-2 border-blue-500/40 rounded-lg p-5 shadow-lg space-y-3 relative overflow-hidden">
-          <div class="flex items-center justify-between">
-            <div class="flex items-center gap-2">
-              <span class="text-base"></span>
-              <h2 class="text-sm font-bold uppercase tracking-wider text-white"><span class="text-blue-500 mr-1">STEP 3:</span> Share Deal with Client</h2>
-            </div>
-            <span class="text-[10px] px-2.5 py-0.5 rounded-full bg-emerald-500/20 text-emerald-300 border border-emerald-500/40 font-extrabold uppercase tracking-wide">
-              Client-Only View
-            </span>
-          </div>
-
-          <p class="text-xs text-slate-300">
-            This link opens the clean executive presentation for <strong id="share-card-property-name" class="text-blue-300">this active deal</strong>. The client will see <em>zero</em> setup buttons, upload tools, or other listings.
-          </p>
-
-          <!-- Read-only Share URL Box -->
-          <div class="space-y-1">
-            <div class="flex items-center gap-2">
-              <input id="client-share-url-box" type="text" readonly class="w-full bg-slate-950 border border-slate-700 rounded-md px-3 py-2 text-xs font-mono text-blue-400 select-all focus:outline-none focus:border-blue-500">
-              <button onclick="copyClientShareLink()" class="px-4 py-2 rounded-md bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs shrink-0 flex items-center gap-1.5 shadow-md shadow-emerald-600/30 transition">
-                <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2v-1M8 5a2 2 0 002 2h2a2 2 0 002-2M8 5a2 2 0 012-2h2a2 2 0 012 2m0 0h2a2 2 0 012 2v3m2 4H10m0 0l3-3m-3 3l3 3"/></svg>
-                <span>Copy</span>
-              </button>
-            </div>
-          </div>
-
-          <!-- Quick Actions Grid -->
-          <div class="grid grid-cols-3 gap-2 pt-1">
-            <button onclick="launchClientPresentation()" class="py-2.5 px-3 rounded-md bg-blue-600 hover:bg-blue-500 text-white font-bold text-xs flex items-center justify-center gap-1.5 shadow-sm transition">
-              <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
-              <span>Preview</span>
-            </button>
-            <button onclick="openQrModal()" class="py-2.5 px-3 rounded-md bg-slate-800 hover:bg-slate-700 text-slate-300 border border-slate-700 font-semibold text-xs flex items-center justify-center gap-1.5 transition">
-              <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v1m6 11h2m-6 0h-2v4m0-11v3m0 0h.01M12 12h4.01M16 20h4M4 12h4m12 0h.01M5 8h2a1 1 0 001-1V5a1 1 0 00-1-1H5a1 1 0 00-1 1v2a1 1 0 001 1zm12 0h2a1 1 0 001-1V5a1 1 0 00-1-1h-2a1 1 0 00-1 1v2a1 1 0 001 1zM5 20h2a1 1 0 001-1v-2a1 1 0 00-1-1H5a1 1 0 00-1 1v2a1 1 0 001 1z"/></svg>
-              <span>QR Code</span>
-            </button>
-            <button onclick="downloadStandaloneHtml()" class="py-2.5 px-3 rounded-md bg-slate-800 hover:bg-slate-700 text-blue-300 border border-slate-700 font-semibold text-xs flex items-center justify-center gap-1.5 transition" title="Download standalone single-file HTML to email directly or host anywhere">
-              <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/></svg>
-              <span>Save File</span>
-            </button>
-          </div>
-        </div>
-
-        <!-- CARD B: SMART FLYER & BROCHURE UPLOAD EXTRACTOR -->
-        <div class="bg-slate-900 border border-slate-800 rounded-lg p-5 shadow-md space-y-4">
-          <div class="flex items-center justify-between border-b border-slate-800 pb-3">
-            <div class="flex items-center gap-2">
-              <span class="text-base"></span>
-              <h2 class="text-sm font-bold uppercase tracking-wider text-white">Property Flyer Extractor</h2>
-            </div>
-            <span class="text-[10px] px-2 py-0.5 rounded-full bg-emerald-500/10 text-blue-400 border border-emerald-500/30 font-semibold">
-              PDF &bull; DOCX &bull; TXT
-            </span>
-          </div>
-
-          <p class="text-xs text-slate-300">
-            Drop an existing PDF marketing flyer, brochure, or CoStar spec sheet. The extractor parses all data points directly into this deal:
-          </p>
-
-          <!-- Drag and Drop Zone -->
-          <div id="dropzone" class="border-2 border-dashed border-slate-700 hover:border-blue-500 rounded-lg p-6 text-center transition cursor-pointer bg-slate-950/60 group" onclick="document.getElementById('fileInput').click()" ondragover="event.preventDefault()" ondrop="handleDrop(event)">
-            <input type="file" id="fileInput" accept=".pdf,.docx,.doc,.txt,.json" class="hidden" onchange="handleFileInput(event)">
-            <div class="flex flex-col items-center gap-2">
-              <div class="w-12 h-12 rounded-lg bg-blue-600/15 text-blue-400 flex items-center justify-center text-2xl group-hover:scale-110 transition">
-                
-              </div>
-              <div class="text-xs font-bold text-white">
-                Drag & Drop Flyer File Here
-              </div>
-              <div class="text-[11px] text-slate-400">
-                PDF (.pdf), Word (.docx), or Text &bull; or click to browse
-              </div>
-              <span class="text-[10px] font-semibold px-2.5 py-0.5 rounded-full bg-blue-500/10 text-blue-400 border border-blue-500/20 mt-1">
-                Zero Cloud Upload &bull; 100% Private in Browser
-              </span>
-            </div>
-          </div>
-
-          <!-- Upload Status Indicator -->
-          <div id="upload-progress" class="hidden bg-blue-950/40 border border-blue-500/30 rounded-md p-3 text-xs flex items-center gap-3 text-blue-300">
-            <svg class="animate-spin w-4 h-4 text-blue-400 shrink-0" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8H4z"></path></svg>
-            <span id="upload-status-text">Parsing document...</span>
-          </div>
-
-          <!-- Raw / Extracted Text Area -->
-          <div class="space-y-1.5">
-            <div class="flex items-center justify-between">
-              <label class="text-xs font-semibold text-slate-300">Extracted Flyer Text (or paste directly):</label>
-              <button onclick="document.getElementById('flyer-text-input').value = ''" class="text-[11px] text-slate-500 hover:text-slate-300">Clear</button>
-            </div>
-            <textarea id="flyer-text-input" rows="6" placeholder="Paste flyer text here or drop a file above...
-Example:
-KING LOGISTICS CENTER - BUILDING 100
-1250 Logistics Parkway, Braselton, GA 30517
-450,000 RSF available immediately.
-Asking $7.85/SF NNN with 3.5% annual increases.
-40' Clear Height, 68 dock-high doors, 2 drive-in ramps.
-185' truck court with 110 trailer parking spaces.
-ESFR sprinkler system. 4,000 amps, 480V 3-phase power.
-Located 1.5 miles from I-85 in Jackson County..." class="w-full bg-slate-950 border border-slate-800 rounded-md p-3 text-xs text-slate-200 font-mono focus:ring-1 focus:ring-blue-500"></textarea>
-          </div>
-
-          <!-- Extract Action Button -->
-          <div class="flex items-center justify-between gap-2 pt-1">
-            <button onclick="parseFlyerText()" class="w-full py-2.5 px-4 rounded-md bg-blue-700 hover:bg-blue-600 text-white font-bold text-xs flex items-center justify-center gap-2 shadow-sm transition">
-              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
-              <span>Auto-Extract Specs & Populate Deal</span>
-            </button>
-          </div>
-          <p id="flyer-status" class="text-[11px] text-slate-400 text-center font-mono">Ready to extract</p>
-        </div>
-
-        <!-- CARD C: LIVE RETURN PREVIEW -->
-        <div class="bg-slate-900 border border-slate-800 rounded-lg p-5 shadow-md space-y-3">
-          <h3 class="text-xs font-bold uppercase tracking-wider text-slate-300 border-b border-slate-800 pb-2 flex items-center justify-between">
-            <span>Model Return Highlights</span>
-            <span class="text-[10px] text-blue-400 font-mono">Live Computed</span>
-          </h3>
-
-          <div class="grid grid-cols-2 gap-3 text-center">
-            <div class="bg-slate-950 p-2.5 rounded-md border border-slate-800">
-              <span class="text-[10px] text-slate-400 uppercase font-semibold">Total Capitalization</span>
-              <div id="prev-cost" class="text-base font-bold text-white font-mono mt-0.5">$51.75M</div>
-            </div>
-            <div class="bg-slate-950 p-2.5 rounded-md border border-slate-800">
-              <span class="text-[10px] text-slate-400 uppercase font-semibold">Equity Required</span>
-              <div id="prev-equity" class="text-base font-bold text-slate-200 font-mono mt-0.5">$18.11M</div>
-            </div>
-            <div class="bg-slate-950 p-2.5 rounded-md border border-slate-800">
-              <span class="text-[10px] text-slate-400 uppercase font-semibold">Yr 1 Net NOI</span>
-              <div id="prev-noi" class="text-base font-bold text-blue-400 font-mono mt-0.5">$3.53M</div>
-            </div>
-            <div class="bg-slate-950 p-2.5 rounded-md border border-slate-800">
-              <span class="text-[10px] text-slate-400 uppercase font-semibold">Untapped Yield</span>
-              <div id="prev-yield" class="text-base font-bold text-blue-400 font-mono mt-0.5">6.83%</div>
-            </div>
-            <div class="bg-slate-950 p-2.5 rounded-md border border-slate-800">
-              <span class="text-[10px] text-slate-400 uppercase font-semibold">Yr 5 Exit Value</span>
-              <div id="prev-exit" class="text-base font-bold text-blue-400 font-mono mt-0.5">$77.10M</div>
-            </div>
-            <div class="bg-slate-950 p-2.5 rounded-md border border-slate-800">
-              <span class="text-[10px] text-slate-400 uppercase font-semibold">5-Yr Levered IRR</span>
-              <div id="prev-irr" class="text-base font-bold text-indigo-400 font-mono mt-0.5">21.4%</div>
-            </div>
-          </div>
-        </div>
-        </div>
       </div>
+
 
       <!-- STEP 3: SHARE OUTPUT -->
       <!-- CARD A: CLIENT PRESENTATION HUB (Zero Clutter Link) -->
