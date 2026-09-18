@@ -296,10 +296,12 @@
           const rawImagesAttr = galleryDiv.getAttribute('images');
           const imgs = JSON.parse(rawImagesAttr);
           if (Array.isArray(imgs)) {
+            // Note: Buildout does not reliably serve a "/small." derivative at this path
+            // (often 403s), so use the real full-size URL directly as the thumbnail too.
             result.photos = imgs.map(img => ({
               id: img.id,
               url: img.url,
-              thumbUrl: img.url.replace(/\/(?:full|large|original)\.(jpe?g|png)/i, '/small.$1'),
+              thumbUrl: img.url,
               description: img.description || ''
             }));
           }
@@ -468,7 +470,7 @@
           result.photos = imgs.map(img => ({
             id: img.id,
             url: img.url,
-            thumbUrl: img.url.replace('/full.jpg', '/small.jpg'),
+            thumbUrl: img.url,
             description: img.description || ''
           }));
           if (result.photos.length > 0) result.heroImage = result.photos[0].url;
