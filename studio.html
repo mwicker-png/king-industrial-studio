@@ -1280,14 +1280,27 @@ Located 1.5 miles from I-85 in Jackson County..." class="w-full bg-slate-950 bor
       }
     }
 
-    function showToast(text) {
-      const toast = document.getElementById('toast');
-      document.getElementById('toast-text').textContent = text;
-      toast.classList.remove('translate-y-20', 'opacity-0');
-      setTimeout(() => {
-        toast.classList.add('translate-y-20', 'opacity-0');
-      }, 2500);
-    }
+      let toastTimeout = null;
+      function showToast(text) {
+        const toast = document.getElementById('toast');
+        const toastText = document.getElementById('toast-text');
+        
+        toastText.textContent = text;
+        
+        // Clear any pending timeout to avoid race conditions hiding it instantly
+        if (toastTimeout) {
+          clearTimeout(toastTimeout);
+        }
+        
+        // Force display
+        toast.classList.remove('translate-y-20', 'opacity-0');
+        toast.classList.add('translate-y-0', 'opacity-100');
+        
+        toastTimeout = setTimeout(() => {
+          toast.classList.remove('translate-y-0', 'opacity-100');
+          toast.classList.add('translate-y-20', 'opacity-0');
+        }, 3000);
+      }
 
     // Init on load
     initStudio();
