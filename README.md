@@ -6,6 +6,7 @@ An institutional industrial real estate underwriting, site engineering CAD, and 
 
 ## 🌟 Key Capabilities
 
+- **⚡ 1-Click King Industrial Listing Extractor (`king-listing-extractor.js`):** Paste any live link from `properties.kingindustrial.com/[slug]` to instantly extract all building specs (SF, clear height, docks, ramps, column grid, sprinkler), pricing, Atlanta industrial submarket corridor, photo gallery, flyer PDF links, and broker contact cards into the deal. See [KING_LISTING_INTEGRATION_PACKAGE.md](KING_LISTING_INTEGRATION_PACKAGE.md) for drop-in instructions into other codebases.
 - **📁 PDF & Word (.docx) Flyer Uploader:** Drag and drop marketing flyers, PDF brochures, or CoStar sheets to automatically extract square footage, clear heights, dock doors, asking rents, and trailer stalls.
 - **📱 Instant Client QR Codes:** 1-click generation of high-resolution QR codes to slap directly onto printed flyers, PDF decks, and offering memorandums.
 - **🔗 1-Click Live Shareable URLs:** Generate instant self-contained web links encoded with your specific deal data to send directly to clients, partners, or investors.
