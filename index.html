@@ -6,6 +6,10 @@
   <title>KING INDUSTRIAL // Logistics & Underwriting Studio</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <script src="https://www.gstatic.com/antigravity/web/dev/tailwindcss.min.js"></script>
+  <!-- Client-Side Document Parsing & QR Libraries -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/mammoth/1.6.0/mammoth.browser.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
   <style>
     @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap');
     
@@ -54,9 +58,9 @@
         <div class="hidden sm:block">
           <div class="flex items-center gap-2">
             <span class="font-extrabold text-base tracking-tight text-white">KING INDUSTRIAL</span>
-            <span class="text-[10px] px-1.5 py-0.5 rounded bg-blue-500/20 text-blue-400 font-bold border border-blue-500/30">DEAL TEMPLATE</span>
+            <span class="text-[10px] px-1.5 py-0.5 rounded bg-blue-500/20 text-blue-400 font-bold border border-blue-500/30">DEAL STUDIO</span>
           </div>
-          <p class="text-[10px] text-slate-400">Institutional Property Underwriting & Feasibility Studio</p>
+          <p class="text-[10px] text-slate-400">Institutional Logistics Underwriting & Feasibility Suite</p>
         </div>
       </div>
 
@@ -72,12 +76,16 @@
         </button>
       </div>
 
-      <!-- Right Actions: Edit, Share, Print -->
+      <!-- Right Actions: Edit, QR, Share, Print -->
       <div class="flex items-center gap-2 shrink-0">
         <button onclick="openDealEditor('edit')" class="flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-bold bg-blue-600 hover:bg-blue-500 text-white shadow-md shadow-blue-600/30 transition">
           <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/></svg>
-          <span class="hidden md:inline">Edit Property / Import Flyer</span>
+          <span class="hidden md:inline">Edit / Upload Flyer</span>
           <span class="md:hidden">Edit</span>
+        </button>
+        <button onclick="openQrModal()" title="Generate Client QR Code" class="flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-semibold bg-slate-800 hover:bg-slate-700 text-purple-400 border border-slate-700 transition">
+          <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v1m6 11h2m-6 0h-2v4m0-11v3m0 0h.01M12 12h4.01M16 20h4M4 12h4m12 0h.01M5 8h2a1 1 0 001-1V5a1 1 0 00-1-1H5a1 1 0 00-1 1v2a1 1 0 001 1zm12 0h2a1 1 0 001-1V5a1 1 0 00-1-1h-2a1 1 0 00-1 1v2a1 1 0 001 1zM5 20h2a1 1 0 001-1v-2a1 1 0 00-1-1H5a1 1 0 00-1 1v2a1 1 0 001 1z"/></svg>
+          <span class="hidden lg:inline">QR Code</span>
         </button>
         <button onclick="shareDealLink()" title="Copy Shareable Link" class="flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-semibold bg-slate-800 hover:bg-slate-700 text-emerald-400 border border-slate-700 transition">
           <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.368 2.684 3 3 0 00-5.368-2.684z"/></svg>
@@ -505,7 +513,7 @@
   </main>
 
   <!-- ========================================================================= -->
-  <!-- MODAL: DEAL STUDIO & BROCHURE AI PARSER                                   -->
+  <!-- MODAL: DEAL STUDIO & DOCUMENT / FLYER PARSER                              -->
   <!-- ========================================================================= -->
   <div id="dealModal" class="fixed inset-0 z-50 bg-slate-950/80 backdrop-blur-sm hidden flex items-center justify-center p-3 sm:p-6 overflow-y-auto">
     <div class="bg-slate-900 border border-slate-800 rounded-2xl w-full max-w-4xl max-h-[90vh] flex flex-col shadow-2xl overflow-hidden animate-in fade-in zoom-in-95 duration-200">
@@ -518,7 +526,7 @@
           </div>
           <div>
             <h3 class="text-base font-bold text-white">Deal Studio // Property Profile & Specs</h3>
-            <p class="text-xs text-slate-400">Create, edit, or paste flyer text to auto-populate the underwriting engine</p>
+            <p class="text-xs text-slate-400">Upload marketing flyers (PDF/Word) or customize parameters manually</p>
           </div>
         </div>
         <button onclick="closeDealEditor()" class="text-slate-400 hover:text-white p-1 rounded-lg hover:bg-slate-800 transition">
@@ -528,21 +536,78 @@
 
       <!-- Mode Selector Tabs inside Modal -->
       <div class="flex border-b border-slate-800 px-5 text-xs font-bold gap-4 bg-slate-950/40">
-        <button onclick="setModalTab('form')" id="modalTab-form" class="py-3 border-b-2 border-blue-500 text-blue-400 flex items-center gap-2">
-          <span>📝 Manual Form Editor</span>
+        <button onclick="setModalTab('ai')" id="modalTab-ai" class="py-3 border-b-2 border-blue-500 text-blue-400 flex items-center gap-2">
+          <span>✨ Upload Brochure / PDF Flyer (Auto-Fill)</span>
         </button>
-        <button onclick="setModalTab('ai')" id="modalTab-ai" class="py-3 border-b-2 border-transparent text-slate-400 hover:text-slate-200 flex items-center gap-2">
-          <span>✨ Smart Flyer / Brochure Text Importer</span>
+        <button onclick="setModalTab('form')" id="modalTab-form" class="py-3 border-b-2 border-transparent text-slate-400 hover:text-slate-200 flex items-center gap-2">
+          <span>📝 Manual Spec Form</span>
         </button>
       </div>
 
       <!-- Modal Body -->
       <div class="p-5 sm:p-6 overflow-y-auto space-y-5 flex-1">
         
-        <!-- ======================= -->
-        <!-- TAB A: MANUAL FORM      -->
-        <!-- ======================= -->
-        <div id="modalContent-form" class="space-y-4">
+        <!-- ========================================== -->
+        <!-- TAB A: BROCHURE & PDF / DOCX UPLOAD PARSER -->
+        <!-- ========================================== -->
+        <div id="modalContent-ai" class="space-y-4">
+          
+          <!-- File Drop Zone -->
+          <div id="dropzone" class="border-2 border-dashed border-slate-700 hover:border-blue-500 rounded-2xl p-6 sm:p-8 text-center transition cursor-pointer bg-slate-950/40 group" onclick="document.getElementById('fileInput').click()" ondragover="event.preventDefault()" ondrop="handleDrop(event)">
+            <input type="file" id="fileInput" accept=".pdf,.docx,.doc,.txt,.json" class="hidden" onchange="handleFileInput(event)">
+            <div class="flex flex-col items-center gap-2.5">
+              <div class="w-12 h-12 rounded-2xl bg-blue-600/15 text-blue-400 flex items-center justify-center text-2xl group-hover:scale-110 transition">
+                📄
+              </div>
+              <div>
+                <div class="text-sm font-bold text-white">
+                  Drop your Property Flyer (PDF), Word Doc (.docx), or Text File here
+                </div>
+                <div class="text-xs text-slate-400 mt-1">
+                  Supports .PDF, .DOCX, .TXT, and .JSON &bull; Or click to browse computer
+                </div>
+              </div>
+              <span class="text-[11px] font-semibold px-3 py-1 rounded-full bg-blue-500/10 text-blue-400 border border-blue-500/20 mt-1">
+                Zero-Upload Client-Side Parsing (100% Private & Instant)
+              </span>
+            </div>
+          </div>
+
+          <div id="upload-progress" class="hidden bg-blue-950/30 border border-blue-500/30 rounded-xl p-3 text-xs flex items-center gap-3 text-blue-300">
+            <svg class="animate-spin w-4 h-4 text-blue-400 shrink-0" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8H4z"></path></svg>
+            <span id="upload-status-text">Extracting text from document...</span>
+          </div>
+
+          <!-- Raw Text Fallback & Verification -->
+          <div>
+            <div class="flex items-center justify-between mb-1">
+              <label class="text-xs font-semibold text-slate-300">Extracted Text or Paste Flyer Text Directly:</label>
+              <button onclick="document.getElementById('flyer-text-input').value = ''" class="text-[11px] text-slate-500 hover:text-slate-300">Clear</button>
+            </div>
+            <textarea id="flyer-text-input" rows="6" placeholder="You can also paste flyer text directly here...
+Example:
+KING LOGISTICS CENTER - BUILDING 100
+1250 Logistics Parkway, Braselton, GA 30517
+450,000 RSF available immediately.
+Asking $7.85/SF NNN with 3.5% annual increases.
+40' Clear Height, 68 dock-high doors, 2 drive-in ramps.
+185' truck court with 110 trailer parking spaces.
+ESFR sprinkler system. 4,000 amps, 480V 3-phase power.
+Located 1.5 miles from I-85 in Jackson County..." class="w-full bg-slate-950 border border-slate-800 rounded-xl p-3 text-xs text-slate-200 font-mono focus:ring-1 focus:ring-blue-500"></textarea>
+          </div>
+
+          <div class="flex items-center gap-3">
+            <button onclick="parseFlyerText()" class="px-4 py-2.5 rounded-xl bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 text-white font-bold text-xs flex items-center gap-2 shadow-lg shadow-blue-600/30 transition">
+              <span>⚡ Auto-Extract & Populate Specs</span>
+            </button>
+            <span id="flyer-status" class="text-xs text-slate-400 font-mono">Ready to parse</span>
+          </div>
+        </div>
+
+        <!-- ========================================== -->
+        <!-- TAB B: MANUAL FORM                         -->
+        <!-- ========================================== -->
+        <div id="modalContent-form" class="hidden space-y-4">
           
           <!-- General Info -->
           <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
@@ -640,38 +705,6 @@
 
         </div>
 
-        <!-- ======================= -->
-        <!-- TAB B: BROCHURE PARSER  -->
-        <!-- ======================= -->
-        <div id="modalContent-ai" class="hidden space-y-4">
-          <div class="bg-blue-950/20 border border-blue-500/30 rounded-xl p-3.5 text-xs text-slate-300 space-y-1">
-            <div class="font-bold text-blue-400 flex items-center gap-1.5">
-              <span>💡</span> Instant Flyer & Document Ingestion
-            </div>
-            <p>Paste the raw text from any PDF marketing flyer, CoStar printout, listing brochure, or email memo below. The parser will automatically extract the square footage, dock doors, ceiling heights, asking rent, truck courts, and location details into the model.</p>
-          </div>
-
-          <div>
-            <label class="block text-xs font-semibold text-slate-300 mb-1">Paste Brochure / Flyer Text Here:</label>
-            <textarea id="flyer-text-input" rows="8" placeholder="Example:
-APEX LOGISTICS PARK - BUILDING 100
-1250 Logistics Parkway, Braselton, GA 30517
-450,000 RSF available immediately.
-Asking $7.85/SF NNN with 3.5% annual increases.
-40' Clear Height, 68 dock-high doors, 2 drive-in ramps.
-185' truck court with 110 trailer parking spaces.
-ESFR sprinkler system. 4,000 amps, 480V 3-phase power.
-Located 1.5 miles from I-85 in Jackson County..." class="w-full bg-slate-950 border border-slate-800 rounded-xl p-3 text-xs text-slate-200 font-mono focus:ring-1 focus:ring-blue-500"></textarea>
-          </div>
-
-          <div class="flex items-center gap-3">
-            <button onclick="parseFlyerText()" class="px-4 py-2.5 rounded-xl bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 text-white font-bold text-xs flex items-center gap-2 shadow-lg shadow-blue-600/30 transition">
-              <span>⚡ Auto-Extract & Fill Model</span>
-            </button>
-            <span id="flyer-status" class="text-xs text-slate-400 font-mono">Ready to parse</span>
-          </div>
-        </div>
-
       </div>
 
       <!-- Modal Footer -->
@@ -694,6 +727,48 @@ Located 1.5 miles from I-85 in Jackson County..." class="w-full bg-slate-950 bor
     </div>
   </div>
 
+  <!-- ========================================================================= -->
+  <!-- MODAL: INSTANT CLIENT QR CODE MODAL                                       -->
+  <!-- ========================================================================= -->
+  <div id="qrModal" class="fixed inset-0 z-50 bg-slate-950/80 backdrop-blur-sm hidden flex items-center justify-center p-4">
+    <div class="bg-slate-900 border border-slate-800 rounded-2xl w-full max-w-sm p-6 shadow-2xl flex flex-col items-center text-center space-y-4 animate-in fade-in zoom-in-95 duration-200">
+      
+      <div class="w-full flex items-center justify-between pb-2 border-b border-slate-800">
+        <div class="flex items-center gap-2">
+          <span class="text-base">📱</span>
+          <h3 class="text-sm font-bold text-white">Client QR Access Code</h3>
+        </div>
+        <button onclick="closeQrModal()" class="text-slate-400 hover:text-white p-1 rounded-lg hover:bg-slate-800 transition">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+        </button>
+      </div>
+
+      <p class="text-xs text-slate-300">
+        Scan with any phone camera to open <strong id="qr-property-name" class="text-white">this property</strong> live on iOS / Android:
+      </p>
+
+      <!-- QR Display Container -->
+      <div class="bg-white p-3.5 rounded-2xl shadow-xl flex items-center justify-center">
+        <div id="qrcode-canvas" class="flex items-center justify-center"></div>
+      </div>
+
+      <p class="text-[11px] text-slate-400">
+        💡 <strong>Flyer Pro-Tip:</strong> Copy or download this QR code and paste it right onto your PDF marketing brochure or printed flyer!
+      </p>
+
+      <!-- Action Buttons -->
+      <div class="w-full grid grid-cols-2 gap-2 pt-2">
+        <button onclick="downloadQrImage()" class="py-2 px-3 rounded-xl bg-slate-800 hover:bg-slate-700 text-xs font-semibold text-white border border-slate-700 transition">
+          Download Image
+        </button>
+        <button onclick="shareDealLink(); closeQrModal();" class="py-2 px-3 rounded-xl bg-blue-600 hover:bg-blue-500 text-xs font-bold text-white shadow-md shadow-blue-600/30 transition">
+          Copy Web Link
+        </button>
+      </div>
+
+    </div>
+  </div>
+
   <!-- Notification Toast -->
   <div id="toast" class="fixed bottom-6 right-6 z-50 bg-blue-600 text-white px-4 py-2.5 rounded-xl shadow-2xl text-xs font-semibold transform translate-y-20 opacity-0 transition-all duration-300 pointer-events-none flex items-center gap-2">
     <svg class="w-4 h-4 text-white inline-block" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
@@ -702,9 +777,11 @@ Located 1.5 miles from I-85 in Jackson County..." class="w-full bg-slate-950 bor
 
   <!-- JavaScript Logic Engine -->
   <script>
-    // =========================================================================
-    // DEFAULT DEALS INVENTORY (REUSABLE TEMPLATES)
-    // =========================================================================
+    // PDF.js worker setup
+    if (window.pdfjsLib) {
+      pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
+    }
+
     const DEFAULT_DEALS = [
       {
         id: 'deal-braselton',
@@ -789,7 +866,6 @@ Located 1.5 miles from I-85 in Jackson County..." class="w-full bg-slate-950 bor
       { id: 'i75n', name: 'I-75 North / Northwest Atlanta', counties: 'Cobb / Cherokee / Bartow', rent: 8.95, vacancy: 4.3, clear: 36, tag: 'Industrial & Tech Supply', desc: 'Midwest trade lane connection with high skilled manufacturing labor pool.' }
     ];
 
-    // State Variables
     let deals = [];
     let currentDeal = null;
 
@@ -806,7 +882,6 @@ Located 1.5 miles from I-85 in Jackson County..." class="w-full bg-slate-950 bor
         saveDealsToStorage();
       }
 
-      // Check URL Params for instant sharing
       const urlParams = new URLSearchParams(window.location.search);
       if (urlParams.has('data')) {
         try {
@@ -847,13 +922,11 @@ Located 1.5 miles from I-85 in Jackson County..." class="w-full bg-slate-950 bor
     }
 
     function loadDealIntoUI(d) {
-      // Hero
       document.getElementById('heroTitle').textContent = d.name;
       document.getElementById('heroAddress').textContent = d.address;
       document.getElementById('heroTypeBadge').textContent = d.typeBadge || 'Class-A Industrial Logistics';
       document.getElementById('heroSpecsSummary').innerHTML = `${d.clearHeight}' Clear Height &bull; ${d.courtDepth}' Truck Court &bull; ${d.dockDoors} Dock Doors &bull; ${d.sprinkler}`;
 
-      // Sliders & Controls
       document.getElementById('in-sf').value = d.sf;
       document.getElementById('in-cost-psf').value = d.costPsf;
       document.getElementById('in-rent').value = d.rentPsf;
@@ -862,7 +935,6 @@ Located 1.5 miles from I-85 in Jackson County..." class="w-full bg-slate-950 bor
       document.getElementById('in-ltc').value = d.ltc.toString();
       document.getElementById('in-interest').value = d.interestRate.toString();
 
-      // CAD Controls
       document.getElementById('in-court-depth').value = d.courtDepth;
       document.getElementById('in-cad-clear').value = d.clearHeight;
       document.getElementById('in-cad-doors').value = d.dockDoors;
@@ -872,8 +944,6 @@ Located 1.5 miles from I-85 in Jackson County..." class="w-full bg-slate-950 bor
       document.getElementById('txt-sprinkler').textContent = d.sprinkler || 'ESFR System';
       
       setLayout(d.layout || 'crossdock');
-
-      // Update Financial Engine
       updateFinancialModel(d);
     }
 
@@ -1001,7 +1071,6 @@ Located 1.5 miles from I-85 in Jackson County..." class="w-full bg-slate-950 bor
       const totalInflows = irrStream.slice(1).reduce((a, b) => a + b, 0);
       const equityMultiple = equityAmount > 0 ? totalInflows / equityAmount : 1.0;
 
-      // Cards
       document.getElementById('heroSF').textContent = d.sf.toLocaleString() + ' SF';
       document.getElementById('heroValuation').textContent = fmt(exitValueYr5);
       document.getElementById('heroIRR').textContent = (leveredIRR * 100).toFixed(1) + '%';
@@ -1191,22 +1260,71 @@ Generated via King Industrial Logistics Intelligence Studio.
       });
     }
 
-    // =========================================================================
-    // 1-CLICK SHAREABLE LINK GENERATOR (NO BACKEND REQUIRED)
-    // =========================================================================
-    function shareDealLink() {
-      if (!currentDeal) return;
+    function getShareableUrl() {
+      if (!currentDeal) return window.location.href;
       const cleanData = { ...currentDeal };
       delete cleanData.id;
       const jsonStr = JSON.stringify(cleanData);
       const encoded = btoa(unescape(encodeURIComponent(jsonStr)));
-      const shareUrl = `${window.location.origin}${window.location.pathname}?data=${encoded}`;
+      return `${window.location.origin}${window.location.pathname}?data=${encoded}`;
+    }
 
+    function shareDealLink() {
+      const shareUrl = getShareableUrl();
       navigator.clipboard.writeText(shareUrl).then(() => {
         showToast('🔗 Live Shareable Link copied to clipboard!');
       }).catch(() => {
         prompt('Copy this shareable link:', shareUrl);
       });
+    }
+
+    // =========================================================================
+    // QR CODE GENERATOR MODAL
+    // =========================================================================
+    function openQrModal() {
+      if (!currentDeal) return;
+      const modal = document.getElementById('qrModal');
+      document.getElementById('qr-property-name').textContent = currentDeal.name;
+      const container = document.getElementById('qrcode-canvas');
+      container.innerHTML = '';
+
+      const shareUrl = getShareableUrl();
+
+      // Render QR code
+      if (window.QRCode) {
+        new QRCode(container, {
+          text: shareUrl,
+          width: 200,
+          height: 200,
+          colorDark: "#0f172a",
+          colorLight: "#ffffff",
+          correctLevel: QRCode.CorrectLevel.M
+        });
+      } else {
+        container.innerHTML = `<img src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=${encodeURIComponent(shareUrl)}" alt="QR Code" class="w-48 h-48 rounded-lg">`;
+      }
+
+      modal.classList.remove('hidden');
+    }
+
+    function closeQrModal() {
+      document.getElementById('qrModal').classList.add('hidden');
+    }
+
+    function downloadQrImage() {
+      const container = document.getElementById('qrcode-canvas');
+      const canvas = container.querySelector('canvas');
+      const img = container.querySelector('img');
+
+      if (canvas) {
+        const link = document.createElement('a');
+        link.download = `${(currentDeal.name || 'property').replace(/\s+/g, '_')}_QR.png`;
+        link.href = canvas.toDataURL('image/png');
+        link.click();
+        showToast('QR Code downloaded!');
+      } else if (img) {
+        window.open(img.src, '_blank');
+      }
     }
 
     // =========================================================================
@@ -1236,6 +1354,7 @@ Generated via King Industrial Logistics Intelligence Studio.
         document.getElementById('form-sprinkler').value = 'ESFR Sprinkler System';
         document.getElementById('form-notes').value = 'Direct highway access, heavy power.';
         document.getElementById('btn-delete-deal').classList.add('hidden');
+        setModalTab('ai'); // Default to AI/upload for new listings!
       } else {
         editingDealId = currentDeal.id;
         document.getElementById('form-name').value = currentDeal.name;
@@ -1255,9 +1374,8 @@ Generated via King Industrial Logistics Intelligence Studio.
         document.getElementById('form-sprinkler').value = currentDeal.sprinkler || 'ESFR System';
         document.getElementById('form-notes').value = currentDeal.notes || '';
         document.getElementById('btn-delete-deal').classList.remove('hidden');
+        setModalTab('form');
       }
-
-      setModalTab('form');
     }
 
     function closeDealEditor() {
@@ -1340,19 +1458,86 @@ Generated via King Industrial Logistics Intelligence Studio.
     }
 
     // =========================================================================
+    // CLIENT-SIDE DOCUMENT UPLOADER (PDF, DOCX, TXT)
+    // =========================================================================
+    function handleDrop(e) {
+      e.preventDefault();
+      if (e.dataTransfer.files && e.dataTransfer.files.length > 0) {
+        processUploadedFile(e.dataTransfer.files[0]);
+      }
+    }
+
+    function handleFileInput(e) {
+      if (e.target.files && e.target.files.length > 0) {
+        processUploadedFile(e.target.files[0]);
+      }
+    }
+
+    async function processUploadedFile(file) {
+      const prog = document.getElementById('upload-progress');
+      const statusText = document.getElementById('upload-status-text');
+      prog.classList.remove('hidden');
+      statusText.textContent = `Reading ${file.name}...`;
+
+      try {
+        const ext = file.name.split('.').pop().toLowerCase();
+
+        if (ext === 'pdf') {
+          statusText.textContent = 'Parsing PDF text layers...';
+          const arrayBuffer = await file.arrayBuffer();
+          const typedarray = new Uint8Array(arrayBuffer);
+          const pdf = await pdfjsLib.getDocument(typedarray).promise;
+          let fullText = '';
+          for (let i = 1; i <= pdf.numPages; i++) {
+            const page = await pdf.getPage(i);
+            const content = await page.getTextContent();
+            const strings = content.items.map(item => item.str);
+            fullText += strings.join(' ') + '\n';
+          }
+          document.getElementById('flyer-text-input').value = fullText;
+          prog.classList.add('hidden');
+          parseFlyerText();
+          showToast(`✓ Extracted ${pdf.numPages} pages from ${file.name}`);
+        } else if (ext === 'docx') {
+          statusText.textContent = 'Parsing Word document...';
+          const arrayBuffer = await file.arrayBuffer();
+          if (window.mammoth) {
+            const result = await mammoth.extractRawText({ arrayBuffer: arrayBuffer });
+            document.getElementById('flyer-text-input').value = result.value;
+            prog.classList.add('hidden');
+            parseFlyerText();
+            showToast(`✓ Extracted text from Word document: ${file.name}`);
+          } else {
+            throw new Error('Word parser library not ready.');
+          }
+        } else {
+          // TXT, JSON, etc.
+          const text = await file.text();
+          document.getElementById('flyer-text-input').value = text;
+          prog.classList.add('hidden');
+          parseFlyerText();
+          showToast(`✓ Loaded text file: ${file.name}`);
+        }
+      } catch (err) {
+        console.error('File parsing error:', err);
+        prog.classList.add('hidden');
+        alert(`Notice: Could not directly parse binary ${file.name} in this browser. Please open the document, copy the text (Ctrl+A, Ctrl+C), and paste it into the box below.`);
+      }
+    }
+
+    // =========================================================================
     // SMART FLYER & BROCHURE TEXT EXTRACTOR
     // =========================================================================
     function parseFlyerText() {
       const text = document.getElementById('flyer-text-input').value;
       if (!text.trim()) {
-        alert('Please paste some flyer, brochure, or listing text first.');
+        alert('Please paste or upload some flyer, brochure, or listing text first.');
         return;
       }
 
       const status = document.getElementById('flyer-status');
       status.textContent = 'Extracting data points...';
 
-      // Smart pattern matchers
       // SF
       const sfMatch = text.match(/([\d,]+)\s*(?:sq\.?\s*ft\.?|sf|rsf|square\s+feet)/i);
       if (sfMatch) {
@@ -1396,13 +1581,13 @@ Generated via King Industrial Logistics Intelligence Studio.
         document.getElementById('form-trailers').value = parseInt(trailerMatch[1]);
       }
 
-      // Address / Title heuristic
-      const firstLines = text.split('\n').map(l => l.trim()).filter(l => l.length > 3);
-      if (firstLines.length > 0) {
-        document.getElementById('form-name').value = firstLines[0].substring(0, 45);
+      // Address & Title Heuristics
+      const cleanLines = text.split('\n').map(l => l.trim()).filter(l => l.length > 3 && !l.includes('http'));
+      if (cleanLines.length > 0) {
+        document.getElementById('form-name').value = cleanLines[0].substring(0, 45);
       }
-      if (firstLines.length > 1) {
-        document.getElementById('form-address').value = firstLines[1].substring(0, 60);
+      if (cleanLines.length > 1) {
+        document.getElementById('form-address').value = cleanLines[1].substring(0, 60);
       }
 
       // Sprinkler
@@ -1410,9 +1595,16 @@ Generated via King Industrial Logistics Intelligence Studio.
         document.getElementById('form-sprinkler').value = 'ESFR Sprinkler System';
       }
 
-      status.textContent = '✓ Extracted! Review fields in Manual tab.';
+      // Layout heuristic
+      if (/cross-?dock/i.test(text)) {
+        document.getElementById('form-layout').value = 'crossdock';
+      } else if (/rear-?load/i.test(text) || /single-?load/i.test(text)) {
+        document.getElementById('form-layout').value = 'singleload';
+      }
+
+      status.textContent = '✓ Extracted! Reviewing in Manual Form...';
       setModalTab('form');
-      showToast('✨ Specs extracted from flyer text! Check the fields and click Save.');
+      showToast('✨ Specs extracted from document! Review fields and click Save & Apply.');
     }
 
     // Tab Navigation
@@ -1689,7 +1881,6 @@ Generated via King Industrial Logistics Intelligence Studio.
       showToast('Loaded ' + found.name + ' corridor benchmarks into active deal!');
     }
 
-    // Start App
     window.addEventListener('resize', drawCAD);
     populateCorridors();
     initStorage();
