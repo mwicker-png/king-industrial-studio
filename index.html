@@ -3,12 +3,10 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
   <title>KING INDUSTRIAL // Logistics & Underwriting Studio</title>
   <script src="https://cdn.tailwindcss.com"></script>
-  <script src="https://www.gstatic.com/antigravity/web/dev/tailwindcss.min.js"></script>
-  <!-- Client-Side Document Parsing & QR Libraries -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/mammoth/1.6.0/mammoth.browser.min.js"></script>
+  <!-- Client-Side QR Library -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
   <style>
     @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap');
@@ -46,7 +44,7 @@
 </head>
 <body class="bg-slate-950 text-slate-100 min-h-screen flex flex-col selection:bg-blue-600 selection:text-white">
 
-  <!-- Top Navigation Bar -->
+  <!-- Top Navigation Bar (Client Presentation Mode) -->
   <header class="border-b border-slate-800/80 bg-slate-900/80 backdrop-blur sticky top-0 z-50">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between gap-2">
       
@@ -58,7 +56,7 @@
         <div class="hidden sm:block">
           <div class="flex items-center gap-2">
             <span class="font-extrabold text-base tracking-tight text-white">KING INDUSTRIAL</span>
-            <span class="text-[10px] px-1.5 py-0.5 rounded bg-blue-500/20 text-blue-400 font-bold border border-blue-500/30">DEAL STUDIO</span>
+            <span class="text-[10px] px-1.5 py-0.5 rounded bg-blue-500/20 text-blue-400 font-bold border border-blue-500/30">CLIENT PORTAL</span>
           </div>
           <p class="text-[10px] text-slate-400">Institutional Logistics Underwriting & Feasibility Suite</p>
         </div>
@@ -71,25 +69,17 @@
             <!-- Dynamically populated -->
           </select>
         </div>
-        <button onclick="openDealEditor('new')" title="Create New Listing" class="shrink-0 p-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-blue-400 border border-slate-700 transition">
-          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/></svg>
-        </button>
       </div>
 
-      <!-- Right Actions: Edit, QR, Share, Print -->
+      <!-- Right Actions: Share, QR, Print -->
       <div class="flex items-center gap-2 shrink-0">
-        <button onclick="openDealEditor('edit')" class="flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-bold bg-blue-600 hover:bg-blue-500 text-white shadow-md shadow-blue-600/30 transition">
-          <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/></svg>
-          <span class="hidden md:inline">Edit / Upload Flyer</span>
-          <span class="md:hidden">Edit</span>
-        </button>
-        <button onclick="openQrModal()" title="Generate Client QR Code" class="flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-semibold bg-slate-800 hover:bg-slate-700 text-purple-400 border border-slate-700 transition">
-          <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v1m6 11h2m-6 0h-2v4m0-11v3m0 0h.01M12 12h4.01M16 20h4M4 12h4m12 0h.01M5 8h2a1 1 0 001-1V5a1 1 0 00-1-1H5a1 1 0 00-1 1v2a1 1 0 001 1zm12 0h2a1 1 0 001-1V5a1 1 0 00-1-1h-2a1 1 0 00-1 1v2a1 1 0 001 1zM5 20h2a1 1 0 001-1v-2a1 1 0 00-1-1H5a1 1 0 00-1 1v2a1 1 0 001 1z"/></svg>
-          <span class="hidden lg:inline">QR Code</span>
-        </button>
-        <button onclick="shareDealLink()" title="Copy Shareable Link" class="flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-semibold bg-slate-800 hover:bg-slate-700 text-emerald-400 border border-slate-700 transition">
+        <button onclick="shareDealLink()" title="Copy Shareable Link" class="flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl text-xs font-bold bg-blue-600 hover:bg-blue-500 text-white shadow-md shadow-blue-600/30 transition">
           <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.368 2.684 3 3 0 00-5.368-2.684z"/></svg>
-          <span class="hidden lg:inline">Share Link</span>
+          <span class="hidden sm:inline">Share Link</span>
+        </button>
+        <button onclick="openQrModal()" title="Client QR Code" class="flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-semibold bg-slate-800 hover:bg-slate-700 text-purple-400 border border-slate-700 transition">
+          <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v1m6 11h2m-6 0h-2v4m0-11v3m0 0h.01M12 12h4.01M16 20h4M4 12h4m12 0h.01M5 8h2a1 1 0 001-1V5a1 1 0 00-1-1H5a1 1 0 00-1 1v2a1 1 0 001 1zm12 0h2a1 1 0 001-1V5a1 1 0 00-1-1h-2a1 1 0 00-1 1v2a1 1 0 001 1zM5 20h2a1 1 0 001-1v-2a1 1 0 00-1-1H5a1 1 0 00-1 1v2a1 1 0 001 1z"/></svg>
+          <span class="hidden sm:inline">QR Code</span>
         </button>
         <button onclick="window.print()" class="p-2 rounded-xl text-xs bg-slate-800 hover:bg-slate-700 text-slate-300 border border-slate-700 transition" title="Print / PDF">
           <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z"/></svg>
@@ -177,7 +167,7 @@
               <svg class="w-4 h-4 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4"/></svg>
               <span>Underwriting Assumptions</span>
             </h2>
-            <button onclick="openDealEditor('edit')" class="text-[11px] text-blue-400 hover:underline">Edit Full Specs</button>
+            <span class="text-[11px] text-slate-400 font-mono">Interactive Model</span>
           </div>
 
           <!-- SF Slider -->
@@ -513,221 +503,6 @@
   </main>
 
   <!-- ========================================================================= -->
-  <!-- MODAL: DEAL STUDIO & DOCUMENT / FLYER PARSER                              -->
-  <!-- ========================================================================= -->
-  <div id="dealModal" class="fixed inset-0 z-50 bg-slate-950/80 backdrop-blur-sm hidden flex items-center justify-center p-3 sm:p-6 overflow-y-auto">
-    <div class="bg-slate-900 border border-slate-800 rounded-2xl w-full max-w-4xl max-h-[90vh] flex flex-col shadow-2xl overflow-hidden animate-in fade-in zoom-in-95 duration-200">
-      
-      <!-- Modal Header -->
-      <div class="p-4 sm:p-5 border-b border-slate-800 flex items-center justify-between bg-slate-900/90">
-        <div class="flex items-center gap-3">
-          <div class="w-9 h-9 rounded-xl bg-blue-600/20 text-blue-400 flex items-center justify-center font-bold text-lg border border-blue-500/30">
-            ⚡
-          </div>
-          <div>
-            <h3 class="text-base font-bold text-white">Deal Studio // Property Profile & Specs</h3>
-            <p class="text-xs text-slate-400">Upload marketing flyers (PDF/Word) or customize parameters manually</p>
-          </div>
-        </div>
-        <button onclick="closeDealEditor()" class="text-slate-400 hover:text-white p-1 rounded-lg hover:bg-slate-800 transition">
-          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
-        </button>
-      </div>
-
-      <!-- Mode Selector Tabs inside Modal -->
-      <div class="flex border-b border-slate-800 px-5 text-xs font-bold gap-4 bg-slate-950/40">
-        <button onclick="setModalTab('ai')" id="modalTab-ai" class="py-3 border-b-2 border-blue-500 text-blue-400 flex items-center gap-2">
-          <span>✨ Upload Brochure / PDF Flyer (Auto-Fill)</span>
-        </button>
-        <button onclick="setModalTab('form')" id="modalTab-form" class="py-3 border-b-2 border-transparent text-slate-400 hover:text-slate-200 flex items-center gap-2">
-          <span>📝 Manual Spec Form</span>
-        </button>
-      </div>
-
-      <!-- Modal Body -->
-      <div class="p-5 sm:p-6 overflow-y-auto space-y-5 flex-1">
-        
-        <!-- ========================================== -->
-        <!-- TAB A: BROCHURE & PDF / DOCX UPLOAD PARSER -->
-        <!-- ========================================== -->
-        <div id="modalContent-ai" class="space-y-4">
-          
-          <!-- File Drop Zone -->
-          <div id="dropzone" class="border-2 border-dashed border-slate-700 hover:border-blue-500 rounded-2xl p-6 sm:p-8 text-center transition cursor-pointer bg-slate-950/40 group" onclick="document.getElementById('fileInput').click()" ondragover="event.preventDefault()" ondrop="handleDrop(event)">
-            <input type="file" id="fileInput" accept=".pdf,.docx,.doc,.txt,.json" class="hidden" onchange="handleFileInput(event)">
-            <div class="flex flex-col items-center gap-2.5">
-              <div class="w-12 h-12 rounded-2xl bg-blue-600/15 text-blue-400 flex items-center justify-center text-2xl group-hover:scale-110 transition">
-                📄
-              </div>
-              <div>
-                <div class="text-sm font-bold text-white">
-                  Drop your Property Flyer (PDF), Word Doc (.docx), or Text File here
-                </div>
-                <div class="text-xs text-slate-400 mt-1">
-                  Supports .PDF, .DOCX, .TXT, and .JSON &bull; Or click to browse computer
-                </div>
-              </div>
-              <span class="text-[11px] font-semibold px-3 py-1 rounded-full bg-blue-500/10 text-blue-400 border border-blue-500/20 mt-1">
-                Zero-Upload Client-Side Parsing (100% Private & Instant)
-              </span>
-            </div>
-          </div>
-
-          <div id="upload-progress" class="hidden bg-blue-950/30 border border-blue-500/30 rounded-xl p-3 text-xs flex items-center gap-3 text-blue-300">
-            <svg class="animate-spin w-4 h-4 text-blue-400 shrink-0" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8H4z"></path></svg>
-            <span id="upload-status-text">Extracting text from document...</span>
-          </div>
-
-          <!-- Raw Text Fallback & Verification -->
-          <div>
-            <div class="flex items-center justify-between mb-1">
-              <label class="text-xs font-semibold text-slate-300">Extracted Text or Paste Flyer Text Directly:</label>
-              <button onclick="document.getElementById('flyer-text-input').value = ''" class="text-[11px] text-slate-500 hover:text-slate-300">Clear</button>
-            </div>
-            <textarea id="flyer-text-input" rows="6" placeholder="You can also paste flyer text directly here...
-Example:
-KING LOGISTICS CENTER - BUILDING 100
-1250 Logistics Parkway, Braselton, GA 30517
-450,000 RSF available immediately.
-Asking $7.85/SF NNN with 3.5% annual increases.
-40' Clear Height, 68 dock-high doors, 2 drive-in ramps.
-185' truck court with 110 trailer parking spaces.
-ESFR sprinkler system. 4,000 amps, 480V 3-phase power.
-Located 1.5 miles from I-85 in Jackson County..." class="w-full bg-slate-950 border border-slate-800 rounded-xl p-3 text-xs text-slate-200 font-mono focus:ring-1 focus:ring-blue-500"></textarea>
-          </div>
-
-          <div class="flex items-center gap-3">
-            <button onclick="parseFlyerText()" class="px-4 py-2.5 rounded-xl bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 text-white font-bold text-xs flex items-center gap-2 shadow-lg shadow-blue-600/30 transition">
-              <span>⚡ Auto-Extract & Populate Specs</span>
-            </button>
-            <span id="flyer-status" class="text-xs text-slate-400 font-mono">Ready to parse</span>
-          </div>
-        </div>
-
-        <!-- ========================================== -->
-        <!-- TAB B: MANUAL FORM                         -->
-        <!-- ========================================== -->
-        <div id="modalContent-form" class="hidden space-y-4">
-          
-          <!-- General Info -->
-          <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
-            <div>
-              <label class="block text-xs font-semibold text-slate-300 mb-1">Property / Deal Name</label>
-              <input id="form-name" type="text" placeholder="e.g. Braselton Logistics Center" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-3 py-2 text-xs text-white focus:ring-1 focus:ring-blue-500">
-            </div>
-            <div>
-              <label class="block text-xs font-semibold text-slate-300 mb-1">Street Address / City</label>
-              <input id="form-address" type="text" placeholder="e.g. 1250 Broadway Ave, Braselton, GA" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-3 py-2 text-xs text-white focus:ring-1 focus:ring-blue-500">
-            </div>
-            <div>
-              <label class="block text-xs font-semibold text-slate-300 mb-1">Submarket / Corridor</label>
-              <select id="form-corridor" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-3 py-2 text-xs text-white focus:ring-1 focus:ring-blue-500">
-                <option value="I-85 North Corridor (Jackson / Gwinnett)">I-85 North Corridor (Jackson/Gwinnett)</option>
-                <option value="I-20 West / Fulton Industrial">I-20 West / Fulton Industrial</option>
-                <option value="I-75 South / Henry & Clayton">I-75 South / Henry & Clayton</option>
-                <option value="Airport / Aerotropolis South">Airport / Aerotropolis South</option>
-                <option value="I-85 South / Coweta & Meriwether">I-85 South / Coweta & Meriwether</option>
-                <option value="I-75 North / Northwest Atlanta">I-75 North / Northwest Atlanta</option>
-              </select>
-            </div>
-          </div>
-
-          <!-- Physical Specs Grid -->
-          <div class="bg-slate-950/50 p-4 rounded-xl border border-slate-800/80 space-y-3">
-            <h4 class="text-xs font-bold uppercase tracking-wider text-blue-400">Physical Building & Site Specs</h4>
-            <div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
-              <div>
-                <label class="block text-[11px] text-slate-400 mb-1">Total Building SF</label>
-                <input id="form-sf" type="number" step="1000" class="w-full bg-slate-900 border border-slate-800 rounded-lg px-2.5 py-1.5 text-xs text-white">
-              </div>
-              <div>
-                <label class="block text-[11px] text-slate-400 mb-1">Clear Height (ft)</label>
-                <input id="form-clear" type="number" step="1" class="w-full bg-slate-900 border border-slate-800 rounded-lg px-2.5 py-1.5 text-xs text-white">
-              </div>
-              <div>
-                <label class="block text-[11px] text-slate-400 mb-1">Dock-High Doors</label>
-                <input id="form-docks" type="number" step="1" class="w-full bg-slate-900 border border-slate-800 rounded-lg px-2.5 py-1.5 text-xs text-white">
-              </div>
-              <div>
-                <label class="block text-[11px] text-slate-400 mb-1">Drive-In Doors</label>
-                <input id="form-drivein" type="number" step="1" class="w-full bg-slate-900 border border-slate-800 rounded-lg px-2.5 py-1.5 text-xs text-white">
-              </div>
-              <div>
-                <label class="block text-[11px] text-slate-400 mb-1">Truck Court Depth (ft)</label>
-                <input id="form-court" type="number" step="5" class="w-full bg-slate-900 border border-slate-800 rounded-lg px-2.5 py-1.5 text-xs text-white">
-              </div>
-              <div>
-                <label class="block text-[11px] text-slate-400 mb-1">Trailer Parking Stalls</label>
-                <input id="form-trailers" type="number" step="1" class="w-full bg-slate-900 border border-slate-800 rounded-lg px-2.5 py-1.5 text-xs text-white">
-              </div>
-              <div>
-                <label class="block text-[11px] text-slate-400 mb-1">Layout Type</label>
-                <select id="form-layout" class="w-full bg-slate-900 border border-slate-800 rounded-lg px-2.5 py-1.5 text-xs text-white">
-                  <option value="crossdock">Cross-Dock</option>
-                  <option value="singleload">Rear-Load / Single</option>
-                </select>
-              </div>
-              <div>
-                <label class="block text-[11px] text-slate-400 mb-1">Sprinkler Spec</label>
-                <input id="form-sprinkler" type="text" value="ESFR K-25.2 Heads" class="w-full bg-slate-900 border border-slate-800 rounded-lg px-2.5 py-1.5 text-xs text-white">
-              </div>
-            </div>
-          </div>
-
-          <!-- Financial Assumptions Grid -->
-          <div class="bg-slate-950/50 p-4 rounded-xl border border-slate-800/80 space-y-3">
-            <h4 class="text-xs font-bold uppercase tracking-wider text-emerald-400">Financial & Capital Assumptions</h4>
-            <div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
-              <div>
-                <label class="block text-[11px] text-slate-400 mb-1">Year 1 NNN Rent ($/SF)</label>
-                <input id="form-rent" type="number" step="0.05" class="w-full bg-slate-900 border border-slate-800 rounded-lg px-2.5 py-1.5 text-xs text-white">
-              </div>
-              <div>
-                <label class="block text-[11px] text-slate-400 mb-1">Annual Escalator (%)</label>
-                <input id="form-escalation" type="number" step="0.25" class="w-full bg-slate-900 border border-slate-800 rounded-lg px-2.5 py-1.5 text-xs text-white">
-              </div>
-              <div>
-                <label class="block text-[11px] text-slate-400 mb-1">Target Exit Cap (%)</label>
-                <input id="form-cap" type="number" step="0.05" class="w-full bg-slate-900 border border-slate-800 rounded-lg px-2.5 py-1.5 text-xs text-white">
-              </div>
-              <div>
-                <label class="block text-[11px] text-slate-400 mb-1">Cost / Basis PSF ($)</label>
-                <input id="form-cost-psf" type="number" step="1" class="w-full bg-slate-900 border border-slate-800 rounded-lg px-2.5 py-1.5 text-xs text-white">
-              </div>
-            </div>
-          </div>
-
-          <!-- Custom Narrative Notes -->
-          <div>
-            <label class="block text-xs font-semibold text-slate-300 mb-1">Key Selling Points / Location Highlights (used in Deal Memo)</label>
-            <textarea id="form-notes" rows="2" placeholder="e.g. Immediate access to I-85 Exit 129, heavy power (4000A, 480V 3-phase), eligible for Georgia tier-1 job tax credits..." class="w-full bg-slate-950 border border-slate-800 rounded-xl p-2.5 text-xs text-white focus:ring-1 focus:ring-blue-500"></textarea>
-          </div>
-
-        </div>
-
-      </div>
-
-      <!-- Modal Footer -->
-      <div class="p-4 sm:p-5 border-t border-slate-800 bg-slate-950/60 flex items-center justify-between">
-        <button onclick="deleteCurrentDeal()" id="btn-delete-deal" class="text-xs text-rose-400 hover:text-rose-300 font-semibold flex items-center gap-1">
-          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/></svg>
-          Delete Property
-        </button>
-
-        <div class="flex items-center gap-2">
-          <button onclick="closeDealEditor()" class="px-4 py-2 rounded-xl text-xs font-semibold bg-slate-800 hover:bg-slate-700 text-slate-300 transition">
-            Cancel
-          </button>
-          <button onclick="saveDealFromModal()" class="px-5 py-2 rounded-xl text-xs font-bold bg-blue-600 hover:bg-blue-500 text-white shadow-lg shadow-blue-600/30 transition flex items-center gap-1.5">
-            <span>Save & Apply Deal</span>
-          </button>
-        </div>
-      </div>
-
-    </div>
-  </div>
-
-  <!-- ========================================================================= -->
   <!-- MODAL: INSTANT CLIENT QR CODE MODAL                                       -->
   <!-- ========================================================================= -->
   <div id="qrModal" class="fixed inset-0 z-50 bg-slate-950/80 backdrop-blur-sm hidden flex items-center justify-center p-4">
@@ -744,7 +519,7 @@ Located 1.5 miles from I-85 in Jackson County..." class="w-full bg-slate-950 bor
       </div>
 
       <p class="text-xs text-slate-300">
-        Scan with any phone camera to open <strong id="qr-property-name" class="text-white">this property</strong> live on iOS / Android:
+        Scan with any phone camera to view <strong id="qr-property-name" class="text-white">this property</strong> live on iOS / Android:
       </p>
 
       <!-- QR Display Container -->
@@ -753,7 +528,7 @@ Located 1.5 miles from I-85 in Jackson County..." class="w-full bg-slate-950 bor
       </div>
 
       <p class="text-[11px] text-slate-400">
-        💡 <strong>Flyer Pro-Tip:</strong> Copy or download this QR code and paste it right onto your PDF marketing brochure or printed flyer!
+        💡 <strong>Flyer Pro-Tip:</strong> Share this QR code directly with clients for instant mobile review.
       </p>
 
       <!-- Action Buttons -->
@@ -775,13 +550,13 @@ Located 1.5 miles from I-85 in Jackson County..." class="w-full bg-slate-950 bor
     <span id="toast-text">Message</span>
   </div>
 
+  <!-- Discrete Footer with Broker Studio Link -->
+  <footer class="border-t border-slate-800/80 bg-slate-900/60 py-4 mt-auto text-xs text-slate-400 text-center">
+    King Industrial Realty &bull; Institutional Logistics Intelligence Studio &bull; <a href="studio.html" class="text-blue-400 hover:underline font-semibold">Broker Studio & Flyer Uploader &rarr;</a>
+  </footer>
+
   <!-- JavaScript Logic Engine -->
   <script>
-    // PDF.js worker setup
-    if (window.pdfjsLib) {
-      pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
-    }
-
     const DEFAULT_DEALS = [
       {
         id: 'deal-braselton',
@@ -803,7 +578,7 @@ Located 1.5 miles from I-85 in Jackson County..." class="w-full bg-slate-950 bor
         dockDoors: 68,
         driveinDoors: 2,
         trailerStalls: 110,
-        columnGrid: "54' x 50' Grid",
+        columnGrid: "54' x 50' Grid with 60' Speed Bays",
         sprinkler: 'ESFR K-25.2 Heads',
         notes: 'Immediate proximity to I-85 Exit 129, heavy power (4,000A, 480V 3-phase), Norfolk Southern intermodal access.'
       },
@@ -917,7 +692,7 @@ Located 1.5 miles from I-85 in Jackson County..." class="w-full bg-slate-950 bor
       if (found) {
         currentDeal = found;
         loadDealIntoUI(found);
-        showToast('Switched to: ' + found.name);
+        showToast('Viewing: ' + found.name);
       }
     }
 
@@ -932,8 +707,8 @@ Located 1.5 miles from I-85 in Jackson County..." class="w-full bg-slate-950 bor
       document.getElementById('in-rent').value = d.rentPsf;
       document.getElementById('in-escalation').value = d.escalation;
       document.getElementById('in-exit-cap').value = d.exitCap;
-      document.getElementById('in-ltc').value = d.ltc.toString();
-      document.getElementById('in-interest').value = d.interestRate.toString();
+      document.getElementById('in-ltc').value = (d.ltc !== undefined ? d.ltc : 0.65).toString();
+      document.getElementById('in-interest').value = (d.interestRate !== undefined ? d.interestRate : 0.065).toString();
 
       document.getElementById('in-court-depth').value = d.courtDepth;
       document.getElementById('in-cad-clear').value = d.clearHeight;
@@ -1266,21 +1041,26 @@ Generated via King Industrial Logistics Intelligence Studio.
       delete cleanData.id;
       const jsonStr = JSON.stringify(cleanData);
       const encoded = btoa(unescape(encodeURIComponent(jsonStr)));
-      return `${window.location.origin}${window.location.pathname}?data=${encoded}`;
+      
+      let basePath = window.location.pathname;
+      if (basePath.endsWith('/')) {
+        basePath += 'index.html';
+      } else if (!basePath.endsWith('index.html')) {
+        basePath = basePath.substring(0, basePath.lastIndexOf('/') + 1) + 'index.html';
+      }
+      return `${window.location.origin}${basePath}?data=${encoded}`;
     }
 
     function shareDealLink() {
       const shareUrl = getShareableUrl();
       navigator.clipboard.writeText(shareUrl).then(() => {
-        showToast('🔗 Live Shareable Link copied to clipboard!');
+        showToast('🔗 Live Client Presentation Link copied to clipboard!');
       }).catch(() => {
         prompt('Copy this shareable link:', shareUrl);
       });
     }
 
-    // =========================================================================
-    // QR CODE GENERATOR MODAL
-    // =========================================================================
+    // QR Code Modal
     function openQrModal() {
       if (!currentDeal) return;
       const modal = document.getElementById('qrModal');
@@ -1290,7 +1070,6 @@ Generated via King Industrial Logistics Intelligence Studio.
 
       const shareUrl = getShareableUrl();
 
-      // Render QR code
       if (window.QRCode) {
         new QRCode(container, {
           text: shareUrl,
@@ -1325,286 +1104,6 @@ Generated via King Industrial Logistics Intelligence Studio.
       } else if (img) {
         window.open(img.src, '_blank');
       }
-    }
-
-    // =========================================================================
-    // MODAL & DEAL STUDIO CONTROLS
-    // =========================================================================
-    let editingDealId = null;
-
-    function openDealEditor(mode) {
-      const modal = document.getElementById('dealModal');
-      modal.classList.remove('hidden');
-
-      if (mode === 'new') {
-        editingDealId = 'deal-' + Date.now();
-        document.getElementById('form-name').value = 'New Industrial Listing';
-        document.getElementById('form-address').value = 'Metro Atlanta, GA';
-        document.getElementById('form-sf').value = 300000;
-        document.getElementById('form-clear').value = 36;
-        document.getElementById('form-docks').value = 48;
-        document.getElementById('form-drivein').value = 2;
-        document.getElementById('form-court').value = 185;
-        document.getElementById('form-trailers').value = 75;
-        document.getElementById('form-layout').value = 'crossdock';
-        document.getElementById('form-rent').value = 7.95;
-        document.getElementById('form-escalation').value = 3.50;
-        document.getElementById('form-cap').value = 5.50;
-        document.getElementById('form-cost-psf').value = 115;
-        document.getElementById('form-sprinkler').value = 'ESFR Sprinkler System';
-        document.getElementById('form-notes').value = 'Direct highway access, heavy power.';
-        document.getElementById('btn-delete-deal').classList.add('hidden');
-        setModalTab('ai'); // Default to AI/upload for new listings!
-      } else {
-        editingDealId = currentDeal.id;
-        document.getElementById('form-name').value = currentDeal.name;
-        document.getElementById('form-address').value = currentDeal.address;
-        document.getElementById('form-corridor').value = currentDeal.corridor;
-        document.getElementById('form-sf').value = currentDeal.sf;
-        document.getElementById('form-clear').value = currentDeal.clearHeight;
-        document.getElementById('form-docks').value = currentDeal.dockDoors;
-        document.getElementById('form-drivein').value = currentDeal.driveinDoors || 2;
-        document.getElementById('form-court').value = currentDeal.courtDepth;
-        document.getElementById('form-trailers').value = currentDeal.trailerStalls || 60;
-        document.getElementById('form-layout').value = currentDeal.layout || 'crossdock';
-        document.getElementById('form-rent').value = currentDeal.rentPsf;
-        document.getElementById('form-escalation').value = currentDeal.escalation;
-        document.getElementById('form-cap').value = currentDeal.exitCap;
-        document.getElementById('form-cost-psf').value = currentDeal.costPsf;
-        document.getElementById('form-sprinkler').value = currentDeal.sprinkler || 'ESFR System';
-        document.getElementById('form-notes').value = currentDeal.notes || '';
-        document.getElementById('btn-delete-deal').classList.remove('hidden');
-        setModalTab('form');
-      }
-    }
-
-    function closeDealEditor() {
-      document.getElementById('dealModal').classList.add('hidden');
-    }
-
-    function setModalTab(tab) {
-      if (tab === 'form') {
-        document.getElementById('modalContent-form').classList.remove('hidden');
-        document.getElementById('modalContent-ai').classList.add('hidden');
-        document.getElementById('modalTab-form').classList.add('border-blue-500', 'text-blue-400');
-        document.getElementById('modalTab-form').classList.remove('border-transparent', 'text-slate-400');
-        document.getElementById('modalTab-ai').classList.remove('border-blue-500', 'text-blue-400');
-        document.getElementById('modalTab-ai').classList.add('border-transparent', 'text-slate-400');
-      } else {
-        document.getElementById('modalContent-form').classList.add('hidden');
-        document.getElementById('modalContent-ai').classList.remove('hidden');
-        document.getElementById('modalTab-ai').classList.add('border-blue-500', 'text-blue-400');
-        document.getElementById('modalTab-ai').classList.remove('border-transparent', 'text-slate-400');
-        document.getElementById('modalTab-form').classList.remove('border-blue-500', 'text-blue-400');
-        document.getElementById('modalTab-form').classList.add('border-transparent', 'text-slate-400');
-      }
-    }
-
-    function saveDealFromModal() {
-      const dealData = {
-        id: editingDealId,
-        name: document.getElementById('form-name').value || 'Untitled Property',
-        address: document.getElementById('form-address').value || 'Metro Atlanta, GA',
-        corridor: document.getElementById('form-corridor').value,
-        typeBadge: 'Class-A Industrial Facility',
-        sf: parseFloat(document.getElementById('form-sf').value) || 250000,
-        clearHeight: parseFloat(document.getElementById('form-clear').value) || 36,
-        dockDoors: parseInt(document.getElementById('form-docks').value) || 40,
-        driveinDoors: parseInt(document.getElementById('form-drivein').value) || 2,
-        courtDepth: parseFloat(document.getElementById('form-court').value) || 185,
-        trailerStalls: parseInt(document.getElementById('form-trailers').value) || 60,
-        layout: document.getElementById('form-layout').value,
-        rentPsf: parseFloat(document.getElementById('form-rent').value) || 8.00,
-        escalation: parseFloat(document.getElementById('form-escalation').value) || 3.50,
-        exitCap: parseFloat(document.getElementById('form-cap').value) || 5.50,
-        costPsf: parseFloat(document.getElementById('form-cost-psf').value) || 120,
-        ltc: currentDeal ? currentDeal.ltc : 0.65,
-        interestRate: currentDeal ? currentDeal.interestRate : 0.065,
-        amortYears: 25,
-        columnGrid: "54' x 50' Grid",
-        sprinkler: document.getElementById('form-sprinkler').value || 'ESFR Sprinkler System',
-        notes: document.getElementById('form-notes').value || ''
-      };
-
-      const idx = deals.findIndex(d => d.id === editingDealId);
-      if (idx >= 0) {
-        deals[idx] = dealData;
-      } else {
-        deals.unshift(dealData);
-      }
-
-      currentDeal = dealData;
-      saveDealsToStorage();
-      populateDealSelector();
-      loadDealIntoUI(currentDeal);
-      closeDealEditor();
-      showToast('Saved and applied ' + dealData.name);
-    }
-
-    function deleteCurrentDeal() {
-      if (deals.length <= 1) {
-        alert('You must have at least one property profile.');
-        return;
-      }
-      if (confirm(`Are you sure you want to remove "${currentDeal.name}"?`)) {
-        deals = deals.filter(d => d.id !== currentDeal.id);
-        currentDeal = deals[0];
-        saveDealsToStorage();
-        populateDealSelector();
-        loadDealIntoUI(currentDeal);
-        closeDealEditor();
-        showToast('Property removed.');
-      }
-    }
-
-    // =========================================================================
-    // CLIENT-SIDE DOCUMENT UPLOADER (PDF, DOCX, TXT)
-    // =========================================================================
-    function handleDrop(e) {
-      e.preventDefault();
-      if (e.dataTransfer.files && e.dataTransfer.files.length > 0) {
-        processUploadedFile(e.dataTransfer.files[0]);
-      }
-    }
-
-    function handleFileInput(e) {
-      if (e.target.files && e.target.files.length > 0) {
-        processUploadedFile(e.target.files[0]);
-      }
-    }
-
-    async function processUploadedFile(file) {
-      const prog = document.getElementById('upload-progress');
-      const statusText = document.getElementById('upload-status-text');
-      prog.classList.remove('hidden');
-      statusText.textContent = `Reading ${file.name}...`;
-
-      try {
-        const ext = file.name.split('.').pop().toLowerCase();
-
-        if (ext === 'pdf') {
-          statusText.textContent = 'Parsing PDF text layers...';
-          const arrayBuffer = await file.arrayBuffer();
-          const typedarray = new Uint8Array(arrayBuffer);
-          const pdf = await pdfjsLib.getDocument(typedarray).promise;
-          let fullText = '';
-          for (let i = 1; i <= pdf.numPages; i++) {
-            const page = await pdf.getPage(i);
-            const content = await page.getTextContent();
-            const strings = content.items.map(item => item.str);
-            fullText += strings.join(' ') + '\n';
-          }
-          document.getElementById('flyer-text-input').value = fullText;
-          prog.classList.add('hidden');
-          parseFlyerText();
-          showToast(`✓ Extracted ${pdf.numPages} pages from ${file.name}`);
-        } else if (ext === 'docx') {
-          statusText.textContent = 'Parsing Word document...';
-          const arrayBuffer = await file.arrayBuffer();
-          if (window.mammoth) {
-            const result = await mammoth.extractRawText({ arrayBuffer: arrayBuffer });
-            document.getElementById('flyer-text-input').value = result.value;
-            prog.classList.add('hidden');
-            parseFlyerText();
-            showToast(`✓ Extracted text from Word document: ${file.name}`);
-          } else {
-            throw new Error('Word parser library not ready.');
-          }
-        } else {
-          // TXT, JSON, etc.
-          const text = await file.text();
-          document.getElementById('flyer-text-input').value = text;
-          prog.classList.add('hidden');
-          parseFlyerText();
-          showToast(`✓ Loaded text file: ${file.name}`);
-        }
-      } catch (err) {
-        console.error('File parsing error:', err);
-        prog.classList.add('hidden');
-        alert(`Notice: Could not directly parse binary ${file.name} in this browser. Please open the document, copy the text (Ctrl+A, Ctrl+C), and paste it into the box below.`);
-      }
-    }
-
-    // =========================================================================
-    // SMART FLYER & BROCHURE TEXT EXTRACTOR
-    // =========================================================================
-    function parseFlyerText() {
-      const text = document.getElementById('flyer-text-input').value;
-      if (!text.trim()) {
-        alert('Please paste or upload some flyer, brochure, or listing text first.');
-        return;
-      }
-
-      const status = document.getElementById('flyer-status');
-      status.textContent = 'Extracting data points...';
-
-      // SF
-      const sfMatch = text.match(/([\d,]+)\s*(?:sq\.?\s*ft\.?|sf|rsf|square\s+feet)/i);
-      if (sfMatch) {
-        const parsedSF = parseInt(sfMatch[1].replace(/,/g, ''));
-        if (parsedSF > 5000) document.getElementById('form-sf').value = parsedSF;
-      }
-
-      // Rent $/SF
-      const rentMatch = text.match(/\$\s*(\d{1,2}(?:\.\d{1,2})?)\s*(?:\/|\s+per\s+)?(?:sf|sq\.?\s*ft\.?|rsf)/i);
-      if (rentMatch) {
-        document.getElementById('form-rent').value = parseFloat(rentMatch[1]);
-      }
-
-      // Clear Height
-      const clearMatch = text.match(/(\d{2})['’]?\s*(?:clear(?:\s+height)?|ceiling)/i);
-      if (clearMatch) {
-        document.getElementById('form-clear').value = parseInt(clearMatch[1]);
-      }
-
-      // Dock Doors
-      const dockMatch = text.match(/(\d{1,3})\s*(?:dock(?:-high)?\s*doors?|docks?)/i);
-      if (dockMatch) {
-        document.getElementById('form-docks').value = parseInt(dockMatch[1]);
-      }
-
-      // Drive-In Doors
-      const driveMatch = text.match(/(\d{1,2})\s*(?:drive-in|ramped)/i);
-      if (driveMatch) {
-        document.getElementById('form-drivein').value = parseInt(driveMatch[1]);
-      }
-
-      // Truck Court
-      const courtMatch = text.match(/(\d{3})['’]?\s*(?:truck\s*court|apron)/i);
-      if (courtMatch) {
-        document.getElementById('form-court').value = parseInt(courtMatch[1]);
-      }
-
-      // Trailer Stalls
-      const trailerMatch = text.match(/(\d{1,3})\s*(?:trailer\s*(?:parking|stalls?|spaces?))/i);
-      if (trailerMatch) {
-        document.getElementById('form-trailers').value = parseInt(trailerMatch[1]);
-      }
-
-      // Address & Title Heuristics
-      const cleanLines = text.split('\n').map(l => l.trim()).filter(l => l.length > 3 && !l.includes('http'));
-      if (cleanLines.length > 0) {
-        document.getElementById('form-name').value = cleanLines[0].substring(0, 45);
-      }
-      if (cleanLines.length > 1) {
-        document.getElementById('form-address').value = cleanLines[1].substring(0, 60);
-      }
-
-      // Sprinkler
-      if (/ESFR/i.test(text)) {
-        document.getElementById('form-sprinkler').value = 'ESFR Sprinkler System';
-      }
-
-      // Layout heuristic
-      if (/cross-?dock/i.test(text)) {
-        document.getElementById('form-layout').value = 'crossdock';
-      } else if (/rear-?load/i.test(text) || /single-?load/i.test(text)) {
-        document.getElementById('form-layout').value = 'singleload';
-      }
-
-      status.textContent = '✓ Extracted! Reviewing in Manual Form...';
-      setModalTab('form');
-      showToast('✨ Specs extracted from document! Review fields and click Save & Apply.');
     }
 
     // Tab Navigation
