@@ -1,0 +1,1225 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>KING INDUSTRIAL // King Logistics & Underwriting Studio</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://www.gstatic.com/antigravity/web/dev/tailwindcss.min.js"></script>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap');
+    
+    :root {
+      font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+    }
+    
+    .font-mono {
+      font-family: 'JetBrains Mono', monospace;
+    }
+
+    input[type=range] {
+      accent-color: #2563eb;
+    }
+
+    /* Custom scrollbars */
+    ::-webkit-scrollbar {
+      width: 6px;
+      height: 6px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #0f172a;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #334155;
+      border-radius: 3px;
+    }
+
+    .badge-glass {
+      background: rgba(15, 23, 42, 0.75);
+      backdrop-filter: blur(8px);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+    }
+  </style>
+</head>
+<body class="bg-slate-950 text-slate-100 min-h-screen flex flex-col selection:bg-blue-600 selection:text-white">
+
+  <!-- Top Navigation Bar -->
+  <header class="border-b border-slate-800/80 bg-slate-900/80 backdrop-blur sticky top-0 z-50">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+      <div class="flex items-center gap-3">
+        <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-blue-600 to-indigo-500 flex items-center justify-center font-black text-xl shadow-lg shadow-blue-500/20 text-white tracking-tighter">
+          KI
+        </div>
+        <div>
+          <div class="flex items-center gap-2">
+            <span class="font-extrabold text-base tracking-tight text-white">KING INDUSTRIAL</span>
+            <span class="text-xs px-2 py-0.5 rounded-md bg-blue-500/20 text-blue-400 font-semibold border border-blue-500/30">INTELLIGENCE STUDIO</span>
+          </div>
+          <p class="text-[11px] text-slate-400">Institutional Logistics Underwriting & Site Engineering Suite</p>
+        </div>
+      </div>
+
+      <!-- Quick Action Controls -->
+      <div class="flex items-center gap-2">
+        <button onclick="exportMemo()" class="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 transition">
+          <svg class="w-4 h-4 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"/></svg>
+          Copy Deal Memo
+        </button>
+        <button onclick="window.print()" class="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold bg-blue-600 hover:bg-blue-500 text-white shadow-md shadow-blue-600/30 transition">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z"/></svg>
+          Print Executive Sheet
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Hero Facility Showcase -->
+  <section class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-6 pb-4 w-full">
+    <div class="relative rounded-2xl overflow-hidden border border-slate-800 shadow-2xl bg-slate-900 aspect-[21/9] max-h-[360px]">
+      <img src="apex_logistics_hub.jpg" alt="Modern Class-A Logistics Hub" class="w-full h-full object-cover object-center opacity-85">
+      <div class="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/40 to-transparent"></div>
+      
+      <!-- Badges on Image -->
+      <div class="absolute bottom-5 left-6 right-6 flex flex-wrap items-end justify-between gap-4">
+        <div class="space-y-1 max-w-xl">
+          <div class="flex items-center gap-2">
+            <span class="px-2.5 py-0.5 rounded-full text-[10px] font-bold tracking-wide uppercase bg-emerald-500/20 text-emerald-300 border border-emerald-500/40">
+              Class-A Cross-Dock Facility
+            </span>
+            <span class="text-xs text-slate-300 font-medium">Atlanta Metropolitan Industrial Network</span>
+          </div>
+          <h1 id="heroTitle" class="text-2xl sm:text-3xl font-black text-white tracking-tight">King Logistics Gateway Hub</h1>
+          <p class="text-xs sm:text-sm text-slate-300 line-clamp-1">
+            40' Clear Height â€¢ 185' Truck Court â€¢ ESFR Sprinklers â€¢ Heavy 480V 3-Phase Power â€¢ Direct Corridor Access
+          </p>
+        </div>
+
+        <div class="flex items-center gap-2 flex-wrap">
+          <div class="badge-glass rounded-xl px-3 py-2 text-center">
+            <div class="text-[10px] text-slate-400 font-semibold uppercase">Building Area</div>
+            <div id="heroSF" class="text-sm font-extrabold text-blue-400 font-mono">450,000 SF</div>
+          </div>
+          <div class="badge-glass rounded-xl px-3 py-2 text-center">
+            <div class="text-[10px] text-slate-400 font-semibold uppercase">Project Value</div>
+            <div id="heroValuation" class="text-sm font-extrabold text-emerald-400 font-mono">$67.2M</div>
+          </div>
+          <div class="badge-glass rounded-xl px-3 py-2 text-center">
+            <div class="text-[10px] text-slate-400 font-semibold uppercase">Est. Levered IRR</div>
+            <div id="heroIRR" class="text-sm font-extrabold text-indigo-300 font-mono">21.4%</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Navigation Tabs -->
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
+    <div class="flex border-b border-slate-800 gap-2 sm:gap-6 overflow-x-auto text-sm font-semibold">
+      <button onclick="setTab('underwrite')" id="tabBtn-underwrite" class="pb-3 border-b-2 border-blue-500 text-blue-400 flex items-center gap-2 transition whitespace-nowrap">
+        <span>ðŸ“Š</span> 10-Yr Underwriting & Sensitivity
+      </button>
+      <button onclick="setTab('blueprint')" id="tabBtn-blueprint" class="pb-3 border-b-2 border-transparent text-slate-400 hover:text-slate-200 flex items-center gap-2 transition whitespace-nowrap">
+        <span>ðŸ“</span> Interactive CAD & Truck Court Simulator
+      </button>
+      <button onclick="setTab('corridors')" id="tabBtn-corridors" class="pb-3 border-b-2 border-transparent text-slate-400 hover:text-slate-200 flex items-center gap-2 transition whitespace-nowrap">
+        <span>ðŸ—ºï¸</span> Metro Atlanta Corridor Benchmarks
+      </button>
+      <button onclick="setTab('memo')" id="tabBtn-memo" class="pb-3 border-b-2 border-transparent text-slate-400 hover:text-slate-200 flex items-center gap-2 transition whitespace-nowrap">
+        <span>ðŸ“</span> Executive AI Deal Memo
+      </button>
+    </div>
+  </div>
+
+  <!-- Main Content Area -->
+  <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 w-full flex-1">
+
+    <!-- ========================================================================= -->
+    <!-- TAB 1: 10-YEAR UNDERWRITING & SENSITIVITY MATRIX                          -->
+    <!-- ========================================================================= -->
+    <div id="tab-underwrite" class="space-y-6">
+      
+      <!-- Top Row: Parameters + Summary -->
+      <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+        
+        <!-- Controls Column -->
+        <div class="bg-slate-900/90 border border-slate-800 rounded-2xl p-5 space-y-4 shadow-xl">
+          <div class="flex items-center justify-between border-b border-slate-800 pb-3">
+            <h2 class="text-sm font-bold uppercase tracking-wider text-slate-200 flex items-center gap-2">
+              <span>âš™ï¸</span> Underwriting Assumptions
+            </h2>
+            <button onclick="resetDefaults()" class="text-[11px] text-blue-400 hover:underline">Reset Defaults</button>
+          </div>
+
+          <!-- SF Slider -->
+          <div class="space-y-1.5">
+            <div class="flex justify-between text-xs font-semibold">
+              <span class="text-slate-400">Total Rentable SF</span>
+              <span id="txt-sf" class="text-white font-mono">450,000 SF</span>
+            </div>
+            <input id="in-sf" type="range" min="50000" max="1200000" step="10000" value="450000" class="w-full h-1.5 bg-slate-800 rounded cursor-pointer" oninput="updateModel()">
+          </div>
+
+          <!-- Cost / SF Slider -->
+          <div class="space-y-1.5">
+            <div class="flex justify-between text-xs font-semibold">
+              <span class="text-slate-400">Total Basis / Cost PSF</span>
+              <span id="txt-cost-psf" class="text-white font-mono">$115.00 / SF</span>
+            </div>
+            <input id="in-cost-psf" type="range" min="70" max="200" step="1" value="115" class="w-full h-1.5 bg-slate-800 rounded cursor-pointer" oninput="updateModel()">
+          </div>
+
+          <!-- Starting NNN Rent -->
+          <div class="space-y-1.5">
+            <div class="flex justify-between text-xs font-semibold">
+              <span class="text-slate-400">Year 1 NNN Rent</span>
+              <span id="txt-rent" class="text-white font-mono">$7.85 / SF</span>
+            </div>
+            <input id="in-rent" type="range" min="4.50" max="16.00" step="0.10" value="7.85" class="w-full h-1.5 bg-slate-800 rounded cursor-pointer" oninput="updateModel()">
+          </div>
+
+          <!-- Annual Escalation -->
+          <div class="space-y-1.5">
+            <div class="flex justify-between text-xs font-semibold">
+              <span class="text-slate-400">Annual Rent Escalator</span>
+              <span id="txt-escalation" class="text-white font-mono">3.50% / yr</span>
+            </div>
+            <input id="in-escalation" type="range" min="2.0" max="5.0" step="0.25" value="3.50" class="w-full h-1.5 bg-slate-800 rounded cursor-pointer" oninput="updateModel()">
+          </div>
+
+          <!-- Exit Cap Rate -->
+          <div class="space-y-1.5">
+            <div class="flex justify-between text-xs font-semibold">
+              <span class="text-slate-400">Target Exit Cap Rate</span>
+              <span id="txt-exit-cap" class="text-white font-mono">5.25%</span>
+            </div>
+            <input id="in-exit-cap" type="range" min="4.0" max="8.0" step="0.1" value="5.25" class="w-full h-1.5 bg-slate-800 rounded cursor-pointer" oninput="updateModel()">
+          </div>
+
+          <!-- Leverage & Debt -->
+          <div class="pt-2 border-t border-slate-800 space-y-3">
+            <div class="text-xs font-bold text-slate-300 uppercase tracking-wide">Debt Capital Structure</div>
+            <div class="grid grid-cols-2 gap-3">
+              <div>
+                <label class="text-[11px] text-slate-400 block mb-1">Loan-to-Cost (LTC)</label>
+                <select id="in-ltc" onchange="updateModel()" class="w-full bg-slate-800 border border-slate-700 text-xs rounded-lg px-2.5 py-1.5 text-slate-200">
+                  <option value="0.50">50% LTC</option>
+                  <option value="0.60">60% LTC</option>
+                  <option value="0.65" selected>65% LTC</option>
+                  <option value="0.70">70% LTC</option>
+                  <option value="0.00">0% (All Cash)</option>
+                </select>
+              </div>
+              <div>
+                <label class="text-[11px] text-slate-400 block mb-1">Interest Rate</label>
+                <select id="in-interest" onchange="updateModel()" class="w-full bg-slate-800 border border-slate-700 text-xs rounded-lg px-2.5 py-1.5 text-slate-200">
+                  <option value="0.055">5.50%</option>
+                  <option value="0.060">6.00%</option>
+                  <option value="0.065" selected>6.50%</option>
+                  <option value="0.070">7.00%</option>
+                </select>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Returns Dashboard & Visuals -->
+        <div class="lg:col-span-2 space-y-5">
+          
+          <!-- Big KPI Cards -->
+          <div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
+            <div class="bg-slate-900 border border-slate-800 rounded-xl p-4 shadow">
+              <div class="text-[11px] text-slate-400 uppercase font-semibold">Total Project Cost</div>
+              <div id="card-total-cost" class="text-lg sm:text-xl font-black text-white font-mono mt-1">$51.75M</div>
+              <div id="card-equity-req" class="text-[11px] text-slate-400 mt-0.5">Equity: $18.11M</div>
+            </div>
+            <div class="bg-slate-900 border border-slate-800 rounded-xl p-4 shadow">
+              <div class="text-[11px] text-slate-400 uppercase font-semibold">Year 1 NOI</div>
+              <div id="card-noi" class="text-lg sm:text-xl font-black text-blue-400 font-mono mt-1">$3.53M</div>
+              <div id="card-yield" class="text-[11px] text-blue-300 mt-0.5">Untapped Yield: 6.83%</div>
+            </div>
+            <div class="bg-slate-900 border border-slate-800 rounded-xl p-4 shadow">
+              <div class="text-[11px] text-slate-400 uppercase font-semibold">Exit Asset Value (Yr 5)</div>
+              <div id="card-exit-val" class="text-lg sm:text-xl font-black text-emerald-400 font-mono mt-1">$77.10M</div>
+              <div id="card-profit" class="text-[11px] text-emerald-300 mt-0.5">Net Gain: +$25.35M</div>
+            </div>
+            <div class="bg-slate-900 border border-slate-800 rounded-xl p-4 shadow">
+              <div class="text-[11px] text-slate-400 uppercase font-semibold">5-Yr Levered IRR</div>
+              <div id="card-irr" class="text-lg sm:text-xl font-black text-indigo-400 font-mono mt-1">21.4%</div>
+              <div id="card-em" class="text-[11px] text-indigo-300 mt-0.5">Equity Multiple: 2.38x</div>
+            </div>
+          </div>
+
+          <!-- Cash Flow Chart Container (Pure SVG for instant crisp rendering) -->
+          <div class="bg-slate-900 border border-slate-800 rounded-2xl p-5 shadow-xl">
+            <div class="flex items-center justify-between mb-3">
+              <div>
+                <h3 class="text-xs font-bold uppercase tracking-wider text-slate-200">10-Year NOI & Net Cash Flow Trajectory</h3>
+                <p class="text-[11px] text-slate-400">Assumes compounding 3.5% contractual escalations & debt service</p>
+              </div>
+              <div class="flex items-center gap-3 text-[11px]">
+                <span class="flex items-center gap-1.5"><span class="w-2.5 h-2.5 rounded bg-blue-500 inline-block"></span> Net Operating Income</span>
+                <span class="flex items-center gap-1.5"><span class="w-2.5 h-2.5 rounded bg-emerald-500 inline-block"></span> Cash Flow After Debt</span>
+              </div>
+            </div>
+            <div class="h-44 w-full">
+              <svg id="chart-cashflow" class="w-full h-full" preserveAspectRatio="none" viewBox="0 0 700 160"></svg>
+            </div>
+          </div>
+
+          <!-- Sensitivity Matrix -->
+          <div class="bg-slate-900 border border-slate-800 rounded-2xl p-5 shadow-xl">
+            <div class="flex items-center justify-between mb-3">
+              <div>
+                <h3 class="text-xs font-bold uppercase tracking-wider text-slate-200">Levered IRR Sensitivity Matrix (Exit Cap Rate vs. Year 5 Rent)</h3>
+                <p class="text-[11px] text-slate-400">Shows 5-year investment return across varying economic conditions</p>
+              </div>
+              <span class="text-[10px] px-2 py-0.5 rounded bg-slate-800 text-slate-300 font-mono">Dynamic 5x5 Matrix</span>
+            </div>
+            <div class="overflow-x-auto">
+              <table id="tbl-sensitivity" class="w-full text-center text-xs font-mono">
+                <!-- Injected via JavaScript -->
+              </table>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+
+      <!-- Full 10-Year Pro-Forma Cash Flow Table -->
+      <div class="bg-slate-900 border border-slate-800 rounded-2xl p-5 shadow-xl overflow-x-auto">
+        <h3 class="text-xs font-bold uppercase tracking-wider text-slate-200 mb-3">Complete 10-Year Institutional Cash Flow Schedule ($)</h3>
+        <table class="w-full text-xs font-mono text-right whitespace-nowrap">
+          <thead>
+            <tr class="text-slate-400 border-b border-slate-800">
+              <th class="text-left py-2 px-3">Line Item</th>
+              <th class="py-2 px-2">Yr 1</th>
+              <th class="py-2 px-2">Yr 2</th>
+              <th class="py-2 px-2">Yr 3</th>
+              <th class="py-2 px-2">Yr 4</th>
+              <th class="py-2 px-2">Yr 5</th>
+              <th class="py-2 px-2">Yr 6</th>
+              <th class="py-2 px-2">Yr 7</th>
+              <th class="py-2 px-2">Yr 8</th>
+              <th class="py-2 px-2">Yr 9</th>
+              <th class="py-2 px-2">Yr 10</th>
+            </tr>
+          </thead>
+          <tbody id="tbody-cashflow" class="divide-y divide-slate-800/60">
+            <!-- Injected via JS -->
+          </tbody>
+        </table>
+      </div>
+
+    </div>
+
+    <!-- ========================================================================= -->
+    <!-- TAB 2: INTERACTIVE CAD & TRUCK COURT SIMULATOR                            -->
+    <!-- ========================================================================= -->
+    <div id="tab-blueprint" class="hidden space-y-6">
+      <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+        
+        <!-- Controls & CAD Specs -->
+        <div class="bg-slate-900 border border-slate-800 rounded-2xl p-5 space-y-4 shadow-xl">
+          <h2 class="text-sm font-bold uppercase tracking-wider text-slate-200 flex items-center gap-2">
+            <span>ðŸ“</span> Logistics Site Engineering
+          </h2>
+
+          <!-- Configuration Mode -->
+          <div class="space-y-1">
+            <label class="text-xs text-slate-400 font-semibold">Building Layout Configuration</label>
+            <div class="grid grid-cols-2 gap-2">
+              <button onclick="setLayout('crossdock')" id="btn-crossdock" class="px-3 py-2 text-xs font-semibold rounded-lg bg-blue-600 text-white transition">Cross-Dock</button>
+              <button onclick="setLayout('singleload')" id="btn-singleload" class="px-3 py-2 text-xs font-semibold rounded-lg bg-slate-800 text-slate-300 hover:bg-slate-700 transition">Rear-Load</button>
+            </div>
+          </div>
+
+          <!-- Truck Court Depth -->
+          <div class="space-y-1.5">
+            <div class="flex justify-between text-xs font-semibold">
+              <span class="text-slate-400">Truck Court Depth</span>
+              <span id="txt-court-depth" class="text-white font-mono">185 Feet</span>
+            </div>
+            <input id="in-court-depth" type="range" min="130" max="210" step="5" value="185" class="w-full h-1.5 bg-slate-800 rounded cursor-pointer" oninput="drawCAD()">
+          </div>
+
+          <!-- Clear Height -->
+          <div class="space-y-1.5">
+            <div class="flex justify-between text-xs font-semibold">
+              <span class="text-slate-400">Interior Clear Height</span>
+              <span id="txt-cad-clear" class="text-white font-mono">40' Clear</span>
+            </div>
+            <input id="in-cad-clear" type="range" min="30" max="44" step="2" value="40" class="w-full h-1.5 bg-slate-800 rounded cursor-pointer" oninput="drawCAD()">
+          </div>
+
+          <!-- Dock Doors -->
+          <div class="space-y-1.5">
+            <div class="flex justify-between text-xs font-semibold">
+              <span class="text-slate-400">Loading Dock Doors</span>
+              <span id="txt-cad-doors" class="text-white font-mono">68 Doors</span>
+            </div>
+            <input id="in-cad-doors" type="range" min="20" max="120" step="2" value="68" class="w-full h-1.5 bg-slate-800 rounded cursor-pointer" oninput="drawCAD()">
+          </div>
+
+          <!-- Staging Simulation Button -->
+          <div class="pt-3 border-t border-slate-800">
+            <button onclick="toggleTruckSim()" id="btn-truck-sim" class="w-full py-2.5 px-4 rounded-xl bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-500 hover:to-teal-500 text-white font-bold text-xs flex items-center justify-center gap-2 shadow-lg shadow-emerald-900/30 transition">
+              <span id="sim-icon">ðŸš›</span> <span id="sim-text">Simulate Semi-Truck Ingress & Docking</span>
+            </button>
+            <p class="text-[11px] text-slate-400 text-center mt-2">Simulates 53' tractor-trailer 60-degree swing radius</p>
+          </div>
+
+          <!-- Key Metrics -->
+          <div class="bg-slate-950/60 rounded-xl p-3 border border-slate-800/80 space-y-2 text-xs">
+            <div class="flex justify-between text-slate-400">
+              <span>Speed Bay Depth:</span>
+              <span class="font-mono text-slate-200">60' Speed Bays</span>
+            </div>
+            <div class="flex justify-between text-slate-400">
+              <span>Typical Column Spacing:</span>
+              <span class="font-mono text-slate-200">54' x 50' Grid</span>
+            </div>
+            <div class="flex justify-between text-slate-400">
+              <span>Floor Slab Spec:</span>
+              <span class="font-mono text-slate-200">7" 4,000 PSI Reinforced</span>
+            </div>
+            <div class="flex justify-between text-slate-400">
+              <span>Sprinkler System:</span>
+              <span class="font-mono text-emerald-400">ESFR K-25.2 Heads</span>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Canvas CAD Interactive Visualizer -->
+        <div class="lg:col-span-2 bg-slate-900 border border-slate-800 rounded-2xl p-5 flex flex-col shadow-xl">
+          <div class="flex items-center justify-between mb-2">
+            <div>
+              <h3 class="text-xs font-bold uppercase tracking-wider text-slate-200">Interactive 2D Site CAD Plan</h3>
+              <p class="text-[11px] text-slate-400">Dynamic apron, trailer stalls, dock positions, and turning radiuses</p>
+            </div>
+            <div class="flex items-center gap-2">
+              <span class="text-[10px] font-mono px-2 py-1 rounded bg-slate-800 text-slate-300">Scale: 1px = 1.25 ft</span>
+            </div>
+          </div>
+          
+          <div class="flex-1 w-full relative min-h-[460px] bg-slate-950 rounded-xl border border-slate-800/80 overflow-hidden">
+            <canvas id="cadCanvas" class="w-full h-full"></canvas>
+            
+            <!-- Canvas Overlay Legend -->
+            <div class="absolute top-3 left-3 badge-glass rounded-lg p-2.5 text-[11px] space-y-1">
+              <div class="flex items-center gap-2 text-slate-300">
+                <span class="w-3 h-3 bg-blue-600/60 border border-blue-400 inline-block rounded-sm"></span>
+                <span>Main Warehouse Footprint</span>
+              </div>
+              <div class="flex items-center gap-2 text-slate-300">
+                <span class="w-3 h-3 bg-amber-500/60 border border-amber-400 inline-block rounded-sm"></span>
+                <span>Spec Office Buildout</span>
+              </div>
+              <div class="flex items-center gap-2 text-slate-300">
+                <span class="w-3 h-3 bg-slate-700/60 border border-slate-500 inline-block rounded-sm"></span>
+                <span>Heavy-Duty Concrete Apron & Truck Court</span>
+              </div>
+              <div class="flex items-center gap-2 text-slate-300">
+                <span class="w-3 h-3 bg-emerald-500 inline-block rounded-full"></span>
+                <span>Dock Door Position</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- ========================================================================= -->
+    <!-- TAB 3: METRO ATLANTA INDUSTRIAL CORRIDOR BENCHMARKS                       -->
+    <!-- ========================================================================= -->
+    <div id="tab-corridors" class="hidden space-y-6">
+      
+      <div class="bg-slate-900 border border-slate-800 rounded-2xl p-6 shadow-xl space-y-4">
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-slate-800 pb-4">
+          <div>
+            <h2 class="text-base font-bold text-white tracking-tight">Greater Atlanta Industrial Submarket Intelligence</h2>
+            <p class="text-xs text-slate-400">Market asking rents, vacancies, clear heights, and transportation infrastructure</p>
+          </div>
+          <span class="text-xs px-3 py-1 rounded-full bg-blue-500/10 text-blue-400 border border-blue-500/20 font-semibold self-start sm:self-auto">
+            King Industrial Realty Knowledge Base
+          </span>
+        </div>
+
+        <!-- Submarket Cards Grid -->
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4" id="corridors-grid">
+          <!-- Injected via JS -->
+        </div>
+      </div>
+
+    </div>
+
+    <!-- ========================================================================= -->
+    <!-- TAB 4: EXECUTIVE AI DEAL MEMO                                             -->
+    <!-- ========================================================================= -->
+    <div id="tab-memo" class="hidden space-y-6">
+      <div class="bg-slate-900 border border-slate-800 rounded-2xl p-6 sm:p-8 shadow-xl max-w-4xl mx-auto space-y-6">
+        
+        <div class="flex items-center justify-between border-b border-slate-800 pb-4">
+          <div>
+            <span class="text-[10px] font-mono uppercase tracking-widest text-blue-400 font-bold">CONFIDENTIAL INVESTMENT MEMORANDUM</span>
+            <h2 class="text-xl sm:text-2xl font-black text-white mt-0.5">Project Crown Gateway // Industrial Distribution Hub</h2>
+            <p class="text-xs text-slate-400">Metro Atlanta Core Industrial Logistics Network</p>
+          </div>
+          <button onclick="exportMemo()" class="px-3.5 py-2 rounded-xl bg-blue-600 hover:bg-blue-500 text-white text-xs font-bold shadow-lg shadow-blue-600/30 transition flex items-center gap-1.5">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2v-1M8 5a2 2 0 002 2h2a2 2 0 002-2M8 5a2 2 0 012-2h2a2 2 0 012 2m0 0h2a2 2 0 012 2v3m2 4H10m0 0l3-3m-3 3l3 3"/></svg>
+            Copy Deal Memo (.md)
+          </button>
+        </div>
+
+        <div id="memo-content" class="prose prose-invert prose-slate text-sm max-w-none space-y-5 text-slate-300 leading-relaxed font-sans">
+          <!-- Injected via JS -->
+        </div>
+
+      </div>
+    </div>
+
+  </main>
+
+  <!-- Notification Toast -->
+  <div id="toast" class="fixed bottom-6 right-6 z-50 bg-blue-600 text-white px-4 py-2.5 rounded-xl shadow-2xl text-xs font-semibold transform translate-y-20 opacity-0 transition-all duration-300 pointer-events-none flex items-center gap-2">
+    <span>âœ“</span> <span id="toast-text">Message</span>
+  </div>
+
+  <!-- JavaScript Logic Engine -->
+  <script>
+    // Submarkets Data
+    const SUBMARKETS = [
+      {
+        id: 'i85n',
+        name: 'I-85 North Corridor',
+        counties: 'Gwinnett / Jackson / Barrow',
+        rent: 7.85,
+        vacancy: 4.8,
+        clear: 40,
+        rail: 'Norfolk Southern access corridors',
+        growth: '+5.4% YoY',
+        tag: 'E-Commerce Mega-Hub',
+        desc: 'Premier logistics arterial serving the Southeast & Mid-Atlantic. High concentration of Fortune 500 distribution operations and automated high-cube facilities.'
+      },
+      {
+        id: 'i20w',
+        name: 'I-20 West / Fulton Industrial',
+        counties: 'Fulton / Douglas / Cobb',
+        rent: 8.40,
+        vacancy: 4.1,
+        clear: 36,
+        rail: 'CSX Intermodal & Rail Direct',
+        growth: '+6.1% YoY',
+        tag: 'Infill Logistics Core',
+        desc: 'Unrivaled proximity to Downtown Atlanta and CSX Fairburn Intermodal terminal. High barriers to entry with tight vacancy and strong tenant retention.'
+      },
+      {
+        id: 'i75s',
+        name: 'I-75 South / Henry & Clayton',
+        counties: 'Henry / Clayton / Butts',
+        rent: 7.25,
+        vacancy: 5.6,
+        clear: 40,
+        rail: 'Norfolk Southern direct route',
+        growth: '+4.8% YoY',
+        tag: 'Port of Savannah Gateway',
+        desc: 'Critical freight corridor directly connecting metro Atlanta with the Port of Savannah. Dominant big-box footprint with ample land for dual truck courts.'
+      },
+      {
+        id: 'airport',
+        name: 'Airport / Aerotropolis South',
+        counties: 'Clayton / South Fulton',
+        rent: 10.50,
+        vacancy: 3.4,
+        clear: 32,
+        rail: 'Intermodal connectivity',
+        growth: '+7.2% YoY',
+        tag: 'Air Cargo & Last-Mile',
+        desc: 'Immediate proximity to Hartsfield-Jackson International Airport (ATL). High-velocity air freight, cold storage, and time-critical last-mile logistics.'
+      },
+      {
+        id: 'i85s',
+        name: 'I-85 South / Coweta & Meriwether',
+        counties: 'Coweta / Troup / Meriwether',
+        rent: 6.95,
+        vacancy: 5.9,
+        clear: 38,
+        rail: 'CSX Mainline',
+        growth: '+5.1% YoY',
+        tag: 'Advanced Manufacturing Hub',
+        desc: 'Rapidly growing corridor driven by automotive assembly, battery manufacturing supply chains, and large corporate campus distribution.'
+      },
+      {
+        id: 'i75n',
+        name: 'I-75 North / Northwest Atlanta',
+        counties: 'Cobb / Cherokee / Bartow',
+        rent: 8.95,
+        vacancy: 4.3,
+        clear: 36,
+        rail: 'CSX / Cartersville Hub',
+        growth: '+5.8% YoY',
+        tag: 'Industrial & Tech Supply',
+        desc: 'Strategic connection to Chattanooga and Midwest trade lanes. High skilled manufacturing labor pool with strong institutional capital demand.'
+      }
+    ];
+
+    // Global Active State
+    let state = {
+      sf: 450000,
+      costPsf: 115,
+      rentPsf: 7.85,
+      escalation: 0.035,
+      exitCap: 0.0525,
+      ltc: 0.65,
+      interestRate: 0.065,
+      amortYears: 25,
+      layout: 'crossdock',
+      courtDepth: 185,
+      clearHeight: 40,
+      dockDoors: 68,
+      submarket: SUBMARKETS[0]
+    };
+
+    function fmt(val) {
+      if (Math.abs(val) >= 1e6) return '$' + (val / 1e6).toFixed(2) + 'M';
+      if (Math.abs(val) >= 1e3) return '$' + (val / 1e3).toFixed(0) + 'K';
+      return '$' + Math.round(val);
+    }
+
+    function showToast(text) {
+      const toast = document.getElementById('toast');
+      document.getElementById('toast-text').textContent = text;
+      toast.classList.remove('translate-y-20', 'opacity-0');
+      setTimeout(() => {
+        toast.classList.add('translate-y-20', 'opacity-0');
+      }, 2500);
+    }
+
+    function setTab(tab) {
+      ['underwrite', 'blueprint', 'corridors', 'memo'].forEach(t => {
+        const el = document.getElementById('tab-' + t);
+        const btn = document.getElementById('tabBtn-' + t);
+        if (t === tab) {
+          el.classList.remove('hidden');
+          btn.classList.add('border-blue-500', 'text-blue-400');
+          btn.classList.remove('border-transparent', 'text-slate-400');
+        } else {
+          el.classList.add('hidden');
+          btn.classList.remove('border-blue-500', 'text-blue-400');
+          btn.classList.add('border-transparent', 'text-slate-400');
+        }
+      });
+      if (tab === 'blueprint') {
+        setTimeout(drawCAD, 50);
+      }
+    }
+
+    function resetDefaults() {
+      document.getElementById('in-sf').value = 450000;
+      document.getElementById('in-cost-psf').value = 115;
+      document.getElementById('in-rent').value = 7.85;
+      document.getElementById('in-escalation').value = 3.50;
+      document.getElementById('in-exit-cap').value = 5.25;
+      document.getElementById('in-ltc').value = "0.65";
+      document.getElementById('in-interest').value = "0.065";
+      updateModel();
+      showToast('Assumptions reset to benchmark defaults');
+    }
+
+    // Mortgage PMT Function
+    function calcPmt(rate, nper, pv) {
+      if (rate === 0) return pv / nper;
+      const r = rate / 12;
+      const n = nper * 12;
+      return (r * pv) / (1 - Math.pow(1 + r, -n)) * 12;
+    }
+
+    // IRR Solver using Newton-Raphson
+    function calcIRR(cfs, guess = 0.15) {
+      let rate = guess;
+      for (let iter = 0; iter < 100; iter++) {
+        let npv = 0;
+        let dnpv = 0;
+        for (let t = 0; t < cfs.length; t++) {
+          const denom = Math.pow(1 + rate, t);
+          npv += cfs[t] / denom;
+          if (t > 0) {
+            dnpv -= (t * cfs[t]) / Math.pow(1 + rate, t + 1);
+          }
+        }
+        if (Math.abs(npv) < 1e-4) return rate;
+        const newRate = rate - npv / dnpv;
+        if (isNaN(newRate) || !isFinite(newRate)) return rate;
+        if (Math.abs(newRate - rate) < 1e-6) return newRate;
+        rate = newRate;
+      }
+      return rate;
+    }
+
+    function updateModel() {
+      state.sf = parseFloat(document.getElementById('in-sf').value);
+      state.costPsf = parseFloat(document.getElementById('in-cost-psf').value);
+      state.rentPsf = parseFloat(document.getElementById('in-rent').value);
+      state.escalation = parseFloat(document.getElementById('in-escalation').value) / 100;
+      state.exitCap = parseFloat(document.getElementById('in-exit-cap').value) / 100;
+      state.ltc = parseFloat(document.getElementById('in-ltc').value);
+      state.interestRate = parseFloat(document.getElementById('in-interest').value);
+
+      // Update Labels
+      document.getElementById('txt-sf').textContent = state.sf.toLocaleString() + ' SF';
+      document.getElementById('txt-cost-psf').textContent = '$' + state.costPsf.toFixed(2) + ' / SF';
+      document.getElementById('txt-rent').textContent = '$' + state.rentPsf.toFixed(2) + ' / SF';
+      document.getElementById('txt-escalation').textContent = (state.escalation * 100).toFixed(2) + '% / yr';
+      document.getElementById('txt-exit-cap').textContent = (state.exitCap * 100).toFixed(2) + '%';
+
+      // Totals
+      const totalCost = state.sf * state.costPsf;
+      const debtAmount = totalCost * state.ltc;
+      const equityAmount = totalCost - debtAmount;
+      const annualDebtService = state.ltc > 0 ? calcPmt(state.interestRate, state.amortYears, debtAmount) : 0;
+
+      // 10-Year Schedule Calculation
+      const years = 10;
+      const cashFlows = [];
+      const noiArray = [];
+      const afterDebtArray = [];
+
+      let currentRent = state.rentPsf;
+      for (let y = 1; y <= years; y++) {
+        const potentialGross = state.sf * currentRent;
+        const opex = potentialGross * 0.04; // NNN structural / mgmt reserve
+        const noi = potentialGross - opex;
+        const afterDebt = noi - annualDebtService;
+
+        noiArray.push(noi);
+        afterDebtArray.push(afterDebt);
+
+        cashFlows.push({
+          year: y,
+          rentPsf: currentRent,
+          pgr: potentialGross,
+          noi: noi,
+          debt: annualDebtService,
+          cfad: afterDebt
+        });
+
+        currentRent *= (1 + state.escalation);
+      }
+
+      // Year 5 Exit Underwriting
+      const yr5NOI = noiArray[4];
+      const exitValueYr5 = yr5NOI / state.exitCap;
+      
+      // Amortization remaining balance approx
+      let loanBalYr5 = debtAmount;
+      if (debtAmount > 0) {
+        const monthlyRate = state.interestRate / 12;
+        const totalMonths = state.amortYears * 12;
+        const monthlyPmt = annualDebtService / 12;
+        for (let m = 0; m < 60; m++) {
+          const interestPortion = loanBalYr5 * monthlyRate;
+          const principalPortion = monthlyPmt - interestPortion;
+          loanBalYr5 -= principalPortion;
+        }
+      }
+      const netExitProceedsYr5 = exitValueYr5 - loanBalYr5;
+
+      // Levered IRR array: Year 0 = -equity, Year 1..4 = cfad, Year 5 = cfad + exitProceeds
+      const irrStream = [-equityAmount];
+      for (let y = 0; y < 4; y++) {
+        irrStream.push(afterDebtArray[y]);
+      }
+      irrStream.push(afterDebtArray[4] + netExitProceedsYr5);
+
+      const leveredIRR = calcIRR(irrStream);
+      const totalInflows = irrStream.slice(1).reduce((a, b) => a + b, 0);
+      const equityMultiple = equityAmount > 0 ? totalInflows / equityAmount : 1.0;
+
+      // Update KPI Cards
+      document.getElementById('heroSF').textContent = state.sf.toLocaleString() + ' SF';
+      document.getElementById('heroValuation').textContent = fmt(exitValueYr5);
+      document.getElementById('heroIRR').textContent = (leveredIRR * 100).toFixed(1) + '%';
+
+      document.getElementById('card-total-cost').textContent = fmt(totalCost);
+      document.getElementById('card-equity-req').textContent = 'Equity: ' + fmt(equityAmount);
+      document.getElementById('card-noi').textContent = fmt(noiArray[0]);
+      document.getElementById('card-yield').textContent = 'Untapped Yield: ' + ((noiArray[0] / totalCost) * 100).toFixed(2) + '%';
+      document.getElementById('card-exit-val').textContent = fmt(exitValueYr5);
+      document.getElementById('card-profit').textContent = 'Net Gain: +' + fmt(exitValueYr5 - totalCost);
+      document.getElementById('card-irr').textContent = (leveredIRR * 100).toFixed(1) + '%';
+      document.getElementById('card-em').textContent = 'Equity Multiple: ' + equityMultiple.toFixed(2) + 'x';
+
+      // Render Cashflow SVG Chart
+      renderSVGChart(noiArray, afterDebtArray);
+
+      // Render Sensitivity Matrix
+      renderSensitivityMatrix(yr5NOI, equityAmount, annualDebtService, loanBalYr5);
+
+      // Render 10-Yr Cash Flow Table
+      renderTable(cashFlows);
+
+      // Render AI Memo
+      renderAIMemo(totalCost, equityAmount, noiArray[0], exitValueYr5, leveredIRR, equityMultiple);
+    }
+
+    function renderSVGChart(noiArr, cfArr) {
+      const maxVal = Math.max(...noiArr) * 1.15;
+      const w = 700;
+      const h = 160;
+      const pad = 40;
+      const barW = 20;
+      const colStep = (w - pad * 2) / 10;
+
+      let svg = `
+        <line x1="${pad}" y1="${h - 25}" x2="${w - pad}" y2="${h - 25}" stroke="#334155" stroke-width="1"/>
+        <line x1="${pad}" y1="20}" x2="${pad}" y2="${h - 25}" stroke="#334155" stroke-width="1"/>
+      `;
+
+      for (let i = 0; i < 10; i++) {
+        const x = pad + i * colStep + 10;
+        const noiH = (noiArr[i] / maxVal) * (h - 45);
+        const cfH = Math.max(0, (cfArr[i] / maxVal) * (h - 45));
+
+        const yNoi = (h - 25) - noiH;
+        const yCf = (h - 25) - cfH;
+
+        svg += `
+          <!-- NOI Bar -->
+          <rect x="${x}" y="${yNoi}" width="${barW}" height="${noiH}" fill="#3b82f6" rx="3" opacity="0.9"/>
+          <!-- CF Bar -->
+          <rect x="${x + 6}" y="${yCf}" width="${barW - 12}" height="${cfH}" fill="#10b981" rx="2"/>
+          <!-- Year Label -->
+          <text x="${x + barW / 2}" y="${h - 8}" fill="#94a3b8" font-size="10" font-family="monospace" text-anchor="middle">Y${i + 1}</text>
+        `;
+      }
+
+      document.getElementById('chart-cashflow').innerHTML = svg;
+    }
+
+    function renderSensitivityMatrix(baseYr5NOI, equityAmount, annualDebtService, loanBal) {
+      const capDeltas = [-0.005, -0.0025, 0, 0.0025, 0.005];
+      const rentDeltas = [0.90, 0.95, 1.00, 1.05, 1.10];
+
+      let html = `
+        <thead>
+          <tr class="text-slate-400 border-b border-slate-800">
+            <th class="p-2 text-left text-slate-500 font-sans">Exit Cap Rate \\ Yr 5 Rent</th>
+            ${rentDeltas.map(rd => `<th class="p-2">${(rd * 100 - 100 >= 0 ? '+' : '')}${(rd * 100 - 100).toFixed(0)}%</th>`).join('')}
+          </tr>
+        </thead>
+        <tbody>
+      `;
+
+      capDeltas.forEach(cd => {
+        const testCap = state.exitCap + cd;
+        html += `<tr class="border-b border-slate-800/50"><td class="p-2 text-left font-bold text-slate-300 font-sans">${(testCap * 100).toFixed(2)}% Cap</td>`;
+        rentDeltas.forEach(rd => {
+          const testNOI = baseYr5NOI * rd;
+          const testExitVal = testNOI / testCap;
+          const testProceeds = testExitVal - loanBal;
+
+          const testStream = [-equityAmount, annualDebtService, annualDebtService, annualDebtService, annualDebtService + testProceeds];
+          const testIRR = calcIRR(testStream);
+          const pct = (testIRR * 100).toFixed(1);
+
+          let colorClass = 'text-emerald-400 bg-emerald-950/20';
+          if (testIRR < 0.12) colorClass = 'text-amber-400 bg-amber-950/20';
+          if (testIRR < 0.08) colorClass = 'text-rose-400 bg-rose-950/20';
+          if (cd === 0 && rd === 1.00) colorClass += ' border-2 border-blue-500 font-extrabold';
+
+          html += `<td class="p-2 ${colorClass} rounded">${pct}%</td>`;
+        });
+        html += `</tr>`;
+      });
+
+      html += `</tbody>`;
+      document.getElementById('tbl-sensitivity').innerHTML = html;
+    }
+
+    function renderTable(cfs) {
+      const rows = [
+        { label: 'Market Rent ($/SF)', fn: r => '$' + r.rentPsf.toFixed(2) },
+        { label: 'Potential Gross Revenue', fn: r => fmt(r.pgr) },
+        { label: 'Net Operating Income (NOI)', fn: r => fmt(r.noi), highlight: true },
+        { label: 'Debt Service (P&I)', fn: r => fmt(r.debt) },
+        { label: 'Cash Flow After Debt (CFAD)', fn: r => fmt(r.cfad), green: true }
+      ];
+
+      let html = '';
+      rows.forEach(row => {
+        html += `<tr class="${row.highlight ? 'bg-blue-950/30 font-bold text-blue-300' : ''} ${row.green ? 'bg-emerald-950/20 font-bold text-emerald-300' : ''}">`;
+        html += `<td class="text-left py-2 px-3 text-slate-300 font-sans font-medium">${row.label}</td>`;
+        cfs.forEach(cf => {
+          html += `<td class="py-2 px-2">${row.fn(cf)}</td>`;
+        });
+        html += `</tr>`;
+      });
+      document.getElementById('tbody-cashflow').innerHTML = html;
+    }
+
+    function renderAIMemo(totalCost, equity, yr1NOI, exitVal, irr, em) {
+      const html = `
+        <div class="space-y-4">
+          <h3 class="text-base font-bold text-white uppercase tracking-wide border-b border-slate-800 pb-2">1. Executive Summary & Investment Thesis</h3>
+          <p>
+            King Industrial Realty presents the institutional acquisition/development opportunity for <strong>King Logistics Gateway Hub</strong>, a state-of-the-art <strong>${state.sf.toLocaleString()} SF</strong> modern Class-A industrial logistics asset situated strategically in the core <strong>${state.submarket.name}</strong>.
+          </p>
+          <p>
+            The project requires a total capitalization of <strong>${fmt(totalCost)}</strong> ($${state.costPsf.toFixed(2)}/SF), funded via a balanced capital structure comprising <strong>${(state.ltc * 100).toFixed(0)}% debt</strong> (${fmt(totalCost * state.ltc)}) and <strong>${fmt(equity)}</strong> of LP/sponsor equity.
+          </p>
+
+          <h3 class="text-base font-bold text-white uppercase tracking-wide border-b border-slate-800 pb-2 pt-3">2. Facility Specifications & Physical Advantage</h3>
+          <ul class="list-disc pl-5 space-y-1 text-slate-300">
+            <li><strong>Clear Height:</strong> ${state.clearHeight}' minimum clear ceiling height, providing expansive vertical cube density.</li>
+            <li><strong>Loading Architecture:</strong> ${state.dockDoors} dock-high loading doors equipped with hydraulic levelers and 2 drive-in ramps.</li>
+            <li><strong>Truck Court:</strong> Heavy-duty 7-inch unreinforced concrete apron spanning ${state.courtDepth}' with segregated auto parking.</li>
+            <li><strong>Life Safety & Power:</strong> ESFR sprinkler network paired with 4,000A, 480V 3-phase heavy industrial power.</li>
+          </ul>
+
+          <h3 class="text-base font-bold text-white uppercase tracking-wide border-b border-slate-800 pb-2 pt-3">3. Underwriting & Return Profile (5-Year Target Hold)</h3>
+          <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 my-3">
+            <div class="bg-slate-950 p-3 rounded-lg border border-slate-800 text-center">
+              <span class="text-[10px] text-slate-400 block">Year 1 NOI</span>
+              <span class="text-sm font-bold font-mono text-white">${fmt(yr1NOI)}</span>
+            </div>
+            <div class="bg-slate-950 p-3 rounded-lg border border-slate-800 text-center">
+              <span class="text-[10px] text-slate-400 block">Year 5 Exit Value</span>
+              <span class="text-sm font-bold font-mono text-emerald-400">${fmt(exitVal)}</span>
+            </div>
+            <div class="bg-slate-950 p-3 rounded-lg border border-slate-800 text-center">
+              <span class="text-[10px] text-slate-400 block">5-Yr Levered IRR</span>
+              <span class="text-sm font-bold font-mono text-indigo-400">${(irr * 100).toFixed(1)}%</span>
+            </div>
+            <div class="bg-slate-950 p-3 rounded-lg border border-slate-800 text-center">
+              <span class="text-[10px] text-slate-400 block">Equity Multiple</span>
+              <span class="text-sm font-bold font-mono text-blue-400">${em.toFixed(2)}x</span>
+            </div>
+          </div>
+          <p>
+            Under baseline assumptions of <strong>$${state.rentPsf.toFixed(2)}/SF NNN</strong> starting rent and <strong>${(state.escalation * 100).toFixed(2)}%</strong> annual contractual escalations, the asset produces robust downside-protected yield with a projected exit cap rate of <strong>${(state.exitCap * 100).toFixed(2)}%</strong>.
+          </p>
+
+          <h3 class="text-base font-bold text-white uppercase tracking-wide border-b border-slate-800 pb-2 pt-3">4. Regional Submarket Position</h3>
+          <p>
+            ${state.submarket.desc} Current submarket direct vacancy stands at <strong>${state.submarket.vacancy}%</strong> with historical 5-year rent expansion averaging <strong>${state.submarket.growth}</strong>.
+          </p>
+        </div>
+      `;
+      document.getElementById('memo-content').innerHTML = html;
+    }
+
+    function exportMemo() {
+      const memoText = `
+# CONFIDENTIAL INVESTMENT MEMORANDUM // KING INDUSTRIAL REALTY
+## Project Crown Gateway: Class-A Logistics Hub (${state.sf.toLocaleString()} SF)
+Location: ${state.submarket.name} (${state.submarket.counties})
+
+### KEY TRANSACTION METRICS:
+- Total Capitalization: ${fmt(state.sf * state.costPsf)} ($${state.costPsf.toFixed(2)}/SF)
+- Equity Requirement: ${fmt((state.sf * state.costPsf) * (1 - state.ltc))}
+- Starting NNN Rent: $${state.rentPsf.toFixed(2)} / SF (with ${(state.escalation * 100).toFixed(2)}% annual escalations)
+- Clear Ceiling Height: ${state.clearHeight}' Clear
+- Loading Configuration: ${state.dockDoors} Dock Doors, ${state.courtDepth}' Truck Court
+- Year 1 Net Operating Income: ${fmt(state.sf * state.rentPsf * 0.96)}
+- Target 5-Year Exit Cap Rate: ${(state.exitCap * 100).toFixed(2)}%
+- Projected Levered IRR: ${document.getElementById('card-irr').textContent}
+- Projected Equity Multiple: ${document.getElementById('card-em').textContent}
+
+Generated via King Industrial King Logistics Studio.
+      `.trim();
+
+      navigator.clipboard.writeText(memoText).then(() => {
+        showToast('Deal Memo copied to clipboard in Markdown format!');
+      }).catch(() => {
+        showToast('Deal Memo ready for review.');
+      });
+    }
+
+    // =========================================================================
+    // CAD & Canvas Visualizer
+    // =========================================================================
+    let simActive = false;
+    let simTruck = { x: 50, y: 380, targetX: 280, targetY: 175, progress: 0 };
+    let animFrame = null;
+
+    function setLayout(mode) {
+      state.layout = mode;
+      document.getElementById('btn-crossdock').className = mode === 'crossdock' 
+        ? 'px-3 py-2 text-xs font-semibold rounded-lg bg-blue-600 text-white transition' 
+        : 'px-3 py-2 text-xs font-semibold rounded-lg bg-slate-800 text-slate-300 hover:bg-slate-700 transition';
+      document.getElementById('btn-singleload').className = mode === 'singleload' 
+        ? 'px-3 py-2 text-xs font-semibold rounded-lg bg-blue-600 text-white transition' 
+        : 'px-3 py-2 text-xs font-semibold rounded-lg bg-slate-800 text-slate-300 hover:bg-slate-700 transition';
+      drawCAD();
+    }
+
+    function toggleTruckSim() {
+      simActive = !simActive;
+      const btn = document.getElementById('btn-truck-sim');
+      const icon = document.getElementById('sim-icon');
+      const text = document.getElementById('sim-text');
+
+      if (simActive) {
+        simTruck.progress = 0;
+        btn.classList.replace('from-emerald-600', 'from-amber-600');
+        btn.classList.replace('to-teal-600', 'to-orange-600');
+        icon.textContent = 'â¹ï¸';
+        text.textContent = 'Stop Docking Simulation';
+        animateTruck();
+      } else {
+        cancelAnimationFrame(animFrame);
+        btn.classList.replace('from-amber-600', 'from-emerald-600');
+        btn.classList.replace('to-orange-600', 'to-teal-600');
+        icon.textContent = 'ðŸš›';
+        text.textContent = 'Simulate Semi-Truck Ingress & Docking';
+        drawCAD();
+      }
+    }
+
+    function animateTruck() {
+      if (!simActive) return;
+      simTruck.progress += 0.007;
+      if (simTruck.progress > 1.2) simTruck.progress = 0;
+      drawCAD();
+      animFrame = requestAnimationFrame(animateTruck);
+    }
+
+    function drawCAD() {
+      const canvas = document.getElementById('cadCanvas');
+      if (!canvas) return;
+      const ctx = canvas.getContext('2d');
+      const rect = canvas.getBoundingClientRect();
+      canvas.width = rect.width || 700;
+      canvas.height = rect.height || 460;
+
+      const w = canvas.width;
+      const h = canvas.height;
+
+      ctx.clearRect(0, 0, w, h);
+
+      // Background Grid
+      ctx.strokeStyle = '#1e293b';
+      ctx.lineWidth = 1;
+      const gridSize = 25;
+      for (let x = 0; x < w; x += gridSize) {
+        ctx.beginPath();
+        ctx.moveTo(x, 0);
+        ctx.lineTo(x, h);
+        ctx.stroke();
+      }
+      for (let y = 0; y < h; y += gridSize) {
+        ctx.beginPath();
+        ctx.moveTo(0, y);
+        ctx.lineTo(w, y);
+        ctx.stroke();
+      }
+
+      // Warehouse Geometry
+      const courtDepth = parseFloat(document.getElementById('in-court-depth').value);
+      const clearH = parseFloat(document.getElementById('in-cad-clear').value);
+      const doorsCount = parseInt(document.getElementById('in-cad-doors').value);
+      
+      document.getElementById('txt-court-depth').textContent = courtDepth + ' Feet';
+      document.getElementById('txt-cad-clear').textContent = clearH + "' Clear";
+      document.getElementById('txt-cad-doors').textContent = doorsCount + ' Doors';
+
+      const bldgW = w * 0.65;
+      const bldgH = state.layout === 'crossdock' ? h * 0.32 : h * 0.42;
+      const bldgX = (w - bldgW) / 2;
+      const bldgY = (h - bldgH) / 2;
+
+      // Top Truck Court / Apron (for Cross-dock)
+      if (state.layout === 'crossdock') {
+        const topCourtH = (courtDepth / 200) * (bldgY - 30);
+        ctx.fillStyle = '#1e293b80';
+        ctx.fillRect(bldgX - 30, bldgY - topCourtH, bldgW + 60, topCourtH);
+        ctx.strokeStyle = '#334155';
+        ctx.strokeRect(bldgX - 30, bldgY - topCourtH, bldgW + 60, topCourtH);
+      }
+
+      // Bottom Truck Court / Apron
+      const bottomCourtH = (courtDepth / 200) * (h - (bldgY + bldgH) - 30);
+      ctx.fillStyle = '#1e293b80';
+      ctx.fillRect(bldgX - 30, bldgY + bldgH, bldgW + 60, bottomCourtH);
+      ctx.strokeStyle = '#334155';
+      ctx.strokeRect(bldgX - 30, bldgY + bldgH, bldgW + 60, bottomCourtH);
+
+      // Warehouse Building Body
+      ctx.fillStyle = '#1e3a8a40';
+      ctx.fillRect(bldgX, bldgY, bldgW, bldgH);
+      ctx.strokeStyle = '#3b82f6';
+      ctx.lineWidth = 2;
+      ctx.strokeRect(bldgX, bldgY, bldgW, bldgH);
+
+      // Column Grid Lines inside warehouse
+      ctx.strokeStyle = '#1d4ed830';
+      ctx.lineWidth = 1;
+      for (let cx = bldgX + 40; cx < bldgX + bldgW; cx += 40) {
+        ctx.beginPath();
+        ctx.moveTo(cx, bldgY);
+        ctx.lineTo(cx, bldgY + bldgH);
+        ctx.stroke();
+      }
+
+      // Office Corner Pod
+      const offW = bldgW * 0.16;
+      const offH = bldgH * 0.45;
+      ctx.fillStyle = '#d9770640';
+      ctx.fillRect(bldgX, bldgY, offW, offH);
+      ctx.strokeStyle = '#f59e0b';
+      ctx.strokeRect(bldgX, bldgY, offW, offH);
+      ctx.fillStyle = '#fbbf24';
+      ctx.font = '9px monospace';
+      ctx.fillText("SPEC OFFICE", bldgX + 6, bldgY + 16);
+
+      // Dock Doors Render
+      const doorsPerSide = state.layout === 'crossdock' ? Math.floor(doorsCount / 2) : doorsCount;
+      const doorSpacing = (bldgW - 40) / doorsPerSide;
+
+      // Bottom Docks
+      for (let i = 0; i < doorsPerSide; i++) {
+        const dx = bldgX + 25 + i * doorSpacing;
+        const dy = bldgY + bldgH;
+        ctx.fillStyle = '#10b981';
+        ctx.fillRect(dx, dy - 3, 5, 6);
+      }
+
+      // Top Docks (if cross-dock)
+      if (state.layout === 'crossdock') {
+        for (let i = 0; i < doorsPerSide; i++) {
+          const dx = bldgX + 25 + i * doorSpacing;
+          const dy = bldgY;
+          ctx.fillStyle = '#10b981';
+          ctx.fillRect(dx, dy - 3, 5, 6);
+        }
+      }
+
+      // Dimension Annotations
+      ctx.fillStyle = '#94a3b8';
+      ctx.font = '10px monospace';
+      ctx.fillText(`${state.sf.toLocaleString()} SF INDUSTRIAL FACILITY`, bldgX + bldgW / 2 - 80, bldgY + bldgH / 2);
+      ctx.fillText(`${courtDepth}' Truck Court Depth`, bldgX + bldgW / 2 - 55, bldgY + bldgH + bottomCourtH / 2 + 3);
+
+      // Truck Docking Simulation
+      if (simActive) {
+        const p = Math.min(1, simTruck.progress);
+        // Trajectory curve
+        const startX = 30;
+        const startY = h - 40;
+        const midX = bldgX + 120;
+        const midY = bldgY + bldgH + bottomCourtH - 25;
+        const dockX = bldgX + 160;
+        const dockY = bldgY + bldgH + 8;
+
+        let tx, ty, angle;
+        if (p < 0.5) {
+          const t = p * 2;
+          tx = startX + (midX - startX) * t;
+          ty = startY + (midY - startY) * t;
+          angle = Math.atan2(midY - startY, midX - startX);
+        } else {
+          const t = (p - 0.5) * 2;
+          tx = midX + (dockX - midX) * t;
+          ty = midY + (dockY - midY) * t;
+          angle = Math.atan2(dockY - midY, dockX - midX);
+        }
+
+        ctx.save();
+        ctx.translate(tx, ty);
+        ctx.rotate(angle);
+
+        // Trailer
+        ctx.fillStyle = '#f8fafc';
+        ctx.fillRect(-26, -7, 34, 14);
+        ctx.strokeStyle = '#0284c7';
+        ctx.lineWidth = 1.5;
+        ctx.strokeRect(-26, -7, 34, 14);
+
+        // Cab
+        ctx.fillStyle = '#ef4444';
+        ctx.fillRect(8, -6, 12, 12);
+
+        // Wheels
+        ctx.fillStyle = '#0f172a';
+        ctx.fillRect(-22, -9, 8, 2);
+        ctx.fillRect(-22, 7, 8, 2);
+        ctx.fillRect(-12, -9, 8, 2);
+        ctx.fillRect(-12, 7, 8, 2);
+
+        ctx.restore();
+
+        // Swing Radius Arc Guide
+        ctx.strokeStyle = '#38bdf840';
+        ctx.setLineDash([4, 4]);
+        ctx.beginPath();
+        ctx.arc(midX, midY, 45, 0, Math.PI * 2);
+        ctx.stroke();
+        ctx.setLineDash([]);
+      }
+    }
+
+    // Populate Corridors
+    function populateCorridors() {
+      const grid = document.getElementById('corridors-grid');
+      let html = '';
+      SUBMARKETS.forEach(c => {
+        html += `
+          <div class="bg-slate-950/80 border border-slate-800 rounded-xl p-4 hover:border-blue-500/50 transition cursor-pointer flex flex-col justify-between space-y-3" onclick="selectSubmarket('${c.id}')">
+            <div>
+              <div class="flex items-center justify-between">
+                <span class="text-[10px] font-bold px-2 py-0.5 rounded bg-blue-500/10 text-blue-400 border border-blue-500/20">${c.tag}</span>
+                <span class="text-xs text-emerald-400 font-mono font-semibold">${c.growth}</span>
+              </div>
+              <h4 class="text-sm font-bold text-white mt-2">${c.name}</h4>
+              <p class="text-[11px] text-slate-400">${c.counties}</p>
+              <p class="text-xs text-slate-300 mt-2 leading-relaxed">${c.desc}</p>
+            </div>
+            
+            <div class="pt-3 border-t border-slate-800 grid grid-cols-3 gap-2 text-center text-xs">
+              <div class="bg-slate-900 p-1.5 rounded">
+                <div class="text-[10px] text-slate-500 uppercase">Avg Rent</div>
+                <div class="font-bold text-white font-mono">$${c.rent.toFixed(2)}</div>
+              </div>
+              <div class="bg-slate-900 p-1.5 rounded">
+                <div class="text-[10px] text-slate-500 uppercase">Vacancy</div>
+                <div class="font-bold text-blue-400 font-mono">${c.vacancy}%</div>
+              </div>
+              <div class="bg-slate-900 p-1.5 rounded">
+                <div class="text-[10px] text-slate-500 uppercase">Typ. Clear</div>
+                <div class="font-bold text-slate-300 font-mono">${c.clear}'</div>
+              </div>
+            </div>
+            
+            <button class="w-full py-1.5 text-xs font-semibold rounded bg-slate-800 hover:bg-blue-600 text-slate-200 hover:text-white transition">
+              Load Into Underwriter â†’
+            </button>
+          </div>
+        `;
+      });
+      grid.innerHTML = html;
+    }
+
+    function selectSubmarket(id) {
+      const found = SUBMARKETS.find(s => s.id === id);
+      if (!found) return;
+      state.submarket = found;
+      document.getElementById('in-rent').value = found.rent;
+      document.getElementById('heroTitle').textContent = found.name + ' Logistics Park';
+      updateModel();
+      setTab('underwrite');
+      showToast('Loaded ' + found.name + ' market benchmarks!');
+    }
+
+    // Init
+    window.addEventListener('resize', drawCAD);
+    populateCorridors();
+    updateModel();
+  </script>
+</body>
+</html>
+
+
+
