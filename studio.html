@@ -1262,8 +1262,13 @@ Located 1.5 miles from I-85 in Jackson County..." class="w-full bg-slate-950 bor
         if (!resp.ok) throw new Error('Could not read index.html template');
         let htmlText = await resp.text();
 
-        // Inject this specific deal as the sole DEFAULT_DEALS array
-        const customDealsScript = `const DEFAULT_DEALS = [ ${JSON.stringify(d, null, 2)} ];`;
+        // Inject this specific deal as the sole DEFAULT_DEALS array.
+        // Escape every "<" as a unicode escape so a stray "</script" (or any other
+        // tag-like sequence) inside deal text (notes, broker bio, scraped listing
+        // copy, etc.) can never prematurely close the generated file's <script> tag
+        // and "bleed" raw JS source onto the page.
+        const safeDealJson = JSON.stringify(d, null, 2).replace(/</g, '\\u003c');
+        const customDealsScript = `const DEFAULT_DEALS = [ ${safeDealJson} ];`;
         htmlText = htmlText.replace(/const DEFAULT_DEALS = \[[\s\S]*?\];/, customDealsScript);
 
         const blob = new Blob([htmlText], { type: 'text/html;charset=utf-8' });
