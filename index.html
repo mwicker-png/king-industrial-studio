@@ -82,14 +82,13 @@
   <header class="border-b border-slate-800/80 bg-slate-900/80 backdrop-blur sticky top-0 z-50">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3 flex items-center justify-between gap-4">
       
-      <!-- Brand Logo -->
+      <!-- Brand Logo (fixed, not user-editable) -->
       <div class="flex items-center gap-3 shrink-0">
-        <div id="brand-logo-container" class="w-10 h-10 rounded bg-red-600 flex items-center justify-center font-black text-xl shadow-lg shadow-red-600/20 text-white tracking-tighter overflow-hidden" style="font-style: italic;">
-          KING
+        <div class="shrink-0 bg-white rounded px-2 py-1.5 shadow-lg shadow-red-600/20">
+          <img src="assets/king-logo.png" alt="King Industrial Realty, Inc." class="h-7 w-auto object-contain">
         </div>
         <div>
           <div class="flex items-center gap-2">
-            <span class="font-extrabold text-base tracking-tight text-white uppercase" style="color: #ef4444;">King Industrial</span>
             <span class="text-[10px] px-1.5 py-0.5 rounded bg-slate-800 text-slate-300 font-bold border border-slate-700 no-print">CLIENT PORTAL</span>
           </div>
           <p class="text-[10px] text-slate-400 no-print">Institutional Logistics Underwriting & Feasibility Suite</p>
@@ -888,33 +887,6 @@
           flyerBtn.classList.add('hidden');
           flyerBtn.classList.remove('flex');
           flyerBtn.removeAttribute('href');
-        }
-      }
-
-      // Safe brand logo rendering
-      const logoContainer = document.getElementById('brand-logo-container');
-      if (logoContainer) {
-        logoContainer.innerHTML = '';
-        let logoSrc = d.brandLogo;
-        if (!logoSrc || logoSrc === '__local_logo__') {
-          const cachedLogo = localStorage.getItem('king_custom_logo');
-          if (cachedLogo) {
-            logoSrc = cachedLogo;
-          } else {
-            try {
-              const b = JSON.parse(localStorage.getItem('king_branding_v1') || '{}');
-              if (b.logo) logoSrc = b.logo;
-            } catch(e) {}
-          }
-        }
-        const cleanLogo = sanitizeUrl(logoSrc);
-        if (cleanLogo) {
-          const img = document.createElement('img');
-          img.src = cleanLogo;
-          img.alt = "Brand Logo";
-          img.className = "w-full h-full object-contain bg-white";
-          logoContainer.appendChild(img);
-          logoContainer.className = "w-10 h-10 shrink-0 bg-transparent rounded overflow-hidden";
         }
       }
 

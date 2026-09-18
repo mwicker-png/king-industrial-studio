@@ -138,15 +138,10 @@
           <div class="p-4 border-t border-slate-800">
             <div class="space-y-3">
             <div>
-              <label class="block text-[11px] font-semibold text-slate-300 mb-1">Company Logo (Upload or URL)</label>
-              <div class="flex items-center gap-3">
-                <button type="button" onclick="document.getElementById('global-logo-file').click()" class="shrink-0 px-3 py-2 bg-slate-800 hover:bg-slate-700 text-xs font-bold text-slate-200 border border-slate-700 rounded-md transition flex items-center gap-2">
-                  <svg class="w-3.5 h-3.5 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12"/></svg>
-                  Upload
-                </button>
-                <input type="file" id="global-logo-file" accept="image/*" class="hidden" onchange="handleImageUpload(event, 'global-logo')">
-                <span class="text-[10px] text-slate-500 font-bold uppercase shrink-0">OR</span>
-                <input id="global-logo" type="text" placeholder="Paste Logo URL..." class="w-full bg-slate-950 border border-slate-800 rounded-md px-3 py-2 text-xs text-white focus:ring-1 focus:ring-blue-500" oninput="saveGlobalBranding()">
+              <label class="block text-[11px] font-semibold text-slate-300 mb-1">Company Logo</label>
+              <div class="flex items-center gap-3 bg-slate-950 border border-slate-800 rounded-md px-3 py-2.5">
+                <img src="assets/king-logo.png" alt="King Industrial Realty, Inc." class="h-7 w-auto object-contain bg-white rounded-sm px-1.5 py-1">
+                <span class="text-[10px] text-slate-500">Fixed brand logo — applied automatically to every deal and presentation.</span>
               </div>
             </div>
             <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
@@ -734,20 +729,11 @@ Located 1.5 miles from I-85 in Jackson County..." class="w-full bg-slate-950 bor
             
             const compressedBase64 = canvas.toDataURL('image/jpeg', 0.7);
             document.getElementById(targetInputId).value = compressedBase64;
-            
-            if (targetInputId === 'global-logo') {
-               saveGlobalBranding();
-            } else {
-               triggerPreviewCalc();
+            triggerPreviewCalc();
+            if (currentDeal && currentDeal.id) {
+              try { localStorage.setItem('king_img_' + currentDeal.id, compressedBase64); } catch(e){}
             }
-            if (targetInputId === 'global-logo') {
-               try { localStorage.setItem('king_custom_logo', compressedBase64); } catch(e){}
-            } else {
-               if (currentDeal && currentDeal.id) {
-                 try { localStorage.setItem('king_img_' + currentDeal.id, compressedBase64); } catch(e){}
-               }
-               try { localStorage.setItem('king_active_hero_img', compressedBase64); } catch(e){}
-            }
+            try { localStorage.setItem('king_active_hero_img', compressedBase64); } catch(e){}
             showToast('Image uploaded & cached for presentations!');
           };
           img.src = e.target.result;
@@ -758,7 +744,6 @@ Located 1.5 miles from I-85 in Jackson County..." class="w-full bg-slate-950 bor
       function loadGlobalBranding() {
         try {
           const b = JSON.parse(localStorage.getItem('king_branding_v1') || '{}');
-          document.getElementById('global-logo').value = b.logo || '';
           document.getElementById('global-broker-name').value = b.name || '';
           document.getElementById('global-broker-title').value = b.title || '';
           document.getElementById('global-broker-phone').value = b.phone || '';
@@ -768,7 +753,6 @@ Located 1.5 miles from I-85 in Jackson County..." class="w-full bg-slate-950 bor
 
       function saveGlobalBranding() {
         const b = {
-          logo: document.getElementById('global-logo').value.trim(),
           name: document.getElementById('global-broker-name').value.trim(),
           title: document.getElementById('global-broker-title').value.trim(),
           phone: document.getElementById('global-broker-phone').value.trim(),
@@ -1109,7 +1093,6 @@ Located 1.5 miles from I-85 in Jackson County..." class="w-full bg-slate-950 bor
           amortYears: 25,
           columnGrid: document.getElementById('form-grid').value.trim() || '',
           notes: document.getElementById('form-notes').value.trim() || '',
-          brandLogo: document.getElementById('global-logo').value.trim(),
           brokerName: document.getElementById('global-broker-name').value.trim(),
           brokerTitle: document.getElementById('global-broker-title').value.trim(),
           brokerPhone: document.getElementById('global-broker-phone').value.trim(),
@@ -1231,13 +1214,6 @@ Located 1.5 miles from I-85 in Jackson County..." class="w-full bg-slate-950 bor
         cleanData.imageUrl = '__local_hero__';
         cleanData.heroImage = '__local_hero__';
       }
-      if (cleanData.brandLogo && cleanData.brandLogo.startsWith('data:')) {
-        try {
-          localStorage.setItem('king_custom_logo', cleanData.brandLogo);
-        } catch(e) {}
-        cleanData.brandLogo = '__local_logo__';
-      }
-
       const jsonStr = JSON.stringify(cleanData);
       const encoded = btoa(unescape(encodeURIComponent(jsonStr)));
       
