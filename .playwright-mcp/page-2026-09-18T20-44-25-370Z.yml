@@ -1,0 +1,278 @@
+- generic [active] [ref=f7e1]:
+  - banner [ref=f7e2]:
+    - generic [ref=f7e3]:
+      - generic [ref=f7e4]:
+        - img "King Industrial Realty, Inc." [ref=f7e6]
+        - generic [ref=f7e7]:
+          - generic [ref=f7e8]: CLIENT PORTAL
+          - paragraph [ref=f7e10]: Institutional Logistics Underwriting & Feasibility Suite
+      - generic [ref=f7e11]: 51-57 Pearl Industrial Avenue
+      - generic [ref=f7e15]:
+        - link "📄 Flyer (PDF)" [ref=f7e16] [cursor=pointer]:
+          - /url: https://buildout.com/sharing/51-57-pearl-industrial-avenue-hoschton-sale?file=4312499
+          - generic [ref=f7e17]: 📄
+          - generic [ref=f7e18]: Flyer (PDF)
+        - button "Share Link" [ref=f7e19] [cursor=pointer]
+        - button "QR Code" [ref=f7e23] [cursor=pointer]
+        - button "Print / PDF" [ref=f7e27] [cursor=pointer]
+  - generic [ref=f7e30]:
+    - generic [ref=f7e31]:
+      - img "Class-A Industrial Facility" [ref=f7e32]
+      - generic [ref=f7e34]:
+        - generic [ref=f7e35]:
+          - generic [ref=f7e36]:
+            - generic [ref=f7e37]: Stabilized Industrial Investment
+            - generic [ref=f7e38]: Hoschton, GA 30548
+          - heading "51-57 Pearl Industrial Avenue" [level=1] [ref=f7e39]
+          - paragraph [ref=f7e40]: 24' Clear Height • 140' Truck Court • 4 Dock Doors • ESFR Sprinkler System
+        - generic [ref=f7e41]:
+          - generic [ref=f7e42]:
+            - generic [ref=f7e43]: Building Area
+            - generic [ref=f7e44]: 50,000 SF
+          - generic [ref=f7e45]:
+            - generic [ref=f7e46]: Project Value
+            - generic [ref=f7e47]: $5.75M
+          - generic [ref=f7e48]:
+            - generic [ref=f7e49]: Est. Levered IRR
+            - generic [ref=f7e50]: 21.6%
+    - generic [ref=f7e51]:
+      - generic [ref=f7e52]: "📸 Gallery (8):"
+      - button [ref=f7e53] [cursor=pointer]:
+        - img "Property Photo 1" [ref=f7e54]
+      - button [ref=f7e55] [cursor=pointer]:
+        - img "Property Photo 2" [ref=f7e56]
+      - button [ref=f7e57] [cursor=pointer]:
+        - img "Property Photo 3" [ref=f7e58]
+      - button [ref=f7e59] [cursor=pointer]:
+        - img "Property Photo 4" [ref=f7e60]
+      - button [ref=f7e61] [cursor=pointer]:
+        - img "Property Photo 5" [ref=f7e62]
+      - button [ref=f7e63] [cursor=pointer]:
+        - img "Property Photo 6" [ref=f7e64]
+      - button [ref=f7e65] [cursor=pointer]:
+        - img "Property Photo 7" [ref=f7e66]
+      - button [ref=f7e67] [cursor=pointer]:
+        - img "Property Photo 8" [ref=f7e68]
+  - generic [ref=f7e70]:
+    - button "10-Yr Underwriting & Sensitivity" [ref=f7e71] [cursor=pointer]
+    - button "Interactive CAD & Truck Court Simulator" [ref=f7e75] [cursor=pointer]
+    - button "Metro Atlanta Corridor Benchmarks" [ref=f7e79] [cursor=pointer]
+    - button "Executive AI Deal Memo" [ref=f7e83] [cursor=pointer]
+  - main [ref=f7e87]:
+    - generic [ref=f7e88]:
+      - generic [ref=f7e89]:
+        - generic [ref=f7e90]:
+          - generic [ref=f7e91]:
+            - heading "Underwriting Assumptions" [level=2] [ref=f7e92]
+            - generic [ref=f7e96]: Interactive Model
+          - generic [ref=f7e97]:
+            - generic [ref=f7e98]:
+              - generic [ref=f7e99]: Total Rentable SF
+              - generic [ref=f7e100]: 50,000 SF
+            - slider [ref=f7e101] [cursor=pointer]: "50000"
+          - generic [ref=f7e102]:
+            - generic [ref=f7e103]:
+              - generic [ref=f7e104]: Total Basis / Cost PSF
+              - generic [ref=f7e105]: $115.00 / SF
+            - slider [ref=f7e106] [cursor=pointer]: "115"
+          - generic [ref=f7e107]:
+            - generic [ref=f7e108]:
+              - generic [ref=f7e109]: Year 1 NNN Rent
+              - generic [ref=f7e110]: $7.50 / SF
+            - slider [ref=f7e111] [cursor=pointer]: "7.5"
+          - generic [ref=f7e112]:
+            - generic [ref=f7e113]:
+              - generic [ref=f7e114]: Annual Rent Escalator
+              - generic [ref=f7e115]: 3.50% / yr
+            - slider [ref=f7e116] [cursor=pointer]: "3.5"
+          - generic [ref=f7e117]:
+            - generic [ref=f7e118]:
+              - generic [ref=f7e119]: Target Exit Cap Rate
+              - generic [ref=f7e120]: 5.25%
+            - slider [ref=f7e121] [cursor=pointer]: "5.25"
+          - generic [ref=f7e122]:
+            - generic [ref=f7e123]: Debt Capital Structure
+            - generic [ref=f7e124]:
+              - generic [ref=f7e125]:
+                - generic [ref=f7e126]: Loan-to-Cost (LTC)
+                - combobox [ref=f7e127]:
+                  - option "50% LTC"
+                  - option "60% LTC"
+                  - option "65% LTC" [selected]
+                  - option "70% LTC"
+                  - option "0% (All Cash)"
+              - generic [ref=f7e128]:
+                - generic [ref=f7e129]: Interest Rate
+                - combobox [ref=f7e130]:
+                  - option "5.50%"
+                  - option "6.00%"
+                  - option "6.50%" [selected]
+                  - option "7.00%"
+                  - option "7.50%"
+        - generic [ref=f7e131]:
+          - generic [ref=f7e132]:
+            - generic [ref=f7e133]:
+              - generic [ref=f7e134]: Total Project Cost
+              - generic [ref=f7e135]: $5.75M
+              - generic [ref=f7e136]: "Equity: $2.01M"
+            - generic [ref=f7e137]:
+              - generic [ref=f7e138]: Year 1 NOI
+              - generic [ref=f7e139]: $360K
+              - generic [ref=f7e140]: "Untapped Yield: 6.26%"
+            - generic [ref=f7e141]:
+              - generic [ref=f7e142]: Exit Asset Value (Yr 5)
+              - generic [ref=f7e143]: $8.14M
+              - generic [ref=f7e144]: "Net Gain: +$2.39M"
+            - generic [ref=f7e145]:
+              - generic [ref=f7e146]: 5-Yr Levered IRR
+              - generic [ref=f7e147]: 21.6%
+              - generic [ref=f7e148]: "Equity Multiple: 2.57x"
+          - generic [ref=f7e149]:
+            - generic [ref=f7e150]:
+              - generic [ref=f7e151]:
+                - heading "10-Year NOI & Net Cash Flow Trajectory" [level=3] [ref=f7e152]
+                - paragraph [ref=f7e153]: Assumes compounding contractual escalations & debt service
+              - generic [ref=f7e154]:
+                - generic [ref=f7e155]: Net Operating Income
+                - generic [ref=f7e157]: Cash Flow After Debt
+            - img [ref=f7e160]:
+              - generic [ref=f7e163]: Y1
+              - generic [ref=f7e166]: Y2
+              - generic [ref=f7e169]: Y3
+              - generic [ref=f7e172]: Y4
+              - generic [ref=f7e175]: Y5
+              - generic [ref=f7e178]: Y6
+              - generic [ref=f7e181]: Y7
+              - generic [ref=f7e184]: Y8
+              - generic [ref=f7e187]: Y9
+              - generic [ref=f7e190]: Y10
+          - generic [ref=f7e191]:
+            - generic [ref=f7e192]:
+              - generic [ref=f7e193]:
+                - heading "Levered IRR Sensitivity Matrix (Exit Cap Rate vs. Year 5 Rent)" [level=3] [ref=f7e194]
+                - paragraph [ref=f7e195]: Shows 5-year investment return across varying market conditions
+              - generic [ref=f7e196]: Dynamic 5x5 Matrix
+            - table [ref=f7e198]:
+              - rowgroup [ref=f7e199]:
+                - row [ref=f7e200]:
+                  - columnheader "Exit Cap Rate \\ Yr 5 Rent" [ref=f7e201]
+                  - columnheader "-10%" [ref=f7e202]
+                  - columnheader "-5%" [ref=f7e203]
+                  - columnheader "+0%" [ref=f7e204]
+                  - columnheader "+5%" [ref=f7e205]
+                  - columnheader "+10%" [ref=f7e206]
+              - rowgroup [ref=f7e207]:
+                - row [ref=f7e208]:
+                  - cell "4.75% Cap" [ref=f7e209]
+                  - cell "35.2%" [ref=f7e210]
+                  - cell "37.8%" [ref=f7e211]
+                  - cell "40.2%" [ref=f7e212]
+                  - cell "42.5%" [ref=f7e213]
+                  - cell "44.6%" [ref=f7e214]
+                - row [ref=f7e215]:
+                  - cell "5.00% Cap" [ref=f7e216]
+                  - cell "32.8%" [ref=f7e217]
+                  - cell "35.4%" [ref=f7e218]
+                  - cell "37.8%" [ref=f7e219]
+                  - cell "40.1%" [ref=f7e220]
+                  - cell "42.2%" [ref=f7e221]
+                - row [ref=f7e222]:
+                  - cell "5.25% Cap" [ref=f7e223]
+                  - cell "30.5%" [ref=f7e224]
+                  - cell "33.1%" [ref=f7e225]
+                  - cell "35.5%" [ref=f7e226]
+                  - cell "37.8%" [ref=f7e227]
+                  - cell "40.0%" [ref=f7e228]
+                - row [ref=f7e229]:
+                  - cell "5.50% Cap" [ref=f7e230]
+                  - cell "28.2%" [ref=f7e231]
+                  - cell "30.8%" [ref=f7e232]
+                  - cell "33.3%" [ref=f7e233]
+                  - cell "35.6%" [ref=f7e234]
+                  - cell "37.8%" [ref=f7e235]
+                - row [ref=f7e236]:
+                  - cell "5.75% Cap" [ref=f7e237]
+                  - cell "26.0%" [ref=f7e238]
+                  - cell "28.7%" [ref=f7e239]
+                  - cell "31.2%" [ref=f7e240]
+                  - cell "33.5%" [ref=f7e241]
+                  - cell "35.7%" [ref=f7e242]
+      - generic [ref=f7e243]:
+        - heading "Complete 10-Year Institutional Cash Flow Schedule ($)" [level=3] [ref=f7e244]
+        - table [ref=f7e245]:
+          - rowgroup [ref=f7e246]:
+            - row [ref=f7e247]:
+              - columnheader "Line Item" [ref=f7e248]
+              - columnheader "Yr 1" [ref=f7e249]
+              - columnheader "Yr 2" [ref=f7e250]
+              - columnheader "Yr 3" [ref=f7e251]
+              - columnheader "Yr 4" [ref=f7e252]
+              - columnheader "Yr 5" [ref=f7e253]
+              - columnheader "Yr 6" [ref=f7e254]
+              - columnheader "Yr 7" [ref=f7e255]
+              - columnheader "Yr 8" [ref=f7e256]
+              - columnheader "Yr 9" [ref=f7e257]
+              - columnheader "Yr 10" [ref=f7e258]
+          - rowgroup [ref=f7e259]:
+            - row [ref=f7e260]:
+              - cell "Market Rent ($/SF)" [ref=f7e261]
+              - cell "$7.50" [ref=f7e262]
+              - cell "$7.76" [ref=f7e263]
+              - cell "$8.03" [ref=f7e264]
+              - cell "$8.32" [ref=f7e265]
+              - cell "$8.61" [ref=f7e266]
+              - cell "$8.91" [ref=f7e267]
+              - cell "$9.22" [ref=f7e268]
+              - cell "$9.54" [ref=f7e269]
+              - cell "$9.88" [ref=f7e270]
+              - cell "$10.22" [ref=f7e271]
+            - row [ref=f7e272]:
+              - cell "Potential Gross Revenue" [ref=f7e273]
+              - cell "$375K" [ref=f7e274]
+              - cell "$388K" [ref=f7e275]
+              - cell "$402K" [ref=f7e276]
+              - cell "$416K" [ref=f7e277]
+              - cell "$430K" [ref=f7e278]
+              - cell "$445K" [ref=f7e279]
+              - cell "$461K" [ref=f7e280]
+              - cell "$477K" [ref=f7e281]
+              - cell "$494K" [ref=f7e282]
+              - cell "$511K" [ref=f7e283]
+            - row [ref=f7e284]:
+              - cell "Net Operating Income (NOI)" [ref=f7e285]
+              - cell "$360K" [ref=f7e286]
+              - cell "$373K" [ref=f7e287]
+              - cell "$386K" [ref=f7e288]
+              - cell "$399K" [ref=f7e289]
+              - cell "$413K" [ref=f7e290]
+              - cell "$428K" [ref=f7e291]
+              - cell "$443K" [ref=f7e292]
+              - cell "$458K" [ref=f7e293]
+              - cell "$474K" [ref=f7e294]
+              - cell "$491K" [ref=f7e295]
+            - row [ref=f7e296]:
+              - cell "Debt Service (P&I)" [ref=f7e297]
+              - cell "$303K" [ref=f7e298]
+              - cell "$303K" [ref=f7e299]
+              - cell "$303K" [ref=f7e300]
+              - cell "$303K" [ref=f7e301]
+              - cell "$303K" [ref=f7e302]
+              - cell "$303K" [ref=f7e303]
+              - cell "$303K" [ref=f7e304]
+              - cell "$303K" [ref=f7e305]
+              - cell "$303K" [ref=f7e306]
+              - cell "$303K" [ref=f7e307]
+            - row [ref=f7e308]:
+              - cell "Cash Flow After Debt (CFAD)" [ref=f7e309]
+              - cell "$57K" [ref=f7e310]
+              - cell "$70K" [ref=f7e311]
+              - cell "$83K" [ref=f7e312]
+              - cell "$96K" [ref=f7e313]
+              - cell "$110K" [ref=f7e314]
+              - cell "$125K" [ref=f7e315]
+              - cell "$140K" [ref=f7e316]
+              - cell "$155K" [ref=f7e317]
+              - cell "$171K" [ref=f7e318]
+              - cell "$188K" [ref=f7e319]
+  - generic: Message
+  - contentinfo [ref=f7e320]: King Industrial Realty • Institutional Logistics Intelligence Suite • Confidential Client Presentation
