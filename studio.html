@@ -8,6 +8,7 @@
   <meta http-equiv="Expires" content="0">
   <title>KING INDUSTRIAL // Broker Deal Studio &amp; Flyer Extractor</title>
   <script src="https://cdn.tailwindcss.com"></script>
+  <script src="king-listing-extractor.js"></script>
   <!-- Client-Side Document Parsing & QR Libraries -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/mammoth/1.6.0/mammoth.browser.min.js"></script>
@@ -126,12 +127,10 @@
       </div>
     </div>
 
-    
     <!-- NEW STACKED WORKFLOW LAYOUT -->
     <div class="w-full max-w-5xl mx-auto space-y-8 pb-12">
 
-
-        <!-- BRAND & BROKER SETTINGS (COLLAPSIBLE) -->
+<!-- BRAND & BROKER SETTINGS (COLLAPSIBLE) -->
         <details class="bg-slate-900 border border-slate-800 rounded-lg shadow-sm group mb-6">
           <summary class="cursor-pointer p-4 font-bold text-xs uppercase tracking-wider text-slate-400 hover:text-white list-none flex items-center gap-2">
             <svg class="w-4 h-4 text-blue-500 group-hover:text-blue-400 transition" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
@@ -141,15 +140,10 @@
           <div class="p-4 border-t border-slate-800">
             <div class="space-y-3">
             <div>
-              <label class="block text-[11px] font-semibold text-slate-300 mb-1">Company Logo (Upload or URL)</label>
-              <div class="flex items-center gap-3">
-                <button type="button" onclick="document.getElementById('global-logo-file').click()" class="shrink-0 px-3 py-2 bg-slate-800 hover:bg-slate-700 text-xs font-bold text-slate-200 border border-slate-700 rounded-md transition flex items-center gap-2">
-                  <svg class="w-3.5 h-3.5 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12"/></svg>
-                  Upload
-                </button>
-                <input type="file" id="global-logo-file" accept="image/*" class="hidden" onchange="handleImageUpload(event, 'global-logo')">
-                <span class="text-[10px] text-slate-500 font-bold uppercase shrink-0">OR</span>
-                <input id="global-logo" type="text" placeholder="Paste Logo URL..." class="w-full bg-slate-950 border border-slate-800 rounded-md px-3 py-2 text-xs text-white focus:ring-1 focus:ring-blue-500" oninput="saveGlobalBranding()">
+              <label class="block text-[11px] font-semibold text-slate-300 mb-1">Company Logo</label>
+              <div class="flex items-center gap-3 bg-slate-950 border border-slate-800 rounded-md px-3 py-2.5">
+                <img src="assets/king-logo.png" alt="King Industrial Realty, Inc." class="h-7 w-auto object-contain bg-white rounded-sm px-1.5 py-1">
+                <span class="text-[10px] text-slate-500">Fixed brand logo — applied automatically to every deal and presentation.</span>
               </div>
             </div>
             <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
@@ -173,15 +167,52 @@
           </div>
           </div>
         </details>
-    
 
-      <!-- STEP 1: FLYER EXTRACTOR -->
-      <!-- CARD B: SMART FLYER & BROCHURE UPLOAD EXTRACTOR -->
+
+      <!-- STEP 1A: 1-CLICK KING INDUSTRIAL ONLINE LISTING EXTRACTOR -->
+      <div class="bg-gradient-to-r from-blue-950/60 via-slate-900 to-indigo-950/50 border border-blue-500/40 rounded-lg p-5 shadow-lg space-y-3">
+        <div class="flex items-center justify-between border-b border-blue-500/20 pb-3">
+          <div class="flex items-center gap-2">
+            <span class="text-lg">⚡</span>
+            <h2 class="text-sm font-bold uppercase tracking-wider text-white"><span class="text-blue-400 mr-1">STEP 1A:</span> 1-Click Live King Listing URL Import</h2>
+          </div>
+          <span class="text-[10px] px-2.5 py-0.5 rounded-full bg-blue-500/20 text-blue-300 border border-blue-500/40 font-semibold font-mono">
+            properties.kingindustrial.com
+          </span>
+        </div>
+        <p class="text-xs text-slate-300">
+          Paste any live King Industrial listing link to instantly import building specs, all 8+ high-res photos, broker contacts, and the marketing PDF:
+        </p>
+        <div class="flex items-center gap-2">
+          <input id="listing-url-input" type="url" placeholder="http://properties.kingindustrial.com/51-57-pearl-industrial-avenue-hoschton-sale" class="flex-1 bg-slate-950 border border-slate-700 rounded-md px-3.5 py-2.5 text-xs text-white placeholder-slate-500 font-mono focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none">
+          <button id="btn-extract-listing" onclick="extractListingFromUrl()" class="px-5 py-2.5 rounded-md bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 text-white font-bold text-xs shrink-0 shadow-md transition flex items-center gap-1.5">
+            <svg id="extract-spinner" class="hidden animate-spin w-3.5 h-3.5 text-white" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8H4z"></path></svg>
+            <span>Import & Autofill</span>
+          </button>
+        </div>
+        <div id="listing-import-status" class="text-[11px] text-slate-400 font-mono"></div>
+
+        <!-- Extracted Photos & Flyer Container -->
+        <div id="media-preview-container" class="hidden bg-slate-950/80 border border-slate-800 rounded-lg p-3 space-y-2 mt-2">
+          <div class="flex items-center justify-between text-xs">
+            <span class="font-semibold text-slate-300 flex items-center gap-1.5">
+              <span>📸</span> Extracted Photos (<span id="photo-count">0</span> photos loaded):
+            </span>
+            <a id="flyer-download-link" href="#" target="_blank" class="hidden text-emerald-400 hover:underline font-semibold flex items-center gap-1">
+              📄 View Marketing Flyer PDF
+            </a>
+          </div>
+          <div id="photo-thumbnails" class="flex items-center gap-2 overflow-x-auto py-1 scrollbar-thin"></div>
+        </div>
+      </div>
+
+
+<!-- CARD B: SMART FLYER & BROCHURE UPLOAD EXTRACTOR -->
         <div class="bg-slate-900 border border-slate-800 rounded-lg p-5 shadow-md space-y-4">
           <div class="flex items-center justify-between border-b border-slate-800 pb-3">
             <div class="flex items-center gap-2">
               <span class="text-base"></span>
-              <h2 class="text-sm font-bold uppercase tracking-wider text-white"><span class="text-blue-500 mr-1">STEP 1:</span> Property Flyer Extractor</h2>
+              <h2 class="text-sm font-bold uppercase tracking-wider text-white"><span class="text-blue-500 mr-1">STEP 1B:</span> Property Flyer & Document Extractor</h2>
             </div>
             <span class="text-[10px] px-2 py-0.5 rounded-full bg-emerald-500/10 text-blue-400 border border-emerald-500/30 font-semibold">
               PDF &bull; DOCX &bull; TXT
@@ -499,8 +530,7 @@ Located 1.5 miles from I-85 in Jackson County..." class="w-full bg-slate-950 bor
 
   </main>
 
-  <!-- ========================================================================= -->
-  <!-- MODAL: CLIENT QR CODE MODAL                                               -->
+<!-- MODAL: CLIENT QR CODE MODAL                                               -->
   <!-- ========================================================================= -->
   <div id="qrModal" class="fixed inset-0 z-50 bg-slate-950/80 backdrop-blur-sm hidden flex items-center justify-center p-4">
     <div class="bg-slate-900 border border-slate-800 rounded-lg w-full max-w-sm p-6 shadow-lg flex flex-col items-center text-center space-y-4 animate-in fade-in zoom-in-95 duration-200">
@@ -553,13 +583,52 @@ Located 1.5 miles from I-85 in Jackson County..." class="w-full bg-slate-950 bor
   </footer>
 
   <!-- Script Engine -->
-  <script>
+
+<script>
     // PDF.js worker setup
     if (window.pdfjsLib) {
       pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
     }
 
     const DEFAULT_DEALS = [
+      {
+        id: 'deal-pearl',
+        name: 'Pearl Industrial Park (4-Building Complex)',
+        address: '51-57 Pearl Industrial Avenue, Hoschton, GA 30548',
+        corridor: 'I-85 North Corridor (Jackson / Gwinnett)',
+        typeBadge: 'Stabilized Industrial Investment',
+        sf: 50000,
+        costPsf: 115,
+        rentPsf: 7.50,
+        escalation: 3.50,
+        exitCap: 5.25,
+        ltc: 0.65,
+        interestRate: 0.065,
+        amortYears: 25,
+        layout: 'singleload',
+        courtDepth: 140,
+        clearHeight: 24,
+        dockDoors: 4,
+        driveinDoors: 2,
+        trailerStalls: 11,
+        columnGrid: "50' x 50' Speed Bays",
+        sprinkler: 'ESFR Sprinkler System',
+        notes: 'Fully Stabilized, 100% Leased. Newer Construction (Built 2000-2004). Front-Load Configuration Ideal for Small Contractors, Trade, and Light Distribution / Service Tenants. Mix of Dock-High and Drive-In / Van-High Loading. Located in the I-85 North Corridor. Submarket Vacancy Below 8.25%. King Industrial Listing Team: Andrew Johnson (404.942.2029), Brian Bratton, SIOR (404.942.2028).',
+        imageUrl: 'https://s3.amazonaws.com/buildout-production/datas/35999025/2bef679c3b8274eb684eb08018269f61482d3752/full.jpg?1786632959',
+        heroImage: 'https://s3.amazonaws.com/buildout-production/datas/35999025/2bef679c3b8274eb684eb08018269f61482d3752/full.jpg?1786632959',
+        photos: [
+          { id: 67006602, url: 'https://s3.amazonaws.com/buildout-production/datas/35999025/2bef679c3b8274eb684eb08018269f61482d3752/full.jpg?1786632959', thumbUrl: 'https://s3.amazonaws.com/buildout-production/datas/35999025/2bef679c3b8274eb684eb08018269f61482d3752/small.jpg?1786632959' },
+          { id: 67006604, url: 'https://s3.amazonaws.com/buildout-production/datas/35999026/2a6dffd35b035bb151da9504b81c43acc272d52f/full.jpg?1786632959', thumbUrl: 'https://s3.amazonaws.com/buildout-production/datas/35999026/2a6dffd35b035bb151da9504b81c43acc272d52f/small.jpg?1786632959' },
+          { id: 67006749, url: 'https://s3.amazonaws.com/buildout-production/datas/35999108/3070dfd16d9a58b9a40cf5715da1fb0abd463e9f/full.jpg?1786633386', thumbUrl: 'https://s3.amazonaws.com/buildout-production/datas/35999108/3070dfd16d9a58b9a40cf5715da1fb0abd463e9f/small.jpg?1786633386' }
+        ],
+        documents: [
+          { title: '927-D179_Pearl Industrial Park -Investment.pdf', url: 'https://buildout.com/sharing/51-57-pearl-industrial-avenue-hoschton-sale?file=4312499' }
+        ],
+        brokers: [
+          { name: 'Andrew Johnson', title: 'Vice President', phone: '404.942.2029', email: 'ajohnson@kingindustrial.com' },
+          { name: 'Brian Bratton, SIOR', title: 'Senior Vice President', phone: '404.942.2028', email: 'bbratton@kingindustrial.com' }
+        ]
+      },
       {
         id: 'deal-braselton',
         name: 'King Logistics Gateway Hub',
@@ -660,17 +729,13 @@ Located 1.5 miles from I-85 in Jackson County..." class="w-full bg-slate-950 bor
             ctx.drawImage(img, 0, 0, w, h);
             
             const compressedBase64 = canvas.toDataURL('image/jpeg', 0.7);
-            
-            // Store the base64 data in the input value (used by getFormData)
-            const input = document.getElementById(targetInputId);
-            input.value = compressedBase64;
-            
-            if (targetInputId === 'global-logo') {
-               saveGlobalBranding();
-            } else {
-               triggerPreviewCalc();
+            document.getElementById(targetInputId).value = compressedBase64;
+            triggerPreviewCalc();
+            if (currentDeal && currentDeal.id) {
+              try { localStorage.setItem('king_img_' + currentDeal.id, compressedBase64); } catch(e){}
             }
-            showToast('Image uploaded! It will appear in "Save File" downloads. Share links use the default image.');
+            try { localStorage.setItem('king_active_hero_img', compressedBase64); } catch(e){}
+            showToast('Image uploaded & cached for presentations!');
           };
           img.src = e.target.result;
         };
@@ -680,7 +745,6 @@ Located 1.5 miles from I-85 in Jackson County..." class="w-full bg-slate-950 bor
       function loadGlobalBranding() {
         try {
           const b = JSON.parse(localStorage.getItem('king_branding_v1') || '{}');
-          document.getElementById('global-logo').value = b.logo || '';
           document.getElementById('global-broker-name').value = b.name || '';
           document.getElementById('global-broker-title').value = b.title || '';
           document.getElementById('global-broker-phone').value = b.phone || '';
@@ -690,7 +754,6 @@ Located 1.5 miles from I-85 in Jackson County..." class="w-full bg-slate-950 bor
 
       function saveGlobalBranding() {
         const b = {
-          logo: document.getElementById('global-logo').value.trim(),
           name: document.getElementById('global-broker-name').value.trim(),
           title: document.getElementById('global-broker-title').value.trim(),
           phone: document.getElementById('global-broker-phone').value.trim(),
@@ -701,7 +764,101 @@ Located 1.5 miles from I-85 in Jackson County..." class="w-full bg-slate-950 bor
         saveAndApplyDeal(); // trigger resave so active deal gets these updates
       }
 
-      async function initStudio() {
+    // =========================================================================
+    // MEDIA PREVIEW & KING ONLINE LISTING EXTRACTOR
+    // =========================================================================
+    function renderMediaPreview(d) {
+      const container = document.getElementById('media-preview-container');
+      if (!container) return;
+      const countEl = document.getElementById('photo-count');
+      const thumbContainer = document.getElementById('photo-thumbnails');
+      const flyerLink = document.getElementById('flyer-download-link');
+
+      if (d && d.photos && d.photos.length > 0) {
+        container.classList.remove('hidden');
+        countEl.textContent = d.photos.length;
+        thumbContainer.innerHTML = d.photos.map((p, idx) => `
+          <img src="${p.thumbUrl || p.url}" alt="Photo ${idx+1}" class="w-16 h-12 object-cover rounded-md border border-slate-700 shrink-0 cursor-pointer hover:border-blue-500 transition" onclick="window.open('${p.url}', '_blank')" title="Click to view full photo">
+        `).join('');
+      } else {
+        container.classList.add('hidden');
+      }
+
+      if (d && d.documents && d.documents.length > 0 && d.documents[0].url) {
+        flyerLink.classList.remove('hidden');
+        flyerLink.href = d.documents[0].url;
+        flyerLink.textContent = `📄 ${d.documents[0].title || 'View Flyer PDF'}`;
+      } else {
+        flyerLink.classList.add('hidden');
+      }
+    }
+
+    async function extractListingFromUrl() {
+      const urlInput = document.getElementById('listing-url-input');
+      const url = urlInput.value.trim();
+      if (!url) {
+        alert('Please enter or paste a King Industrial listing URL.\nExample: http://properties.kingindustrial.com/51-57-pearl-industrial-avenue-hoschton-sale');
+        return;
+      }
+
+      const btn = document.getElementById('btn-extract-listing');
+      const spinner = document.getElementById('extract-spinner');
+      const statusEl = document.getElementById('listing-import-status');
+
+      btn.disabled = true;
+      spinner.classList.remove('hidden');
+      statusEl.innerHTML = `<span class="text-blue-400 animate-pulse">⏳ Fetching listing data, photos & flyer...</span>`;
+
+      try {
+        if (!window.KingListingExtractor) {
+          throw new Error('KingListingExtractor library not loaded.');
+        }
+
+        const extracted = await KingListingExtractor.extractListing(url);
+        const studioDeal = KingListingExtractor.toStudioDeal(extracted);
+        studioDeal.imageUrl = studioDeal.heroImage || '';
+
+        // If listing has brokers, pre-populate global broker info if empty
+        if (studioDeal.brokers && studioDeal.brokers.length > 0) {
+          const b = studioDeal.brokers[0];
+          const nameInput = document.getElementById('global-broker-name');
+          const titleInput = document.getElementById('global-broker-title');
+          const phoneInput = document.getElementById('global-broker-phone');
+          const emailInput = document.getElementById('global-broker-email');
+          if (nameInput && !nameInput.value) nameInput.value = b.name || '';
+          if (titleInput && !titleInput.value) titleInput.value = b.title || '';
+          if (phoneInput && !phoneInput.value) phoneInput.value = b.phone || '';
+          if (emailInput && !emailInput.value) emailInput.value = b.email || '';
+          saveGlobalBranding();
+        }
+
+        const existingIdx = deals.findIndex(d => d.id === studioDeal.id);
+        if (existingIdx >= 0) {
+          deals[existingIdx] = studioDeal;
+        } else {
+          deals.unshift(studioDeal);
+        }
+        currentDeal = studioDeal;
+
+        saveDealsToStorage();
+        populateDealSelector();
+        loadDealIntoForm(currentDeal);
+        triggerPreviewCalc();
+
+        const photoCount = (studioDeal.photos && studioDeal.photos.length) || 0;
+        statusEl.innerHTML = `<span class="text-emerald-400 font-semibold">✓ Imported "${studioDeal.name}" &bull; ${studioDeal.sf ? studioDeal.sf.toLocaleString() + ' SF' : 'Specs Loaded'} &bull; ${photoCount} Photos</span>`;
+        showToast(`✓ Imported "${studioDeal.name}"!`);
+      } catch (err) {
+        console.error('Extraction error:', err);
+        statusEl.innerHTML = `<span class="text-amber-400 font-semibold">Notice: ${err.message}</span>`;
+        alert(`Notice: ${err.message}\n\nTip: You can also drop the PDF flyer into the box below or paste the text directly.`);
+      } finally {
+        btn.disabled = false;
+        spinner.classList.add('hidden');
+      }
+    }
+
+    async function initStudio() {
         loadGlobalBranding();
         const saved = localStorage.getItem('king_deals_v1');
       if (saved) {
@@ -879,7 +1036,8 @@ Located 1.5 miles from I-85 in Jackson County..." class="w-full bg-slate-950 bor
     function loadDealIntoForm(d) {
       document.getElementById('form-name').value = d.name || '';
       document.getElementById('form-address').value = d.address || '';
-        document.getElementById('form-image').value = d.imageUrl || '';
+        document.getElementById('form-image').value = d.imageUrl || d.heroImage || '';
+      renderMediaPreview(d);
       document.getElementById('form-corridor').value = d.corridor || 'I-85 North Corridor (Jackson / Gwinnett)';
       document.getElementById('form-sf').value = d.sf || 300000;
       document.getElementById('form-clear').value = d.clearHeight || 36;
@@ -893,8 +1051,14 @@ Located 1.5 miles from I-85 in Jackson County..." class="w-full bg-slate-950 bor
       document.getElementById('form-escalation').value = d.escalation || 3.50;
       document.getElementById('form-cost-psf').value = d.costPsf || 115;
       document.getElementById('form-cap').value = d.exitCap || 5.50;
-      document.getElementById('form-ltc').value = (d.ltc !== undefined ? d.ltc : 0.65).toString();
-      document.getElementById('form-interest').value = (d.interestRate !== undefined ? d.interestRate : 0.065).toString();
+      const ltcSelect = document.getElementById('form-ltc');
+      const ltcVal = (d.ltc !== undefined ? parseFloat(d.ltc) : 0.65).toFixed(2);
+      ltcSelect.value = ltcVal;
+      if (!ltcSelect.value) ltcSelect.value = "0.65";
+      const intSelect = document.getElementById('form-interest');
+      const intVal = (d.interestRate !== undefined ? parseFloat(d.interestRate) : 0.065).toFixed(3);
+      intSelect.value = intVal;
+      if (!intSelect.value) intSelect.value = "0.065";
       document.getElementById('form-grid').value = d.columnGrid || "54' x 50' Grid";
       document.getElementById('form-notes').value = d.notes || '';
     }
@@ -904,7 +1068,13 @@ Located 1.5 miles from I-85 in Jackson County..." class="w-full bg-slate-950 bor
           id: currentDeal ? currentDeal.id : ('deal-' + Date.now()),
           name: document.getElementById('form-name').value.trim() || '',
           address: document.getElementById('form-address').value.trim() || '',
-          imageUrl: document.getElementById('form-image').value.trim() || '',
+                  imageUrl: document.getElementById('form-image').value.trim() || (currentDeal ? currentDeal.heroImage : ''),
+        heroImage: document.getElementById('form-image').value.trim() || (currentDeal ? currentDeal.heroImage : ''),
+        photos: currentDeal ? (currentDeal.photos || []) : [],
+        documents: currentDeal ? (currentDeal.documents || []) : [],
+        brokers: currentDeal ? (currentDeal.brokers || []) : [],
+        lotSize: currentDeal ? currentDeal.lotSize : '',
+        coordinates: currentDeal ? currentDeal.coordinates : null,
           corridor: document.getElementById('form-corridor').value,
           typeBadge: 'Class-A Industrial Facility',
           sf: parseFloat(document.getElementById('form-sf').value) || '',
@@ -924,7 +1094,6 @@ Located 1.5 miles from I-85 in Jackson County..." class="w-full bg-slate-950 bor
           amortYears: 25,
           columnGrid: document.getElementById('form-grid').value.trim() || '',
           notes: document.getElementById('form-notes').value.trim() || '',
-          brandLogo: document.getElementById('global-logo').value.trim(),
           brokerName: document.getElementById('global-broker-name').value.trim(),
           brokerTitle: document.getElementById('global-broker-title').value.trim(),
           brokerPhone: document.getElementById('global-broker-phone').value.trim(),
@@ -1037,15 +1206,16 @@ Located 1.5 miles from I-85 in Jackson County..." class="w-full bg-slate-950 bor
       const data = getFormData();
       const cleanData = { ...data };
       delete cleanData.id;
-      
-      // Strip ALL base64 image data from every field — way too large for URLs.
-      // Uploaded images only work via "Save File" (standalone HTML download).
-      for (const key in cleanData) {
-        if (typeof cleanData[key] === 'string' && cleanData[key].startsWith('data:')) {
-          cleanData[key] = '';
-        }
+
+      // Prevent HTTP 414 URI Too Long by caching large data: base64 images in localStorage
+      if (cleanData.imageUrl && cleanData.imageUrl.startsWith('data:')) {
+        try {
+          localStorage.setItem('king_img_' + (data.id || 'active'), cleanData.imageUrl);
+          localStorage.setItem('king_active_hero_img', cleanData.imageUrl);
+        } catch(e) {}
+        cleanData.imageUrl = '__local_hero__';
+        cleanData.heroImage = '__local_hero__';
       }
-      
       const jsonStr = JSON.stringify(cleanData);
       const encoded = btoa(unescape(encodeURIComponent(jsonStr)));
       
@@ -1067,24 +1237,15 @@ Located 1.5 miles from I-85 in Jackson County..." class="w-full bg-slate-950 bor
 
     function launchClientPresentation() {
       saveAndApplyDeal();
-      const imageUrl = document.getElementById('form-image').value.trim();
-      if (imageUrl.startsWith('data:')) {
-        showToast('Note: Uploaded photos only appear in "Save File" downloads, not in browser preview links.');
-      }
       const url = getClientPresentationUrl();
       window.open(url, '_blank');
     }
 
     function copyClientShareLink() {
       saveAndApplyDeal();
-      const imageUrl = document.getElementById('form-image').value.trim();
-      if (imageUrl.startsWith('data:')) {
-        showToast('Uploaded photos are too large for share links. Use "Save File" to include images. Link copied without photo.');
-      } else {
-        showToast('Client presentation link copied to clipboard!');
-      }
       const url = getClientPresentationUrl();
       navigator.clipboard.writeText(url).then(() => {
+        showToast('Client-Only Presentation Link copied to clipboard!');
       }).catch(() => {
         prompt('Copy client presentation link:', url);
       });
@@ -1454,3 +1615,4 @@ Located 1.5 miles from I-85 in Jackson County..." class="w-full bg-slate-950 bor
   </script>
 </body>
 </html>
+

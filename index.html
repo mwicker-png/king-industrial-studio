@@ -82,14 +82,13 @@
   <header class="border-b border-slate-800/80 bg-slate-900/80 backdrop-blur sticky top-0 z-50">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3 flex items-center justify-between gap-4">
       
-      <!-- Brand Logo -->
+      <!-- Brand Logo (fixed, not user-editable) -->
       <div class="flex items-center gap-3 shrink-0">
-        <div id="brand-logo-container" class="w-10 h-10 rounded bg-red-600 flex items-center justify-center font-black text-xl shadow-lg shadow-red-600/20 text-white tracking-tighter overflow-hidden" style="font-style: italic;">
-          KING
+        <div class="shrink-0 bg-white rounded px-2 py-1.5 shadow-lg shadow-red-600/20">
+          <img src="assets/king-logo.png" alt="King Industrial Realty, Inc." class="h-7 w-auto object-contain">
         </div>
         <div>
           <div class="flex items-center gap-2">
-            <span class="font-extrabold text-base tracking-tight text-white uppercase" style="color: #ef4444;">King Industrial</span>
             <span class="text-[10px] px-1.5 py-0.5 rounded bg-slate-800 text-slate-300 font-bold border border-slate-700 no-print">CLIENT PORTAL</span>
           </div>
           <p class="text-[10px] text-slate-400 no-print">Institutional Logistics Underwriting & Feasibility Suite</p>
@@ -108,6 +107,10 @@
 
       <!-- Right Actions: Share, QR, Print (hidden in print mode) -->
       <div class="flex items-center gap-2 shrink-0 no-print">
+                <a id="navFlyerBtn" href="#" target="_blank" class="hidden items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-semibold bg-emerald-500/15 text-emerald-400 border border-emerald-500/30 hover:bg-emerald-500/25 transition no-print" title="Download Property Marketing Flyer (PDF)">
+          <span>📄</span>
+          <span class="hidden sm:inline">Flyer (PDF)</span>
+        </a>
         <button onclick="shareDealLink()" title="Copy Shareable Link" class="flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl text-xs font-bold bg-blue-600 hover:bg-blue-500 text-white shadow-md shadow-blue-600/30 transition">
           <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.368 2.684 3 3 0 00-5.368-2.684z"/></svg>
           <span class="hidden sm:inline">Share Link</span>
@@ -159,6 +162,10 @@
           </div>
         </div>
       </div>
+    </div>
+    <!-- Interactive Photo Gallery Strip (Autofilled from King Industrial Listings) -->
+    <div id="hero-photo-strip" class="hidden mt-3 pt-2 border-t border-slate-800/80 flex items-center gap-2 overflow-x-auto pb-1 scrollbar-thin no-print">
+      <!-- Thumbnails populated dynamically via JS -->
     </div>
   </section>
 
@@ -592,7 +599,77 @@
 
   <!-- JavaScript Logic Engine -->
   <script>
+    // =========================================================================
+    // XSS SANITIZATION & SECURITY UTILITIES
+    // =========================================================================
+    function escapeHtml(str) {
+      if (str === null || str === undefined) return '';
+      return String(str)
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#039;');
+    }
+
+    function sanitizeUrl(url) {
+      if (!url || typeof url !== 'string') return '';
+      const trimmed = url.trim();
+      // Allow safe image data URIs
+      if (/^data:image\/(jpeg|png|webp|gif);base64,[a-zA-Z0-9+/=]+$/i.test(trimmed)) {
+        return trimmed;
+      }
+      // Allow http, https, mailto, tel, root paths, or safe image relative paths
+      if (/^(https?:\/\/|\/|mailto:|tel:|[a-zA-Z0-9_\-\.\/]+\.(?:jpg|jpeg|png|webp|gif|svg|pdf))/i.test(trimmed)) {
+        return trimmed
+          .replace(/"/g, '%22')
+          .replace(/'/g, '%27')
+          .replace(/</g, '%3C')
+          .replace(/>/g, '%3E')
+          .replace(/\s+/g, '');
+      }
+      return '';
+    }
+
     const DEFAULT_DEALS = [
+      {
+        id: 'deal-pearl',
+        name: 'Pearl Industrial Park (4-Building Complex)',
+        address: '51-57 Pearl Industrial Avenue, Hoschton, GA 30548',
+        corridor: 'I-85 North Corridor (Jackson / Gwinnett)',
+        typeBadge: 'Stabilized Industrial Investment',
+        sf: 50000,
+        costPsf: 115,
+        rentPsf: 7.50,
+        escalation: 3.50,
+        exitCap: 5.25,
+        ltc: 0.65,
+        interestRate: 0.065,
+        amortYears: 25,
+        layout: 'singleload',
+        courtDepth: 140,
+        clearHeight: 24,
+        dockDoors: 4,
+        driveinDoors: 2,
+        trailerStalls: 11,
+        columnGrid: "50' x 50' Speed Bays",
+        sprinkler: 'ESFR Sprinkler System',
+        notes: 'Fully Stabilized, 100% Leased. Newer Construction (Built 2000-2004). Front-Load Configuration Ideal for Small Contractors, Trade, and Light Distribution / Service Tenants. Mix of Dock-High and Drive-In / Van-High Loading. Located in the I-85 North Corridor. Submarket Vacancy Below 8.25%. King Industrial Listing Team: Andrew Johnson (404.942.2029), Brian Bratton, SIOR (404.942.2028).',
+        imageUrl: 'https://s3.amazonaws.com/buildout-production/datas/35999025/2bef679c3b8274eb684eb08018269f61482d3752/full.jpg?1786632959',
+        heroImage: 'https://s3.amazonaws.com/buildout-production/datas/35999025/2bef679c3b8274eb684eb08018269f61482d3752/full.jpg?1786632959',
+        photos: [
+          { id: 67006602, url: 'https://s3.amazonaws.com/buildout-production/datas/35999025/2bef679c3b8274eb684eb08018269f61482d3752/full.jpg?1786632959', thumbUrl: 'https://s3.amazonaws.com/buildout-production/datas/35999025/2bef679c3b8274eb684eb08018269f61482d3752/small.jpg?1786632959' },
+          { id: 67006604, url: 'https://s3.amazonaws.com/buildout-production/datas/35999026/2a6dffd35b035bb151da9504b81c43acc272d52f/full.jpg?1786632959', thumbUrl: 'https://s3.amazonaws.com/buildout-production/datas/35999026/2a6dffd35b035bb151da9504b81c43acc272d52f/small.jpg?1786632959' },
+          { id: 67006749, url: 'https://s3.amazonaws.com/buildout-production/datas/35999108/3070dfd16d9a58b9a40cf5715da1fb0abd463e9f/full.jpg?1786633386', thumbUrl: 'https://s3.amazonaws.com/buildout-production/datas/35999108/3070dfd16d9a58b9a40cf5715da1fb0abd463e9f/small.jpg?1786633386' }
+        ],
+        documents: [
+          { title: '927-D179_Pearl Industrial Park -Investment.pdf', url: 'https://buildout.com/sharing/51-57-pearl-industrial-avenue-hoschton-sale?file=4312499' }
+        ],
+        brokers: [
+          { name: 'Andrew Johnson', title: 'Vice President', phone: '404.942.2029', email: 'ajohnson@kingindustrial.com' },
+          { name: 'Brian Bratton, SIOR', title: 'Senior Vice President', phone: '404.942.2028', email: 'bbratton@kingindustrial.com' }
+        ]
+      },
       {
         id: 'deal-braselton',
         name: 'King Logistics Gateway Hub',
@@ -732,22 +809,88 @@
     }
 
     function loadDealIntoUI(d) {
+      if (!d) return;
+
       const badge = document.getElementById('nav-property-badge');
-      if (badge) badge.textContent = d.name;
-      document.title = `${d.name} // King Industrial Logistics Underwriting`;
-      document.getElementById('heroTitle').textContent = d.name;
-      document.getElementById('heroAddress').textContent = d.address;
+      if (badge) badge.textContent = d.name || 'King Industrial Deal';
+      document.title = `${d.name || 'King Industrial'} // Logistics Underwriting`;
+      document.getElementById('heroTitle').textContent = d.name || '';
+      document.getElementById('heroAddress').textContent = d.address || '';
       document.getElementById('heroTypeBadge').textContent = d.typeBadge || 'Class-A Industrial Logistics';
-      document.getElementById('heroSpecsSummary').innerHTML = `${d.clearHeight}' Clear Height &bull; ${d.courtDepth}' Truck Court &bull; ${d.dockDoors} Dock Doors &bull; ${d.sprinkler}`;
-
-      const heroImg = document.getElementById('heroImage');
-      if (heroImg) heroImg.src = d.imageUrl || 'apex_logistics_hub.jpg';
-
-      if (d.brandLogo) {
-        document.getElementById('brand-logo-container').innerHTML = `<img src="${d.brandLogo}" class="w-full h-full object-contain bg-white">`;
-        document.getElementById('brand-logo-container').className = "w-10 h-10 shrink-0 bg-transparent rounded overflow-hidden";
+      
+      // Use textContent to prevent HTML injection into hero specs
+      const specEl = document.getElementById('heroSpecsSummary');
+      if (specEl) {
+        specEl.textContent = `${d.clearHeight || 32}' Clear Height • ${d.courtDepth || 140}' Truck Court • ${d.dockDoors || 4} Dock Doors • ${d.sprinkler || 'ESFR System'}`;
       }
 
+      const heroImg = document.getElementById('heroImage');
+      if (heroImg) {
+        let heroSrc = d.imageUrl || d.heroImage || '';
+        // If image tokenized or empty, check local storage for uploaded building photo
+        if (!heroSrc || heroSrc === '__local_hero__' || heroSrc === 'apex_logistics_hub.jpg') {
+          const cached = localStorage.getItem('king_img_' + (d.id || d.dealId || 'active')) ||
+                         localStorage.getItem('king_active_hero_img');
+          if (cached) heroSrc = cached;
+        }
+        const cleanHeroUrl = sanitizeUrl(heroSrc) || 'apex_logistics_hub.jpg';
+        heroImg.src = cleanHeroUrl;
+      }
+
+      // Populate interactive photo gallery strip using safe DOM elements
+      const photoStrip = document.getElementById('hero-photo-strip');
+      if (photoStrip) {
+        photoStrip.innerHTML = '';
+        if (d.photos && Array.isArray(d.photos) && d.photos.length > 0) {
+          photoStrip.classList.remove('hidden');
+          
+          const label = document.createElement('span');
+          label.className = "text-[10px] font-mono text-slate-400 uppercase tracking-wider font-semibold shrink-0 mr-1 flex items-center gap-1";
+          label.textContent = `📸 Gallery (${d.photos.length}):`;
+          photoStrip.appendChild(label);
+
+          d.photos.forEach((p, idx) => {
+            const cleanUrl = sanitizeUrl(p.url);
+            const cleanThumb = sanitizeUrl(p.thumbUrl) || cleanUrl;
+            if (!cleanUrl) return;
+
+            const btn = document.createElement('button');
+            btn.type = 'button';
+            btn.className = "group relative shrink-0 rounded-lg overflow-hidden border border-slate-700/80 hover:border-blue-400 focus:ring-2 focus:ring-blue-500 transition opacity-80 hover:opacity-100 shadow-sm";
+            btn.title = `View photo ${idx + 1}`;
+            btn.onclick = () => {
+              if (heroImg) heroImg.src = cleanUrl;
+            };
+
+            const img = document.createElement('img');
+            img.src = cleanThumb;
+            img.alt = `Property Photo ${idx + 1}`;
+            img.className = "w-16 h-11 object-cover group-hover:scale-105 transition duration-200";
+
+            btn.appendChild(img);
+            photoStrip.appendChild(btn);
+          });
+        } else {
+          photoStrip.classList.add('hidden');
+        }
+      }
+
+      // Safe flyer link validation
+      const flyerBtn = document.getElementById('navFlyerBtn');
+      if (flyerBtn) {
+        const flyerUrl = d.documents && d.documents[0] ? sanitizeUrl(d.documents[0].url) : '';
+        if (flyerUrl) {
+          flyerBtn.href = flyerUrl;
+          flyerBtn.classList.remove('hidden');
+          flyerBtn.classList.add('flex');
+        } else {
+          flyerBtn.classList.add('hidden');
+          flyerBtn.classList.remove('flex');
+          flyerBtn.removeAttribute('href');
+        }
+      }
+
+      // Safe agent profile text
       if (d.brokerName || d.brokerPhone || d.brokerEmail) {
         const titleText = d.brokerTitle ? `, ${d.brokerTitle}` : '';
         const nameText = d.brokerName || 'Agent';
@@ -756,23 +899,23 @@
         document.getElementById('agent-profile').textContent = `Prepared by: ${nameText}${titleText}${phoneText}${emailText}`;
       }
 
-      document.getElementById('in-sf').value = d.sf;
-      document.getElementById('in-cost-psf').value = d.costPsf;
-      document.getElementById('in-rent').value = d.rentPsf;
-      document.getElementById('in-escalation').value = d.escalation;
-      document.getElementById('in-exit-cap').value = d.exitCap;
+      document.getElementById('in-sf').value = d.sf || 50000;
+      document.getElementById('in-cost-psf').value = d.costPsf || 115;
+      document.getElementById('in-rent').value = d.rentPsf || 7.50;
+      document.getElementById('in-escalation').value = d.escalation || 3.50;
+      document.getElementById('in-exit-cap').value = d.exitCap || 5.25;
       document.getElementById('in-ltc').value = (d.ltc !== undefined ? d.ltc : 0.65).toString();
       document.getElementById('in-interest').value = (d.interestRate !== undefined ? d.interestRate : 0.065).toString();
 
-      document.getElementById('in-court-depth').value = d.courtDepth;
-      document.getElementById('in-cad-clear').value = d.clearHeight;
-      document.getElementById('in-cad-doors').value = d.dockDoors;
+      document.getElementById('in-court-depth').value = d.courtDepth || 140;
+      document.getElementById('in-cad-clear').value = d.clearHeight || 24;
+      document.getElementById('in-cad-doors').value = d.dockDoors || 4;
       document.getElementById('txt-drivein-doors').textContent = `${d.driveinDoors || 2} Ramped Doors`;
-      document.getElementById('txt-trailer-stalls').textContent = `${d.trailerStalls || 60} Stalls`;
-      document.getElementById('txt-column-grid').textContent = d.columnGrid || "54' x 50' Grid";
+      document.getElementById('txt-trailer-stalls').textContent = `${d.trailerStalls || 10} Stalls`;
+      document.getElementById('txt-column-grid').textContent = d.columnGrid || "50' x 50' Speed Bays";
       document.getElementById('txt-sprinkler').textContent = d.sprinkler || 'ESFR System';
       
-      setLayout(d.layout || 'crossdock');
+      setLayout(d.layout || 'singleload');
       updateFinancialModel(d);
     }
 
@@ -833,12 +976,648 @@
       return rate;
     }
 
-    function updateFinancialModel(d) {
-      document.getElementById('txt-sf').textContent = d.sf.toLocaleString() + ' SF';
-      document.getElementById('txt-cost-psf').textContent = '$' + d.costPsf.toFixed(2) + ' / SF';
-      document.getElementById('txt-rent').textContent = '$' + d.rentPsf.toFixed(2) + ' / SF';
-      document.getElementById('txt-escalation').textContent = d.escalation.toFixed(2) + '% / yr';
-      document.getElementById('txt-exit-cap').textContent = d.exitCap.toFixed(2) + '%';
+    function updateFinancialModel(d = currentDeal) {
+      if (!d) return;
+      const sf = Number(d.sf) || 50000;
+      const costPsf = Number(d.costPsf) || 115;
+      const rentPsf = Number(d.rentPsf) || 7.50;
+      const escalation = Number(d.escalation) || 3.50;
+      const exitCap = Number(d.exitCap) || 5.25;
+      const ltc = d.ltc !== undefined ? Number(d.ltc) : 0.65;
+      const interestRate = d.interestRate !== undefined ? Number(d.interestRate) : 0.065;
+      const amortYears = d.amortYears || 25;
+
+      document.getElementById('txt-sf').textContent = sf.toLocaleString() + ' SF';
+      document.getElementById('txt-cost-psf').textContent = '$' + costPsf.toFixed(2) + ' / SF';
+      document.getElementById('txt-rent').textContent = '$' + rentPsf.toFixed(2) + ' / SF';
+      document.getElementById('txt-escalation').textContent = escalation.toFixed(2) + '% / yr';
+      document.getElementById('txt-exit-cap').textContent = exitCap.toFixed(2) + '%';
+
+      const escDecimal = escalation / 100;
+      const capDecimal = exitCap / 100;
+      const totalCost = sf * costPsf;
+      const debtAmount = totalCost * ltc;
+      const equityAmount = totalCost - debtAmount;
+      const annualDebtService = ltc > 0 ? calcPmt(interestRate, amortYears, debtAmount) : 0;
+
+      const years = 10;
+      const cashFlows = [];
+      const noiArray = [];
+      const afterDebtArray = [];
+
+      let currentRent = rentPsf;
+      for (let y = 1; y <= years; y++) {
+        if (y > 1) {
+          currentRent = currentRent * (1 + escDecimal);
+        }
+        const pgr = sf * currentRent;
+        const creditLoss = pgr * 0.04;
+        const noi = pgr - creditLoss;
+        const cfad = Math.max(0, noi - annualDebtService);
+
+        noiArray.push(noi);
+        afterDebtArray.push(cfad);
+        cashFlows.push({ year: y, rentPsf: currentRent, pgr, noi, debt: annualDebtService, cfad });
+      }
+
+      // Year 5 Exit Valuation & Payoff
+      const yr5Rent = rentPsf * Math.pow(1 + escDecimal, 4);
+      const yr6Rent = yr5Rent * (1 + escDecimal);
+      const yr6NOI = (sf * yr6Rent) * 0.96;
+      const exitValueYr5 = yr6NOI / capDecimal;
+
+      let remainingBalance = debtAmount;
+      if (debtAmount > 0) {
+        const mRate = interestRate / 12;
+        const mPmt = annualDebtService / 12;
+        for (let m = 0; m < 60; m++) {
+          const intPart = remainingBalance * mRate;
+          remainingBalance -= (mPmt - intPart);
+        }
+      }
+      const netExitProceeds = Math.max(0, exitValueYr5 - Math.max(0, remainingBalance));
+
+      // 5-Year Levered IRR
+      const irrStream = [-equityAmount];
+      for (let i = 0; i < 5; i++) {
+        if (i === 4) {
+          irrStream.push(afterDebtArray[i] + netExitProceeds);
+        } else {
+          irrStream.push(afterDebtArray[i]);
+        }
+      }
+      const leveredIRR = calcIRR(irrStream);
+
+      // Equity Multiple
+      let totalDistributions = 0;
+      for (let i = 0; i < 5; i++) totalDistributions += afterDebtArray[i];
+      totalDistributions += netExitProceeds;
+      const equityMultiple = equityAmount > 0 ? totalDistributions / equityAmount : 0;
+
+      // Update UI Banner Elements
+      document.getElementById('kpi-cost').textContent = fmt(totalCost);
+      document.getElementById('kpi-equity').textContent = fmt(equityAmount);
+      document.getElementById('kpi-noi').textContent = fmt(noiArray[0]);
+      document.getElementById('kpi-yield').textContent = totalCost > 0 ? ((noiArray[0] / totalCost) * 100).toFixed(2) + '%' : '0.00%';
+      document.getElementById('kpi-exit').textContent = fmt(exitValueYr5);
+      document.getElementById('kpi-irr').textContent = (leveredIRR * 100).toFixed(1) + '%';
+      document.getElementById('kpi-multiple').textContent = equityMultiple.toFixed(2) + 'x';
+      document.getElementById('heroSF').textContent = sf.toLocaleString() + ' SF';
+
+      renderSVGChart(noiArray, afterDebtArray);
+      renderSensitivityMatrix(d, equityAmount);
+      renderTable(cashFlows);
+      renderAIMemo(d, totalCost, equityAmount, noiArray[0], exitValueYr5, leveredIRR, equityMultiple);
+    }
+
+    function renderSVGChart(noiArr, cfArr) {
+      const maxVal = Math.max(...noiArr) * 1.15;
+      const w = 700;
+      const h = 160;
+      const pad = 40;
+      const barW = 20;
+      const colStep = (w - pad * 2) / 10;
+
+      let svg = `
+        <line x1="${pad}" y1="${h - 25}" x2="${w - pad}" y2="${h - 25}" stroke="#334155" stroke-width="1"/>
+        <line x1="${pad}" y1="20" x2="${pad}" y2="${h - 25}" stroke="#334155" stroke-width="1"/>
+      `;
+
+      for (let i = 0; i < 10; i++) {
+        const x = pad + i * colStep + 10;
+        const noiH = (noiArr[i] / maxVal) * (h - 45);
+        const cfH = Math.max(0, (cfArr[i] / maxVal) * (h - 45));
+
+        const yNoi = (h - 25) - noiH;
+        const yCf = (h - 25) - cfH;
+
+        svg += `
+          <rect x="${x}" y="${yNoi}" width="${barW}" height="${noiH}" fill="#3b82f6" rx="3" opacity="0.9"/>
+          <rect x="${x + 6}" y="${yCf}" width="${barW - 12}" height="${cfH}" fill="#10b981" rx="2"/>
+          <text x="${x + barW / 2}" y="${h - 8}" fill="#94a3b8" font-size="10" font-family="monospace" text-anchor="middle">Y${i + 1}</text>
+        `;
+      }
+
+      document.getElementById('chart-cashflow').innerHTML = svg;
+    }
+
+    function renderSensitivityMatrix(baseYr5NOI, equityAmount, annualDebtService, loanBal, baseCap) {
+      const capDeltas = [-0.005, -0.0025, 0, 0.0025, 0.005];
+      const rentDeltas = [0.90, 0.95, 1.00, 1.05, 1.10];
+
+      let html = `
+        <thead>
+          <tr class="text-slate-400 border-b border-slate-800">
+            <th class="p-2 text-left text-slate-500 font-sans">Exit Cap Rate \\ Yr 5 Rent</th>
+            ${rentDeltas.map(rd => `<th class="p-2">${(rd * 100 - 100 >= 0 ? '+' : '')}${(rd * 100 - 100).toFixed(0)}%</th>`).join('')}
+          </tr>
+        </thead>
+        <tbody>
+      `;
+
+      capDeltas.forEach(cd => {
+        const testCap = baseCap + cd;
+        html += `<tr class="border-b border-slate-800/50"><td class="p-2 text-left font-bold text-slate-300 font-sans">${(testCap * 100).toFixed(2)}% Cap</td>`;
+        rentDeltas.forEach(rd => {
+          const testNOI = baseYr5NOI * rd;
+          const testExitVal = testNOI / testCap;
+          const testProceeds = testExitVal - loanBal;
+
+          const testStream = [-equityAmount, annualDebtService, annualDebtService, annualDebtService, annualDebtService + testProceeds];
+          const testIRR = calcIRR(testStream);
+          const pct = (testIRR * 100).toFixed(1);
+
+          let colorClass = 'text-emerald-400 bg-emerald-950/20';
+          if (testIRR < 0.12) colorClass = 'text-amber-400 bg-amber-950/20';
+          if (testIRR < 0.08) colorClass = 'text-rose-400 bg-rose-950/20';
+          if (cd === 0 && rd === 1.00) colorClass += ' border-2 border-blue-500 font-extrabold';
+
+          html += `<td class="p-2 ${colorClass} rounded">${pct}%</td>`;
+        });
+        html += `</tr>`;
+      });
+
+      html += `</tbody>`;
+      document.getElementById('tbl-sensitivity').innerHTML = html;
+    }
+
+    function renderTable(cfs) {
+      const rows = [
+        { label: 'Market Rent ($/SF)', fn: r => '$' + r.rentPsf.toFixed(2) },
+        { label: 'Potential Gross Revenue', fn: r => fmt(r.pgr) },
+        { label: 'Net Operating Income (NOI)', fn: r => fmt(r.noi), highlight: true },
+        { label: 'Debt Service (P&I)', fn: r => fmt(r.debt) },
+        { label: 'Cash Flow After Debt (CFAD)', fn: r => fmt(r.cfad), green: true }
+      ];
+
+      let html = '';
+      rows.forEach(row => {
+        html += `<tr class="${row.highlight ? 'bg-blue-950/30 font-bold text-blue-300' : ''} ${row.green ? 'bg-emerald-950/20 font-bold text-emerald-300' : ''}">`;
+        html += `<td class="text-left py-2 px-3 text-slate-300 font-sans font-medium">${row.label}</td>`;
+        cfs.forEach(cf => {
+          html += `<td class="py-2 px-2">${row.fn(cf)}</td>`;
+        });
+        html += `</tr>`;
+      });
+      document.getElementById('tbody-cashflow').innerHTML = html;
+    }
+
+    function renderAIMemo(d, totalCost, equity, yr1NOI, exitVal, irr, em) {
+      if (!d) return;
+      const costPsf = d.costPsf !== undefined ? d.costPsf : 115;
+      const tc = totalCost !== undefined ? totalCost : (d.sf * costPsf);
+      const ltc = d.ltc !== undefined ? d.ltc : 0.65;
+      const eq = equity !== undefined ? equity : (tc * (1 - ltc));
+      const irrVal = irr !== undefined ? irr : 0.18;
+      const emVal = em !== undefined ? em : 2.1;
+
+      document.getElementById('memo-header-title').textContent = `${d.name || 'Property'} // Investment Memo`;
+      document.getElementById('memo-header-sub').textContent = `${d.address || ''} • ${d.corridor || ''}`;
+
+      const safeName = escapeHtml(d.name);
+      const safeAddress = escapeHtml(d.address);
+      const safeCorridor = escapeHtml(d.corridor);
+      const safeSprinkler = escapeHtml(d.sprinkler || 'ESFR Sprinkler System');
+      const safeGrid = escapeHtml(d.columnGrid || "50' x 50' Speed Bays");
+      const safeNotes = escapeHtml(d.notes || 'Institutional industrial asset with prime logistical connectivity.');
+
+      let brokerCardsHtml = '';
+      if (d.brokers && Array.isArray(d.brokers) && d.brokers.length > 0) {
+        brokerCardsHtml = `
+          <h3 class="text-base font-bold text-white uppercase tracking-wide border-b border-slate-800 pb-2 pt-3">4. Exclusive King Industrial Listing Representation</h3>
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-2">
+            ${d.brokers.map(b => `
+              <div class="bg-slate-950/80 p-3.5 rounded-lg border border-slate-800/80 flex items-center gap-3">
+                ${b.photo && sanitizeUrl(b.photo) ? `<img src="${sanitizeUrl(b.photo)}" alt="${escapeHtml(b.name)}" class="w-12 h-12 rounded-full object-cover border border-blue-500/30 shrink-0">` : ''}
+                <div>
+                  <div class="text-xs font-bold text-white">${escapeHtml(b.name)}</div>
+                  <div class="text-[11px] text-blue-400">${escapeHtml(b.title || 'Industrial Specialist')}</div>
+                  ${b.phone ? `<a href="${sanitizeUrl('tel:' + b.phone.replace(/[^\d+\-\(\)\s.]/g, ''))}" class="text-[11px] text-slate-400 hover:text-white block mt-0.5">${escapeHtml(b.phone)}</a>` : ''}
+                  ${b.email ? `<a href="${sanitizeUrl('mailto:' + encodeURIComponent(b.email.trim()))}" class="text-[11px] text-blue-400 hover:underline block">${escapeHtml(b.email)}</a>` : ''}
+                </div>
+              </div>
+            `).join('')}
+          </div>
+        `;
+      }
+
+      const html = `
+        <div class="space-y-4">
+          <h3 class="text-base font-bold text-white uppercase tracking-wide border-b border-slate-800 pb-2">1. Executive Summary & Investment Thesis</h3>
+          <p>
+            King Industrial Realty presents the institutional acquisition/development opportunity for <strong>${safeName}</strong>, a state-of-the-art <strong>${(d.sf || 0).toLocaleString()} SF</strong> modern Class-A industrial logistics asset situated strategically in the core <strong>${safeCorridor}</strong> at <em>${safeAddress}</em>.
+          </p>
+          <p>
+            The project requires a total capitalization of <strong>${fmt(tc)}</strong> (${costPsf.toFixed(2)}/SF), funded via a balanced capital structure comprising <strong>${(ltc * 100).toFixed(0)}% debt</strong> (${fmt(tc * ltc)}) and <strong>${fmt(eq)}</strong> of LP/sponsor equity.
+          </p>
+
+          <h3 class="text-base font-bold text-white uppercase tracking-wide border-b border-slate-800 pb-2 pt-3">2. Facility Specifications & Physical Advantage</h3>
+          <ul class="list-disc pl-5 space-y-1 text-slate-300">
+            <li><strong>Clear Height:</strong> ${d.clearHeight || 24}' minimum clear ceiling height, providing maximum volumetric cube capacity for high-density racking.</li>
+            <li><strong>Loading Dock Infrastructure:</strong> ${d.dockDoors || 4} dock-high loading doors and ${d.driveinDoors || 2} drive-in ramps.</li>
+            <li><strong>Truck Court & Parking:</strong> ${d.courtDepth || 140}' heavy-duty concrete truck apron featuring ${d.trailerStalls || 10} dedicated trailer parking positions.</li>
+            <li><strong>Structural Grid & Fire Life Safety:</strong> ${safeGrid} column spacing with ${safeSprinkler}.</li>
+          </ul>
+
+          <h3 class="text-base font-bold text-white uppercase tracking-wide border-b border-slate-800 pb-2 pt-3">3. Underwriting Returns & Feasibility Profile</h3>
+          <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 text-center my-3">
+            <div class="bg-slate-950 p-3 rounded-lg border border-slate-800">
+              <span class="text-[10px] text-slate-400 uppercase font-semibold">Total Capitalization</span>
+              <div class="text-base font-bold text-white font-mono mt-0.5">${fmt(tc)}</div>
+            </div>
+            <div class="bg-slate-950 p-3 rounded-lg border border-slate-800">
+              <span class="text-[10px] text-slate-400 uppercase font-semibold">Yr 1 Net NOI</span>
+              <div class="text-base font-bold text-blue-400 font-mono mt-0.5">${fmt(yr1NOI || 0)}</div>
+            </div>
+            <div class="bg-slate-950 p-3 rounded-lg border border-slate-800">
+              <span class="text-[10px] text-slate-400 uppercase font-semibold">5-Yr Levered IRR</span>
+              <span class="text-base font-bold font-mono text-indigo-400 mt-0.5 block">${(irrVal * 100).toFixed(1)}%</span>
+            </div>
+            <div class="bg-slate-950 p-3 rounded-lg border border-slate-800">
+              <span class="text-[10px] text-slate-400 uppercase font-semibold">Equity Multiple</span>
+              <span class="text-base font-bold font-mono text-blue-400 mt-0.5 block">${emVal.toFixed(2)}x</span>
+            </div>
+          </div>
+          <p>
+            Under baseline assumptions of <strong>${(d.rentPsf || 7.50).toFixed(2)}/SF NNN</strong> starting rent and <strong>${(d.escalation || 3.50).toFixed(2)}%</strong> annual contractual escalations, the asset produces robust downside-protected yield with a projected exit cap rate of <strong>${(d.exitCap || 5.25).toFixed(2)}%</strong>.
+          </p>
+          <p class="text-xs text-slate-400 italic">
+            Location & Asset Highlights: ${safeNotes}
+          </p>
+
+          ${brokerCardsHtml}
+        </div>
+      `;
+
+      document.getElementById('memo-content').innerHTML = html;
+    }
+
+    function exportMemo() {
+      if (!currentDeal) return;
+      const memoText = `
+# CONFIDENTIAL INVESTMENT MEMORANDUM // KING INDUSTRIAL REALTY
+## ${currentDeal.name} (${currentDeal.sf.toLocaleString()} SF)
+Location: ${currentDeal.address} • Corridor: ${currentDeal.corridor}
+
+### KEY TRANSACTION METRICS:
+- Total Capitalization: ${fmt(currentDeal.sf * currentDeal.costPsf)} ($${currentDeal.costPsf.toFixed(2)}/SF)
+- Equity Requirement: ${fmt((currentDeal.sf * currentDeal.costPsf) * (1 - currentDeal.ltc))}
+- Starting NNN Rent: $${currentDeal.rentPsf.toFixed(2)} / SF (${currentDeal.escalation.toFixed(2)}% escalations)
+- Clear Ceiling Height: ${currentDeal.clearHeight}' Clear
+- Loading Configuration: ${currentDeal.dockDoors} Dock Doors, ${currentDeal.courtDepth}' Truck Court
+- Year 1 Net Operating Income: ${fmt(currentDeal.sf * currentDeal.rentPsf * 0.96)}
+- Target 5-Year Exit Cap Rate: ${currentDeal.exitCap.toFixed(2)}%
+- Projected Levered IRR: ${document.getElementById('card-irr').textContent}
+- Projected Equity Multiple: ${document.getElementById('card-em').textContent}
+
+Generated via King Industrial Logistics Intelligence Studio.
+      `.trim();
+
+      navigator.clipboard.writeText(memoText).then(() => {
+        showToast('Deal Memo copied to clipboard in Markdown format!');
+      }).catch(() => {
+        showToast('Deal Memo ready for review.');
+      });
+    }
+
+    function getShareableUrl() {
+      if (!currentDeal) return window.location.href;
+      const cleanData = { ...currentDeal };
+      delete cleanData.id;
+      const jsonStr = JSON.stringify(cleanData);
+      const encoded = btoa(unescape(encodeURIComponent(jsonStr)));
+      
+      let basePath = window.location.pathname;
+      if (basePath.endsWith('/')) {
+        basePath += 'index.html';
+      } else if (!basePath.endsWith('index.html')) {
+        basePath = basePath.substring(0, basePath.lastIndexOf('/') + 1) + 'index.html';
+      }
+      return `${window.location.origin}${basePath}?data=${encoded}`;
+    }
+
+    function shareDealLink() {
+      const shareUrl = getShareableUrl();
+      navigator.clipboard.writeText(shareUrl).then(() => {
+        showToast('🔗 Live Client Presentation Link copied to clipboard!');
+      }).catch(() => {
+        prompt('Copy this shareable link:', shareUrl);
+      });
+    }
+
+    // QR Code Modal
+    function openQrModal() {
+      if (!currentDeal) return;
+      const modal = document.getElementById('qrModal');
+      document.getElementById('qr-property-name').textContent = currentDeal.name;
+      const container = document.getElementById('qrcode-canvas');
+      container.innerHTML = '';
+
+      const shareUrl = getShareableUrl();
+
+      if (window.QRCode) {
+        new QRCode(container, {
+          text: shareUrl,
+          width: 200,
+          height: 200,
+          colorDark: "#0f172a",
+          colorLight: "#ffffff",
+          correctLevel: QRCode.CorrectLevel.M
+        });
+      } else {
+        container.innerHTML = `<img src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=${encodeURIComponent(shareUrl)}" alt="QR Code" class="w-48 h-48 rounded-lg">`;
+      }
+
+      modal.classList.remove('hidden');
+    }
+
+    function closeQrModal() {
+      document.getElementById('qrModal').classList.add('hidden');
+    }
+
+    function downloadQrImage() {
+      const container = document.getElementById('qrcode-canvas');
+      const canvas = container.querySelector('canvas');
+      const img = container.querySelector('img');
+
+      if (canvas) {
+        const link = document.createElement('a');
+        link.download = `${(currentDeal.name || 'property').replace(/\s+/g, '_')}_QR.png`;
+        link.href = canvas.toDataURL('image/png');
+        link.click();
+        showToast('QR Code downloaded!');
+      } else if (img) {
+        window.open(img.src, '_blank');
+      }
+    }
+
+    // Tab Navigation
+    function setTab(tab) {
+      ['underwrite', 'blueprint', 'corridors', 'memo'].forEach(t => {
+        const el = document.getElementById('tab-' + t);
+        const btn = document.getElementById('tabBtn-' + t);
+        if (t === tab) {
+          el.classList.remove('hidden');
+          btn.classList.add('border-blue-500', 'text-blue-400');
+          btn.classList.remove('border-transparent', 'text-slate-400');
+        } else {
+          el.classList.add('hidden');
+          btn.classList.remove('border-blue-500', 'text-blue-400');
+          btn.classList.add('border-transparent', 'text-slate-400');
+        }
+      });
+      if (tab === 'blueprint') {
+        setTimeout(drawCAD, 50);
+      }
+    }
+
+    // CAD Drawing & Simulation Engine
+    let simActive = false;
+    let simTruck = { x: 50, y: 380, targetX: 280, targetY: 175, progress: 0 };
+    let animFrame = null;
+
+    function setLayout(mode) {
+      if (currentDeal) currentDeal.layout = mode;
+      document.getElementById('btn-crossdock').className = mode === 'crossdock' 
+        ? 'px-3 py-2 text-xs font-semibold rounded-lg bg-blue-600 text-white transition' 
+        : 'px-3 py-2 text-xs font-semibold rounded-lg bg-slate-800 text-slate-300 hover:bg-slate-700 transition';
+      document.getElementById('btn-singleload').className = mode === 'singleload' 
+        ? 'px-3 py-2 text-xs font-semibold rounded-lg bg-blue-600 text-white transition' 
+        : 'px-3 py-2 text-xs font-semibold rounded-lg bg-slate-800 text-slate-300 hover:bg-slate-700 transition';
+      drawCAD();
+    }
+
+    function toggleTruckSim() {
+      simActive = !simActive;
+      const btn = document.getElementById('btn-truck-sim');
+      const text = document.getElementById('sim-text');
+
+      if (simActive) {
+        simTruck.progress = 0;
+        btn.classList.replace('from-emerald-600', 'from-amber-600');
+        btn.classList.replace('to-teal-600', 'to-orange-600');
+        text.textContent = 'Stop Docking Simulation';
+        animateTruck();
+      } else {
+        cancelAnimationFrame(animFrame);
+        btn.classList.replace('from-amber-600', 'from-emerald-600');
+        btn.classList.replace('to-orange-600', 'to-teal-600');
+        text.textContent = 'Simulate Semi-Truck Ingress & Docking';
+        drawCAD();
+      }
+    }
+
+    function animateTruck() {
+      if (!simActive) return;
+      simTruck.progress += 0.007;
+      if (simTruck.progress > 1.2) simTruck.progress = 0;
+      drawCAD();
+      animFrame = requestAnimationFrame(animateTruck);
+    }
+
+    function drawCAD() {
+      const canvas = document.getElementById('cadCanvas');
+      if (!canvas) return;
+      const ctx = canvas.getContext('2d');
+      const rect = canvas.getBoundingClientRect();
+      canvas.width = rect.width || 700;
+      canvas.height = rect.height || 460;
+
+      const w = canvas.width;
+      const h = canvas.height;
+
+      ctx.clearRect(0, 0, w, h);
+
+      ctx.strokeStyle = '#1e293b';
+      ctx.lineWidth = 1;
+      const gridSize = 25;
+      for (let x = 0; x < w; x += gridSize) {
+        ctx.beginPath();
+        ctx.moveTo(x, 0);
+        ctx.lineTo(x, h);
+        ctx.stroke();
+      }
+      for (let y = 0; y < h; y += gridSize) {
+        ctx.beginPath();
+        ctx.moveTo(0, y);
+        ctx.lineTo(w, y);
+        ctx.stroke();
+      }
+
+      const courtDepth = parseFloat(document.getElementById('in-court-depth').value);
+      const clearH = parseFloat(document.getElementById('in-cad-clear').value);
+      const doorsCount = parseInt(document.getElementById('in-cad-doors').value);
+      
+      document.getElementById('txt-court-depth').textContent = courtDepth + ' Feet';
+      document.getElementById('txt-cad-clear').textContent = clearH + "' Clear";
+      document.getElementById('txt-cad-doors').textContent = doorsCount + ' Doors';
+
+      const layout = currentDeal ? (currentDeal.layout || 'crossdock') : 'crossdock';
+      const bldgW = w * 0.65;
+      const bldgH = layout === 'crossdock' ? h * 0.32 : h * 0.42;
+      const bldgX = (w - bldgW) / 2;
+      const bldgY = (h - bldgH) / 2;
+
+      if (layout === 'crossdock') {
+        const topCourtH = (courtDepth / 200) * (bldgY - 30);
+        ctx.fillStyle = '#1e293b80';
+        ctx.fillRect(bldgX - 30, bldgY - topCourtH, bldgW + 60, topCourtH);
+        ctx.strokeStyle = '#334155';
+        ctx.strokeRect(bldgX - 30, bldgY - topCourtH, bldgW + 60, topCourtH);
+      }
+
+      const bottomCourtH = (courtDepth / 200) * (h - (bldgY + bldgH) - 30);
+      ctx.fillStyle = '#1e293b80';
+      ctx.fillRect(bldgX - 30, bldgY + bldgH, bldgW + 60, bottomCourtH);
+      ctx.strokeStyle = '#334155';
+      ctx.strokeRect(bldgX - 30, bldgY + bldgH, bldgW + 60, bottomCourtH);
+
+      ctx.fillStyle = '#1e3a8a40';
+      ctx.fillRect(bldgX, bldgY, bldgW, bldgH);
+      ctx.strokeStyle = '#3b82f6';
+      ctx.lineWidth = 2;
+      ctx.strokeRect(bldgX, bldgY, bldgW, bldgH);
+
+      ctx.strokeStyle = '#1d4ed830';
+      ctx.lineWidth = 1;
+      for (let cx = bldgX + 40; cx < bldgX + bldgW; cx += 40) {
+        ctx.beginPath();
+        ctx.moveTo(cx, bldgY);
+        ctx.lineTo(cx, bldgY + bldgH);
+        ctx.stroke();
+      }
+
+      const offW = bldgW * 0.16;
+      const offH = bldgH * 0.45;
+      ctx.fillStyle = '#d9770640';
+      ctx.fillRect(bldgX, bldgY, offW, offH);
+      ctx.strokeStyle = '#f59e0b';
+      ctx.strokeRect(bldgX, bldgY, offW, offH);
+      ctx.fillStyle = '#fbbf24';
+      ctx.font = '9px monospace';
+      ctx.fillText("SPEC OFFICE", bldgX + 6, bldgY + 16);
+
+      const doorsPerSide = layout === 'crossdock' ? Math.floor(doorsCount / 2) : doorsCount;
+      const doorSpacing = (bldgW - 40) / Math.max(1, doorsPerSide);
+
+      for (let i = 0; i < doorsPerSide; i++) {
+        const dx = bldgX + 25 + i * doorSpacing;
+        const dy = bldgY + bldgH;
+        ctx.fillStyle = '#10b981';
+        ctx.fillRect(dx, dy - 3, 5, 6);
+      }
+
+      if (layout === 'crossdock') {
+        for (let i = 0; i < doorsPerSide; i++) {
+          const dx = bldgX + 25 + i * doorSpacing;
+          const dy = bldgY;
+          ctx.fillStyle = '#10b981';
+          ctx.fillRect(dx, dy - 3, 5, 6);
+        }
+      }
+
+      ctx.fillStyle = '#94a3b8';
+      ctx.font = '10px monospace';
+      const sfText = currentDeal ? currentDeal.sf.toLocaleString() : '450,000';
+      ctx.fillText(`${sfText} SF INDUSTRIAL FACILITY`, bldgX + bldgW / 2 - 80, bldgY + bldgH / 2);
+      ctx.fillText(`${courtDepth}' Truck Court Depth`, bldgX + bldgW / 2 - 55, bldgY + bldgH + bottomCourtH / 2 + 3);
+
+      if (simActive) {
+        const p = Math.min(1, simTruck.progress);
+        const startX = 30;
+        const startY = h - 40;
+        const midX = bldgX + 120;
+        const midY = bldgY + bldgH + bottomCourtH - 25;
+        const dockX = bldgX + 160;
+        const dockY = bldgY + bldgH + 8;
+
+        let tx, ty, angle;
+        if (p < 0.5) {
+          const t = p * 2;
+          tx = startX + (midX - startX) * t;
+          ty = startY + (midY - startY) * t;
+          angle = Math.atan2(midY - startY, midX - startX);
+        } else {
+          const t = (p - 0.5) * 2;
+          tx = midX + (dockX - midX) * t;
+          ty = midY + (dockY - midY) * t;
+          angle = Math.atan2(dockY - midY, dockX - midX);
+        }
+
+        ctx.save();
+        ctx.translate(tx, ty);
+        ctx.rotate(angle);
+
+        ctx.fillStyle = '#f8fafc';
+        ctx.fillRect(-26, -7, 34, 14);
+        ctx.strokeStyle = '#0284c7';
+        ctx.lineWidth = 1.5;
+        ctx.strokeRect(-26, -7, 34, 14);
+
+        ctx.fillStyle = '#ef4444';
+        ctx.fillRect(8, -6, 12, 12);
+
+        ctx.fillStyle = '#0f172a';
+        ctx.fillRect(-22, -9, 8, 2);
+        ctx.fillRect(-22, 7, 8, 2);
+        ctx.fillRect(-12, -9, 8, 2);
+        ctx.fillRect(-12, 7, 8, 2);
+
+        ctx.restore();
+
+        ctx.strokeStyle = '#38bdf840';
+        ctx.setLineDash([4, 4]);
+        ctx.beginPath();
+        ctx.arc(midX, midY, 45, 0, Math.PI * 2);
+        ctx.stroke();
+        ctx.setLineDash([]);
+      }
+    }
+
+    function populateCorridors() {
+      const grid = document.getElementById('corridors-grid');
+      let html = '';
+      SUBMARKETS.forEach(c => {
+        html += `
+          <div class="bg-slate-950/80 border border-slate-800 rounded-xl p-4 flex flex-col justify-between space-y-3">
+            <div>
+              <div class="flex items-center justify-between">
+                <span class="text-[10px] font-bold px-2 py-0.5 rounded bg-blue-500/10 text-blue-400 border border-blue-500/20">${c.tag}</span>
+                <span class="text-xs text-emerald-400 font-mono font-semibold">Submarket Benchmark</span>
+              </div>
+              <h4 class="text-sm font-bold text-white mt-2">${c.name}</h4>
+              <p class="text-[11px] text-slate-400">${c.counties}</p>
+              <p class="text-xs text-slate-300 mt-2 leading-relaxed">${c.desc}</p>
+            </div>
+            
+            <div class="pt-3 border-t border-slate-800 grid grid-cols-3 gap-2 text-center text-xs">
+              <div class="bg-slate-900 p-1.5 rounded">
+                <div class="text-[10px] text-slate-500 uppercase">Avg Rent</div>
+                <div class="font-bold text-white font-mono">$${c.rent.toFixed(2)}</div>
+              </div>
+              <div class="bg-slate-900 p-1.5 rounded">
+                <div class="text-[10px] text-slate-500 uppercase">Vacancy</div>
+                <div class="font-bold text-blue-400 font-mono">${c.vacancy}%</div>
+              </div>
+              <div class="bg-slate-900 p-1.5 rounded">
+                <div class="text-[10px] text-slate-500 uppercase">Typ. Clear</div>
+                <div class="font-bold text-slate-300 font-mono">${c.clear}'</div>
+              </div>
+            </div>
+          </div>
+        `;
+      });
+      grid.innerHTML = html;
+    }
+
+    window.addEventListener('resize', drawCAD);
+    populateCorridors();
+    initStorage();
+  </script>
+</body>
+</html>
+ + costPsf.toFixed(2) + ' / SF';
+      document.getElementById('txt-rent').textContent = '
 
       const escDecimal = d.escalation / 100;
       const capDecimal = d.exitCap / 100;
@@ -1012,52 +1791,721 @@
     }
 
     function renderAIMemo(d, totalCost, equity, yr1NOI, exitVal, irr, em) {
-      document.getElementById('memo-header-title').textContent = `${d.name} // Investment Memo`;
-      document.getElementById('memo-header-sub').textContent = `${d.address} • ${d.corridor}`;
+      if (!d) return;
+      const costPsf = d.costPsf !== undefined ? d.costPsf : 115;
+      const tc = totalCost !== undefined ? totalCost : (d.sf * costPsf);
+      const ltc = d.ltc !== undefined ? d.ltc : 0.65;
+      const eq = equity !== undefined ? equity : (tc * (1 - ltc));
+      const irrVal = irr !== undefined ? irr : 0.18;
+      const emVal = em !== undefined ? em : 2.1;
+
+      document.getElementById('memo-header-title').textContent = `${d.name || 'Property'} // Investment Memo`;
+      document.getElementById('memo-header-sub').textContent = `${d.address || ''} • ${d.corridor || ''}`;
+
+      const safeName = escapeHtml(d.name);
+      const safeAddress = escapeHtml(d.address);
+      const safeCorridor = escapeHtml(d.corridor);
+      const safeSprinkler = escapeHtml(d.sprinkler || 'ESFR Sprinkler System');
+      const safeGrid = escapeHtml(d.columnGrid || "50' x 50' Speed Bays");
+      const safeNotes = escapeHtml(d.notes || 'Institutional industrial asset with prime logistical connectivity.');
+
+      let brokerCardsHtml = '';
+      if (d.brokers && Array.isArray(d.brokers) && d.brokers.length > 0) {
+        brokerCardsHtml = `
+          <h3 class="text-base font-bold text-white uppercase tracking-wide border-b border-slate-800 pb-2 pt-3">4. Exclusive King Industrial Listing Representation</h3>
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-2">
+            ${d.brokers.map(b => `
+              <div class="bg-slate-950/80 p-3.5 rounded-lg border border-slate-800/80 flex items-center gap-3">
+                ${b.photo && sanitizeUrl(b.photo) ? `<img src="${sanitizeUrl(b.photo)}" alt="${escapeHtml(b.name)}" class="w-12 h-12 rounded-full object-cover border border-blue-500/30 shrink-0">` : ''}
+                <div>
+                  <div class="text-xs font-bold text-white">${escapeHtml(b.name)}</div>
+                  <div class="text-[11px] text-blue-400">${escapeHtml(b.title || 'Industrial Specialist')}</div>
+                  ${b.phone ? `<a href="${sanitizeUrl('tel:' + b.phone)}" class="text-[11px] text-slate-400 hover:text-white block mt-0.5">${escapeHtml(b.phone)}</a>` : ''}
+                  ${b.email ? `<a href="${sanitizeUrl('mailto:' + b.email)}" class="text-[11px] text-blue-400 hover:underline block">${escapeHtml(b.email)}</a>` : ''}
+                </div>
+              </div>
+            `).join('')}
+          </div>
+        `;
+      }
 
       const html = `
         <div class="space-y-4">
           <h3 class="text-base font-bold text-white uppercase tracking-wide border-b border-slate-800 pb-2">1. Executive Summary & Investment Thesis</h3>
           <p>
-            King Industrial Realty presents the institutional acquisition/development opportunity for <strong>${d.name}</strong>, a state-of-the-art <strong>${d.sf.toLocaleString()} SF</strong> modern Class-A industrial logistics asset situated strategically in the core <strong>${d.corridor}</strong> at <em>${d.address}</em>.
+            King Industrial Realty presents the institutional acquisition/development opportunity for <strong>${safeName}</strong>, a state-of-the-art <strong>${(d.sf || 0).toLocaleString()} SF</strong> modern Class-A industrial logistics asset situated strategically in the core <strong>${safeCorridor}</strong> at <em>${safeAddress}</em>.
           </p>
           <p>
-            The project requires a total capitalization of <strong>${fmt(totalCost)}</strong> ($${d.costPsf.toFixed(2)}/SF), funded via a balanced capital structure comprising <strong>${(d.ltc * 100).toFixed(0)}% debt</strong> (${fmt(totalCost * d.ltc)}) and <strong>${fmt(equity)}</strong> of LP/sponsor equity.
+            The project requires a total capitalization of <strong>${fmt(tc)}</strong> (${costPsf.toFixed(2)}/SF), funded via a balanced capital structure comprising <strong>${(ltc * 100).toFixed(0)}% debt</strong> (${fmt(tc * ltc)}) and <strong>${fmt(eq)}</strong> of LP/sponsor equity.
           </p>
 
           <h3 class="text-base font-bold text-white uppercase tracking-wide border-b border-slate-800 pb-2 pt-3">2. Facility Specifications & Physical Advantage</h3>
           <ul class="list-disc pl-5 space-y-1 text-slate-300">
-            <li><strong>Clear Height:</strong> ${d.clearHeight}' minimum clear ceiling height, providing expansive cubic density.</li>
-            <li><strong>Loading Architecture:</strong> ${d.dockDoors} dock-high loading doors equipped with levelers and ${d.driveinDoors || 2} drive-in ramps.</li>
-            <li><strong>Truck Court:</strong> Heavy-duty concrete apron spanning ${d.courtDepth}' with ${d.trailerStalls || 60} dedicated trailer parking stalls.</li>
-            <li><strong>Systems & Fire Protection:</strong> ${d.sprinkler} paired with heavy industrial 3-phase power.</li>
-            ${d.notes ? `<li><strong>Location & Rail Highlights:</strong> ${d.notes}</li>` : ''}
+            <li><strong>Clear Height:</strong> ${d.clearHeight || 24}' minimum clear ceiling height, providing maximum volumetric cube capacity for high-density racking.</li>
+            <li><strong>Loading Dock Infrastructure:</strong> ${d.dockDoors || 4} dock-high loading doors and ${d.driveinDoors || 2} drive-in ramps.</li>
+            <li><strong>Truck Court & Parking:</strong> ${d.courtDepth || 140}' heavy-duty concrete truck apron featuring ${d.trailerStalls || 10} dedicated trailer parking positions.</li>
+            <li><strong>Structural Grid & Fire Life Safety:</strong> ${safeGrid} column spacing with ${safeSprinkler}.</li>
           </ul>
 
-          <h3 class="text-base font-bold text-white uppercase tracking-wide border-b border-slate-800 pb-2 pt-3">3. Underwriting & Return Profile (5-Year Target Hold)</h3>
-          <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 my-3">
-            <div class="bg-slate-950 p-3 rounded-lg border border-slate-800 text-center">
-              <span class="text-[10px] text-slate-400 block">Year 1 NOI</span>
-              <span class="text-sm font-bold font-mono text-white">${fmt(yr1NOI)}</span>
+          <h3 class="text-base font-bold text-white uppercase tracking-wide border-b border-slate-800 pb-2 pt-3">3. Underwriting Returns & Feasibility Profile</h3>
+          <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 text-center my-3">
+            <div class="bg-slate-950 p-3 rounded-lg border border-slate-800">
+              <span class="text-[10px] text-slate-400 uppercase font-semibold">Total Capitalization</span>
+              <div class="text-base font-bold text-white font-mono mt-0.5">${fmt(tc)}</div>
             </div>
-            <div class="bg-slate-950 p-3 rounded-lg border border-slate-800 text-center">
-              <span class="text-[10px] text-slate-400 block">Year 5 Exit Value</span>
-              <span class="text-sm font-bold font-mono text-emerald-400">${fmt(exitVal)}</span>
+            <div class="bg-slate-950 p-3 rounded-lg border border-slate-800">
+              <span class="text-[10px] text-slate-400 uppercase font-semibold">Yr 1 Net NOI</span>
+              <div class="text-base font-bold text-blue-400 font-mono mt-0.5">${fmt(yr1NOI || 0)}</div>
             </div>
-            <div class="bg-slate-950 p-3 rounded-lg border border-slate-800 text-center">
-              <span class="text-[10px] text-slate-400 block">5-Yr Levered IRR</span>
-              <span class="text-sm font-bold font-mono text-indigo-400">${(irr * 100).toFixed(1)}%</span>
+            <div class="bg-slate-950 p-3 rounded-lg border border-slate-800">
+              <span class="text-[10px] text-slate-400 uppercase font-semibold">5-Yr Levered IRR</span>
+              <span class="text-base font-bold font-mono text-indigo-400 mt-0.5 block">${(irrVal * 100).toFixed(1)}%</span>
             </div>
-            <div class="bg-slate-950 p-3 rounded-lg border border-slate-800 text-center">
-              <span class="text-[10px] text-slate-400 block">Equity Multiple</span>
-              <span class="text-sm font-bold font-mono text-blue-400">${em.toFixed(2)}x</span>
+            <div class="bg-slate-950 p-3 rounded-lg border border-slate-800">
+              <span class="text-[10px] text-slate-400 uppercase font-semibold">Equity Multiple</span>
+              <span class="text-base font-bold font-mono text-blue-400 mt-0.5 block">${emVal.toFixed(2)}x</span>
             </div>
           </div>
           <p>
-            Under baseline assumptions of <strong>$${d.rentPsf.toFixed(2)}/SF NNN</strong> starting rent and <strong>${d.escalation.toFixed(2)}%</strong> annual contractual escalations, the asset produces robust downside-protected yield with a projected exit cap rate of <strong>${d.exitCap.toFixed(2)}%</strong>.
+            Under baseline assumptions of <strong>${(d.rentPsf || 7.50).toFixed(2)}/SF NNN</strong> starting rent and <strong>${(d.escalation || 3.50).toFixed(2)}%</strong> annual contractual escalations, the asset produces robust downside-protected yield with a projected exit cap rate of <strong>${(d.exitCap || 5.25).toFixed(2)}%</strong>.
           </p>
+          <p class="text-xs text-slate-400 italic">
+            Location & Asset Highlights: ${safeNotes}
+          </p>
+
+          ${brokerCardsHtml}
         </div>
       `;
+
+      document.getElementById('memo-content').innerHTML = html;
+    }
+
+    function exportMemo() {
+      if (!currentDeal) return;
+      const memoText = `
+# CONFIDENTIAL INVESTMENT MEMORANDUM // KING INDUSTRIAL REALTY
+## ${currentDeal.name} (${currentDeal.sf.toLocaleString()} SF)
+Location: ${currentDeal.address} • Corridor: ${currentDeal.corridor}
+
+### KEY TRANSACTION METRICS:
+- Total Capitalization: ${fmt(currentDeal.sf * currentDeal.costPsf)} ($${currentDeal.costPsf.toFixed(2)}/SF)
+- Equity Requirement: ${fmt((currentDeal.sf * currentDeal.costPsf) * (1 - currentDeal.ltc))}
+- Starting NNN Rent: $${currentDeal.rentPsf.toFixed(2)} / SF (${currentDeal.escalation.toFixed(2)}% escalations)
+- Clear Ceiling Height: ${currentDeal.clearHeight}' Clear
+- Loading Configuration: ${currentDeal.dockDoors} Dock Doors, ${currentDeal.courtDepth}' Truck Court
+- Year 1 Net Operating Income: ${fmt(currentDeal.sf * currentDeal.rentPsf * 0.96)}
+- Target 5-Year Exit Cap Rate: ${currentDeal.exitCap.toFixed(2)}%
+- Projected Levered IRR: ${document.getElementById('card-irr').textContent}
+- Projected Equity Multiple: ${document.getElementById('card-em').textContent}
+
+Generated via King Industrial Logistics Intelligence Studio.
+      `.trim();
+
+      navigator.clipboard.writeText(memoText).then(() => {
+        showToast('Deal Memo copied to clipboard in Markdown format!');
+      }).catch(() => {
+        showToast('Deal Memo ready for review.');
+      });
+    }
+
+    function getShareableUrl() {
+      if (!currentDeal) return window.location.href;
+      const cleanData = { ...currentDeal };
+      delete cleanData.id;
+      const jsonStr = JSON.stringify(cleanData);
+      const encoded = btoa(unescape(encodeURIComponent(jsonStr)));
+      
+      let basePath = window.location.pathname;
+      if (basePath.endsWith('/')) {
+        basePath += 'index.html';
+      } else if (!basePath.endsWith('index.html')) {
+        basePath = basePath.substring(0, basePath.lastIndexOf('/') + 1) + 'index.html';
+      }
+      return `${window.location.origin}${basePath}?data=${encoded}`;
+    }
+
+    function shareDealLink() {
+      const shareUrl = getShareableUrl();
+      navigator.clipboard.writeText(shareUrl).then(() => {
+        showToast('🔗 Live Client Presentation Link copied to clipboard!');
+      }).catch(() => {
+        prompt('Copy this shareable link:', shareUrl);
+      });
+    }
+
+    // QR Code Modal
+    function openQrModal() {
+      if (!currentDeal) return;
+      const modal = document.getElementById('qrModal');
+      document.getElementById('qr-property-name').textContent = currentDeal.name;
+      const container = document.getElementById('qrcode-canvas');
+      container.innerHTML = '';
+
+      const shareUrl = getShareableUrl();
+
+      if (window.QRCode) {
+        new QRCode(container, {
+          text: shareUrl,
+          width: 200,
+          height: 200,
+          colorDark: "#0f172a",
+          colorLight: "#ffffff",
+          correctLevel: QRCode.CorrectLevel.M
+        });
+      } else {
+        container.innerHTML = `<img src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=${encodeURIComponent(shareUrl)}" alt="QR Code" class="w-48 h-48 rounded-lg">`;
+      }
+
+      modal.classList.remove('hidden');
+    }
+
+    function closeQrModal() {
+      document.getElementById('qrModal').classList.add('hidden');
+    }
+
+    function downloadQrImage() {
+      const container = document.getElementById('qrcode-canvas');
+      const canvas = container.querySelector('canvas');
+      const img = container.querySelector('img');
+
+      if (canvas) {
+        const link = document.createElement('a');
+        link.download = `${(currentDeal.name || 'property').replace(/\s+/g, '_')}_QR.png`;
+        link.href = canvas.toDataURL('image/png');
+        link.click();
+        showToast('QR Code downloaded!');
+      } else if (img) {
+        window.open(img.src, '_blank');
+      }
+    }
+
+    // Tab Navigation
+    function setTab(tab) {
+      ['underwrite', 'blueprint', 'corridors', 'memo'].forEach(t => {
+        const el = document.getElementById('tab-' + t);
+        const btn = document.getElementById('tabBtn-' + t);
+        if (t === tab) {
+          el.classList.remove('hidden');
+          btn.classList.add('border-blue-500', 'text-blue-400');
+          btn.classList.remove('border-transparent', 'text-slate-400');
+        } else {
+          el.classList.add('hidden');
+          btn.classList.remove('border-blue-500', 'text-blue-400');
+          btn.classList.add('border-transparent', 'text-slate-400');
+        }
+      });
+      if (tab === 'blueprint') {
+        setTimeout(drawCAD, 50);
+      }
+    }
+
+    // CAD Drawing & Simulation Engine
+    let simActive = false;
+    let simTruck = { x: 50, y: 380, targetX: 280, targetY: 175, progress: 0 };
+    let animFrame = null;
+
+    function setLayout(mode) {
+      if (currentDeal) currentDeal.layout = mode;
+      document.getElementById('btn-crossdock').className = mode === 'crossdock' 
+        ? 'px-3 py-2 text-xs font-semibold rounded-lg bg-blue-600 text-white transition' 
+        : 'px-3 py-2 text-xs font-semibold rounded-lg bg-slate-800 text-slate-300 hover:bg-slate-700 transition';
+      document.getElementById('btn-singleload').className = mode === 'singleload' 
+        ? 'px-3 py-2 text-xs font-semibold rounded-lg bg-blue-600 text-white transition' 
+        : 'px-3 py-2 text-xs font-semibold rounded-lg bg-slate-800 text-slate-300 hover:bg-slate-700 transition';
+      drawCAD();
+    }
+
+    function toggleTruckSim() {
+      simActive = !simActive;
+      const btn = document.getElementById('btn-truck-sim');
+      const text = document.getElementById('sim-text');
+
+      if (simActive) {
+        simTruck.progress = 0;
+        btn.classList.replace('from-emerald-600', 'from-amber-600');
+        btn.classList.replace('to-teal-600', 'to-orange-600');
+        text.textContent = 'Stop Docking Simulation';
+        animateTruck();
+      } else {
+        cancelAnimationFrame(animFrame);
+        btn.classList.replace('from-amber-600', 'from-emerald-600');
+        btn.classList.replace('to-orange-600', 'to-teal-600');
+        text.textContent = 'Simulate Semi-Truck Ingress & Docking';
+        drawCAD();
+      }
+    }
+
+    function animateTruck() {
+      if (!simActive) return;
+      simTruck.progress += 0.007;
+      if (simTruck.progress > 1.2) simTruck.progress = 0;
+      drawCAD();
+      animFrame = requestAnimationFrame(animateTruck);
+    }
+
+    function drawCAD() {
+      const canvas = document.getElementById('cadCanvas');
+      if (!canvas) return;
+      const ctx = canvas.getContext('2d');
+      const rect = canvas.getBoundingClientRect();
+      canvas.width = rect.width || 700;
+      canvas.height = rect.height || 460;
+
+      const w = canvas.width;
+      const h = canvas.height;
+
+      ctx.clearRect(0, 0, w, h);
+
+      ctx.strokeStyle = '#1e293b';
+      ctx.lineWidth = 1;
+      const gridSize = 25;
+      for (let x = 0; x < w; x += gridSize) {
+        ctx.beginPath();
+        ctx.moveTo(x, 0);
+        ctx.lineTo(x, h);
+        ctx.stroke();
+      }
+      for (let y = 0; y < h; y += gridSize) {
+        ctx.beginPath();
+        ctx.moveTo(0, y);
+        ctx.lineTo(w, y);
+        ctx.stroke();
+      }
+
+      const courtDepth = parseFloat(document.getElementById('in-court-depth').value);
+      const clearH = parseFloat(document.getElementById('in-cad-clear').value);
+      const doorsCount = parseInt(document.getElementById('in-cad-doors').value);
+      
+      document.getElementById('txt-court-depth').textContent = courtDepth + ' Feet';
+      document.getElementById('txt-cad-clear').textContent = clearH + "' Clear";
+      document.getElementById('txt-cad-doors').textContent = doorsCount + ' Doors';
+
+      const layout = currentDeal ? (currentDeal.layout || 'crossdock') : 'crossdock';
+      const bldgW = w * 0.65;
+      const bldgH = layout === 'crossdock' ? h * 0.32 : h * 0.42;
+      const bldgX = (w - bldgW) / 2;
+      const bldgY = (h - bldgH) / 2;
+
+      if (layout === 'crossdock') {
+        const topCourtH = (courtDepth / 200) * (bldgY - 30);
+        ctx.fillStyle = '#1e293b80';
+        ctx.fillRect(bldgX - 30, bldgY - topCourtH, bldgW + 60, topCourtH);
+        ctx.strokeStyle = '#334155';
+        ctx.strokeRect(bldgX - 30, bldgY - topCourtH, bldgW + 60, topCourtH);
+      }
+
+      const bottomCourtH = (courtDepth / 200) * (h - (bldgY + bldgH) - 30);
+      ctx.fillStyle = '#1e293b80';
+      ctx.fillRect(bldgX - 30, bldgY + bldgH, bldgW + 60, bottomCourtH);
+      ctx.strokeStyle = '#334155';
+      ctx.strokeRect(bldgX - 30, bldgY + bldgH, bldgW + 60, bottomCourtH);
+
+      ctx.fillStyle = '#1e3a8a40';
+      ctx.fillRect(bldgX, bldgY, bldgW, bldgH);
+      ctx.strokeStyle = '#3b82f6';
+      ctx.lineWidth = 2;
+      ctx.strokeRect(bldgX, bldgY, bldgW, bldgH);
+
+      ctx.strokeStyle = '#1d4ed830';
+      ctx.lineWidth = 1;
+      for (let cx = bldgX + 40; cx < bldgX + bldgW; cx += 40) {
+        ctx.beginPath();
+        ctx.moveTo(cx, bldgY);
+        ctx.lineTo(cx, bldgY + bldgH);
+        ctx.stroke();
+      }
+
+      const offW = bldgW * 0.16;
+      const offH = bldgH * 0.45;
+      ctx.fillStyle = '#d9770640';
+      ctx.fillRect(bldgX, bldgY, offW, offH);
+      ctx.strokeStyle = '#f59e0b';
+      ctx.strokeRect(bldgX, bldgY, offW, offH);
+      ctx.fillStyle = '#fbbf24';
+      ctx.font = '9px monospace';
+      ctx.fillText("SPEC OFFICE", bldgX + 6, bldgY + 16);
+
+      const doorsPerSide = layout === 'crossdock' ? Math.floor(doorsCount / 2) : doorsCount;
+      const doorSpacing = (bldgW - 40) / Math.max(1, doorsPerSide);
+
+      for (let i = 0; i < doorsPerSide; i++) {
+        const dx = bldgX + 25 + i * doorSpacing;
+        const dy = bldgY + bldgH;
+        ctx.fillStyle = '#10b981';
+        ctx.fillRect(dx, dy - 3, 5, 6);
+      }
+
+      if (layout === 'crossdock') {
+        for (let i = 0; i < doorsPerSide; i++) {
+          const dx = bldgX + 25 + i * doorSpacing;
+          const dy = bldgY;
+          ctx.fillStyle = '#10b981';
+          ctx.fillRect(dx, dy - 3, 5, 6);
+        }
+      }
+
+      ctx.fillStyle = '#94a3b8';
+      ctx.font = '10px monospace';
+      const sfText = currentDeal ? currentDeal.sf.toLocaleString() : '450,000';
+      ctx.fillText(`${sfText} SF INDUSTRIAL FACILITY`, bldgX + bldgW / 2 - 80, bldgY + bldgH / 2);
+      ctx.fillText(`${courtDepth}' Truck Court Depth`, bldgX + bldgW / 2 - 55, bldgY + bldgH + bottomCourtH / 2 + 3);
+
+      if (simActive) {
+        const p = Math.min(1, simTruck.progress);
+        const startX = 30;
+        const startY = h - 40;
+        const midX = bldgX + 120;
+        const midY = bldgY + bldgH + bottomCourtH - 25;
+        const dockX = bldgX + 160;
+        const dockY = bldgY + bldgH + 8;
+
+        let tx, ty, angle;
+        if (p < 0.5) {
+          const t = p * 2;
+          tx = startX + (midX - startX) * t;
+          ty = startY + (midY - startY) * t;
+          angle = Math.atan2(midY - startY, midX - startX);
+        } else {
+          const t = (p - 0.5) * 2;
+          tx = midX + (dockX - midX) * t;
+          ty = midY + (dockY - midY) * t;
+          angle = Math.atan2(dockY - midY, dockX - midX);
+        }
+
+        ctx.save();
+        ctx.translate(tx, ty);
+        ctx.rotate(angle);
+
+        ctx.fillStyle = '#f8fafc';
+        ctx.fillRect(-26, -7, 34, 14);
+        ctx.strokeStyle = '#0284c7';
+        ctx.lineWidth = 1.5;
+        ctx.strokeRect(-26, -7, 34, 14);
+
+        ctx.fillStyle = '#ef4444';
+        ctx.fillRect(8, -6, 12, 12);
+
+        ctx.fillStyle = '#0f172a';
+        ctx.fillRect(-22, -9, 8, 2);
+        ctx.fillRect(-22, 7, 8, 2);
+        ctx.fillRect(-12, -9, 8, 2);
+        ctx.fillRect(-12, 7, 8, 2);
+
+        ctx.restore();
+
+        ctx.strokeStyle = '#38bdf840';
+        ctx.setLineDash([4, 4]);
+        ctx.beginPath();
+        ctx.arc(midX, midY, 45, 0, Math.PI * 2);
+        ctx.stroke();
+        ctx.setLineDash([]);
+      }
+    }
+
+    function populateCorridors() {
+      const grid = document.getElementById('corridors-grid');
+      let html = '';
+      SUBMARKETS.forEach(c => {
+        html += `
+          <div class="bg-slate-950/80 border border-slate-800 rounded-xl p-4 flex flex-col justify-between space-y-3">
+            <div>
+              <div class="flex items-center justify-between">
+                <span class="text-[10px] font-bold px-2 py-0.5 rounded bg-blue-500/10 text-blue-400 border border-blue-500/20">${c.tag}</span>
+                <span class="text-xs text-emerald-400 font-mono font-semibold">Submarket Benchmark</span>
+              </div>
+              <h4 class="text-sm font-bold text-white mt-2">${c.name}</h4>
+              <p class="text-[11px] text-slate-400">${c.counties}</p>
+              <p class="text-xs text-slate-300 mt-2 leading-relaxed">${c.desc}</p>
+            </div>
+            
+            <div class="pt-3 border-t border-slate-800 grid grid-cols-3 gap-2 text-center text-xs">
+              <div class="bg-slate-900 p-1.5 rounded">
+                <div class="text-[10px] text-slate-500 uppercase">Avg Rent</div>
+                <div class="font-bold text-white font-mono">$${c.rent.toFixed(2)}</div>
+              </div>
+              <div class="bg-slate-900 p-1.5 rounded">
+                <div class="text-[10px] text-slate-500 uppercase">Vacancy</div>
+                <div class="font-bold text-blue-400 font-mono">${c.vacancy}%</div>
+              </div>
+              <div class="bg-slate-900 p-1.5 rounded">
+                <div class="text-[10px] text-slate-500 uppercase">Typ. Clear</div>
+                <div class="font-bold text-slate-300 font-mono">${c.clear}'</div>
+              </div>
+            </div>
+          </div>
+        `;
+      });
+      grid.innerHTML = html;
+    }
+
+    window.addEventListener('resize', drawCAD);
+    populateCorridors();
+    initStorage();
+  </script>
+</body>
+</html>
+ + rentPsf.toFixed(2) + ' / SF';
+      document.getElementById('txt-escalation').textContent = escalation.toFixed(2) + '% / yr';
+      document.getElementById('txt-exit-cap').textContent = exitCap.toFixed(2) + '%';
+
+      const escDecimal = d.escalation / 100;
+      const capDecimal = d.exitCap / 100;
+      const totalCost = d.sf * d.costPsf;
+      const debtAmount = totalCost * d.ltc;
+      const equityAmount = totalCost - debtAmount;
+      const annualDebtService = d.ltc > 0 ? calcPmt(d.interestRate, d.amortYears || 25, debtAmount) : 0;
+
+      const years = 10;
+      const cashFlows = [];
+      const noiArray = [];
+      const afterDebtArray = [];
+
+      let currentRent = d.rentPsf;
+      for (let y = 1; y <= years; y++) {
+        const potentialGross = d.sf * currentRent;
+        const opex = potentialGross * 0.04;
+        const noi = potentialGross - opex;
+        const afterDebt = noi - annualDebtService;
+
+        noiArray.push(noi);
+        afterDebtArray.push(afterDebt);
+
+        cashFlows.push({
+          year: y,
+          rentPsf: currentRent,
+          pgr: potentialGross,
+          noi: noi,
+          debt: annualDebtService,
+          cfad: afterDebt
+        });
+
+        currentRent *= (1 + escDecimal);
+      }
+
+      const yr5NOI = noiArray[4];
+      const exitValueYr5 = yr5NOI / capDecimal;
+      
+      let loanBalYr5 = debtAmount;
+      if (debtAmount > 0) {
+        const monthlyRate = d.interestRate / 12;
+        const totalMonths = (d.amortYears || 25) * 12;
+        const monthlyPmt = annualDebtService / 12;
+        for (let m = 0; m < 60; m++) {
+          const interestPortion = loanBalYr5 * monthlyRate;
+          const principalPortion = monthlyPmt - interestPortion;
+          loanBalYr5 -= principalPortion;
+        }
+      }
+      const netExitProceedsYr5 = exitValueYr5 - loanBalYr5;
+
+      const irrStream = [-equityAmount];
+      for (let y = 0; y < 4; y++) {
+        irrStream.push(afterDebtArray[y]);
+      }
+      irrStream.push(afterDebtArray[4] + netExitProceedsYr5);
+
+      const leveredIRR = calcIRR(irrStream);
+      const totalInflows = irrStream.slice(1).reduce((a, b) => a + b, 0);
+      const equityMultiple = equityAmount > 0 ? totalInflows / equityAmount : 1.0;
+
+      document.getElementById('heroSF').textContent = d.sf.toLocaleString() + ' SF';
+      document.getElementById('heroValuation').textContent = fmt(exitValueYr5);
+      document.getElementById('heroIRR').textContent = (leveredIRR * 100).toFixed(1) + '%';
+
+      document.getElementById('card-total-cost').textContent = fmt(totalCost);
+      document.getElementById('card-equity-req').textContent = 'Equity: ' + fmt(equityAmount);
+      document.getElementById('card-noi').textContent = fmt(noiArray[0]);
+      document.getElementById('card-yield').textContent = 'Untapped Yield: ' + ((noiArray[0] / totalCost) * 100).toFixed(2) + '%';
+      document.getElementById('card-exit-val').textContent = fmt(exitValueYr5);
+      document.getElementById('card-profit').textContent = 'Net Gain: +' + fmt(exitValueYr5 - totalCost);
+      document.getElementById('card-irr').textContent = (leveredIRR * 100).toFixed(1) + '%';
+      document.getElementById('card-em').textContent = 'Equity Multiple: ' + equityMultiple.toFixed(2) + 'x';
+
+      renderSVGChart(noiArray, afterDebtArray);
+      renderSensitivityMatrix(yr5NOI, equityAmount, annualDebtService, loanBalYr5, capDecimal);
+      renderTable(cashFlows);
+      renderAIMemo(d, totalCost, equityAmount, noiArray[0], exitValueYr5, leveredIRR, equityMultiple);
+    }
+
+    function renderSVGChart(noiArr, cfArr) {
+      const maxVal = Math.max(...noiArr) * 1.15;
+      const w = 700;
+      const h = 160;
+      const pad = 40;
+      const barW = 20;
+      const colStep = (w - pad * 2) / 10;
+
+      let svg = `
+        <line x1="${pad}" y1="${h - 25}" x2="${w - pad}" y2="${h - 25}" stroke="#334155" stroke-width="1"/>
+        <line x1="${pad}" y1="20" x2="${pad}" y2="${h - 25}" stroke="#334155" stroke-width="1"/>
+      `;
+
+      for (let i = 0; i < 10; i++) {
+        const x = pad + i * colStep + 10;
+        const noiH = (noiArr[i] / maxVal) * (h - 45);
+        const cfH = Math.max(0, (cfArr[i] / maxVal) * (h - 45));
+
+        const yNoi = (h - 25) - noiH;
+        const yCf = (h - 25) - cfH;
+
+        svg += `
+          <rect x="${x}" y="${yNoi}" width="${barW}" height="${noiH}" fill="#3b82f6" rx="3" opacity="0.9"/>
+          <rect x="${x + 6}" y="${yCf}" width="${barW - 12}" height="${cfH}" fill="#10b981" rx="2"/>
+          <text x="${x + barW / 2}" y="${h - 8}" fill="#94a3b8" font-size="10" font-family="monospace" text-anchor="middle">Y${i + 1}</text>
+        `;
+      }
+
+      document.getElementById('chart-cashflow').innerHTML = svg;
+    }
+
+    function renderSensitivityMatrix(baseYr5NOI, equityAmount, annualDebtService, loanBal, baseCap) {
+      const capDeltas = [-0.005, -0.0025, 0, 0.0025, 0.005];
+      const rentDeltas = [0.90, 0.95, 1.00, 1.05, 1.10];
+
+      let html = `
+        <thead>
+          <tr class="text-slate-400 border-b border-slate-800">
+            <th class="p-2 text-left text-slate-500 font-sans">Exit Cap Rate \\ Yr 5 Rent</th>
+            ${rentDeltas.map(rd => `<th class="p-2">${(rd * 100 - 100 >= 0 ? '+' : '')}${(rd * 100 - 100).toFixed(0)}%</th>`).join('')}
+          </tr>
+        </thead>
+        <tbody>
+      `;
+
+      capDeltas.forEach(cd => {
+        const testCap = baseCap + cd;
+        html += `<tr class="border-b border-slate-800/50"><td class="p-2 text-left font-bold text-slate-300 font-sans">${(testCap * 100).toFixed(2)}% Cap</td>`;
+        rentDeltas.forEach(rd => {
+          const testNOI = baseYr5NOI * rd;
+          const testExitVal = testNOI / testCap;
+          const testProceeds = testExitVal - loanBal;
+
+          const testStream = [-equityAmount, annualDebtService, annualDebtService, annualDebtService, annualDebtService + testProceeds];
+          const testIRR = calcIRR(testStream);
+          const pct = (testIRR * 100).toFixed(1);
+
+          let colorClass = 'text-emerald-400 bg-emerald-950/20';
+          if (testIRR < 0.12) colorClass = 'text-amber-400 bg-amber-950/20';
+          if (testIRR < 0.08) colorClass = 'text-rose-400 bg-rose-950/20';
+          if (cd === 0 && rd === 1.00) colorClass += ' border-2 border-blue-500 font-extrabold';
+
+          html += `<td class="p-2 ${colorClass} rounded">${pct}%</td>`;
+        });
+        html += `</tr>`;
+      });
+
+      html += `</tbody>`;
+      document.getElementById('tbl-sensitivity').innerHTML = html;
+    }
+
+    function renderTable(cfs) {
+      const rows = [
+        { label: 'Market Rent ($/SF)', fn: r => '$' + r.rentPsf.toFixed(2) },
+        { label: 'Potential Gross Revenue', fn: r => fmt(r.pgr) },
+        { label: 'Net Operating Income (NOI)', fn: r => fmt(r.noi), highlight: true },
+        { label: 'Debt Service (P&I)', fn: r => fmt(r.debt) },
+        { label: 'Cash Flow After Debt (CFAD)', fn: r => fmt(r.cfad), green: true }
+      ];
+
+      let html = '';
+      rows.forEach(row => {
+        html += `<tr class="${row.highlight ? 'bg-blue-950/30 font-bold text-blue-300' : ''} ${row.green ? 'bg-emerald-950/20 font-bold text-emerald-300' : ''}">`;
+        html += `<td class="text-left py-2 px-3 text-slate-300 font-sans font-medium">${row.label}</td>`;
+        cfs.forEach(cf => {
+          html += `<td class="py-2 px-2">${row.fn(cf)}</td>`;
+        });
+        html += `</tr>`;
+      });
+      document.getElementById('tbody-cashflow').innerHTML = html;
+    }
+
+    function renderAIMemo(d, totalCost, equity, yr1NOI, exitVal, irr, em) {
+      if (!d) return;
+      const costPsf = d.costPsf !== undefined ? d.costPsf : 115;
+      const tc = totalCost !== undefined ? totalCost : (d.sf * costPsf);
+      const ltc = d.ltc !== undefined ? d.ltc : 0.65;
+      const eq = equity !== undefined ? equity : (tc * (1 - ltc));
+      const irrVal = irr !== undefined ? irr : 0.18;
+      const emVal = em !== undefined ? em : 2.1;
+
+      document.getElementById('memo-header-title').textContent = `${d.name || 'Property'} // Investment Memo`;
+      document.getElementById('memo-header-sub').textContent = `${d.address || ''} • ${d.corridor || ''}`;
+
+      const safeName = escapeHtml(d.name);
+      const safeAddress = escapeHtml(d.address);
+      const safeCorridor = escapeHtml(d.corridor);
+      const safeSprinkler = escapeHtml(d.sprinkler || 'ESFR Sprinkler System');
+      const safeGrid = escapeHtml(d.columnGrid || "50' x 50' Speed Bays");
+      const safeNotes = escapeHtml(d.notes || 'Institutional industrial asset with prime logistical connectivity.');
+
+      let brokerCardsHtml = '';
+      if (d.brokers && Array.isArray(d.brokers) && d.brokers.length > 0) {
+        brokerCardsHtml = `
+          <h3 class="text-base font-bold text-white uppercase tracking-wide border-b border-slate-800 pb-2 pt-3">4. Exclusive King Industrial Listing Representation</h3>
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-2">
+            ${d.brokers.map(b => `
+              <div class="bg-slate-950/80 p-3.5 rounded-lg border border-slate-800/80 flex items-center gap-3">
+                ${b.photo && sanitizeUrl(b.photo) ? `<img src="${sanitizeUrl(b.photo)}" alt="${escapeHtml(b.name)}" class="w-12 h-12 rounded-full object-cover border border-blue-500/30 shrink-0">` : ''}
+                <div>
+                  <div class="text-xs font-bold text-white">${escapeHtml(b.name)}</div>
+                  <div class="text-[11px] text-blue-400">${escapeHtml(b.title || 'Industrial Specialist')}</div>
+                  ${b.phone ? `<a href="${sanitizeUrl('tel:' + b.phone)}" class="text-[11px] text-slate-400 hover:text-white block mt-0.5">${escapeHtml(b.phone)}</a>` : ''}
+                  ${b.email ? `<a href="${sanitizeUrl('mailto:' + b.email)}" class="text-[11px] text-blue-400 hover:underline block">${escapeHtml(b.email)}</a>` : ''}
+                </div>
+              </div>
+            `).join('')}
+          </div>
+        `;
+      }
+
+      const html = `
+        <div class="space-y-4">
+          <h3 class="text-base font-bold text-white uppercase tracking-wide border-b border-slate-800 pb-2">1. Executive Summary & Investment Thesis</h3>
+          <p>
+            King Industrial Realty presents the institutional acquisition/development opportunity for <strong>${safeName}</strong>, a state-of-the-art <strong>${(d.sf || 0).toLocaleString()} SF</strong> modern Class-A industrial logistics asset situated strategically in the core <strong>${safeCorridor}</strong> at <em>${safeAddress}</em>.
+          </p>
+          <p>
+            The project requires a total capitalization of <strong>${fmt(tc)}</strong> (${costPsf.toFixed(2)}/SF), funded via a balanced capital structure comprising <strong>${(ltc * 100).toFixed(0)}% debt</strong> (${fmt(tc * ltc)}) and <strong>${fmt(eq)}</strong> of LP/sponsor equity.
+          </p>
+
+          <h3 class="text-base font-bold text-white uppercase tracking-wide border-b border-slate-800 pb-2 pt-3">2. Facility Specifications & Physical Advantage</h3>
+          <ul class="list-disc pl-5 space-y-1 text-slate-300">
+            <li><strong>Clear Height:</strong> ${d.clearHeight || 24}' minimum clear ceiling height, providing maximum volumetric cube capacity for high-density racking.</li>
+            <li><strong>Loading Dock Infrastructure:</strong> ${d.dockDoors || 4} dock-high loading doors and ${d.driveinDoors || 2} drive-in ramps.</li>
+            <li><strong>Truck Court & Parking:</strong> ${d.courtDepth || 140}' heavy-duty concrete truck apron featuring ${d.trailerStalls || 10} dedicated trailer parking positions.</li>
+            <li><strong>Structural Grid & Fire Life Safety:</strong> ${safeGrid} column spacing with ${safeSprinkler}.</li>
+          </ul>
+
+          <h3 class="text-base font-bold text-white uppercase tracking-wide border-b border-slate-800 pb-2 pt-3">3. Underwriting Returns & Feasibility Profile</h3>
+          <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 text-center my-3">
+            <div class="bg-slate-950 p-3 rounded-lg border border-slate-800">
+              <span class="text-[10px] text-slate-400 uppercase font-semibold">Total Capitalization</span>
+              <div class="text-base font-bold text-white font-mono mt-0.5">${fmt(tc)}</div>
+            </div>
+            <div class="bg-slate-950 p-3 rounded-lg border border-slate-800">
+              <span class="text-[10px] text-slate-400 uppercase font-semibold">Yr 1 Net NOI</span>
+              <div class="text-base font-bold text-blue-400 font-mono mt-0.5">${fmt(yr1NOI || 0)}</div>
+            </div>
+            <div class="bg-slate-950 p-3 rounded-lg border border-slate-800">
+              <span class="text-[10px] text-slate-400 uppercase font-semibold">5-Yr Levered IRR</span>
+              <span class="text-base font-bold font-mono text-indigo-400 mt-0.5 block">${(irrVal * 100).toFixed(1)}%</span>
+            </div>
+            <div class="bg-slate-950 p-3 rounded-lg border border-slate-800">
+              <span class="text-[10px] text-slate-400 uppercase font-semibold">Equity Multiple</span>
+              <span class="text-base font-bold font-mono text-blue-400 mt-0.5 block">${emVal.toFixed(2)}x</span>
+            </div>
+          </div>
+          <p>
+            Under baseline assumptions of <strong>${(d.rentPsf || 7.50).toFixed(2)}/SF NNN</strong> starting rent and <strong>${(d.escalation || 3.50).toFixed(2)}%</strong> annual contractual escalations, the asset produces robust downside-protected yield with a projected exit cap rate of <strong>${(d.exitCap || 5.25).toFixed(2)}%</strong>.
+          </p>
+          <p class="text-xs text-slate-400 italic">
+            Location & Asset Highlights: ${safeNotes}
+          </p>
+
+          ${brokerCardsHtml}
+        </div>
+      `;
+
       document.getElementById('memo-content').innerHTML = html;
     }
 

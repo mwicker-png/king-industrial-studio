@@ -1,0 +1,75 @@
+﻿function setSchema(schema) {
+  var selector = "script[type='application/ld+json']";
+  var schemaTag = document.querySelector(selector);
+
+  if (!schemaTag) {
+    schemaTag = document.createElement('script');
+    schemaTag.type = 'application/ld+json';
+    schemaTag.text = schema;
+
+    document.head.appendChild(schemaTag);
+  } else {
+    schemaTag.text = schema;
+  }
+}
+
+function findOrCreateMetaTag(name) {
+  // Match the name case-insensitively (rather than via a CSS ":i" selector, unsupported in
+  // older browsers) - host pages sometimes ship tags like <meta name="Description"> and we
+  // need to update that one instead of adding a duplicate.
+  var metaTag = null;
+  var metaTags = document.getElementsByTagName("meta");
+  for (var i = 0; i < metaTags.length; i++) {
+    if ((metaTags[i].getAttribute("name") || "").toLowerCase() === name.toLowerCase()) {
+      metaTag = metaTags[i];
+      break;
+    }
+  }
+  if (!metaTag) {
+    metaTag = document.createElement("meta");
+    metaTag.name = name;
+    document.querySelector("head").appendChild(metaTag);
+  }
+  return metaTag;
+}
+
+function setMetaTagContent(metaTag, content, contentSeparator) {
+  var newContent = content;
+  if (metaTag.content) {
+    newContent += contentSeparator + metaTag.content;
+  }
+  metaTag.content = newContent;
+}
+
+function addOrUpdateCanonicalLink(canonicalLinkUrl) {
+  var existingCanonicalLink =  document.querySelector("link[rel='canonical']");
+  var link = existingCanonicalLink || document.createElement('link');
+
+  // canonicalLinkUrl, when present, is already the full per-listing canonical URL
+  // (computed server-side from the country override plus this listing's own url_slug).
+  link.href = canonicalLinkUrl || window.location.href;
+  link.rel = 'canonical';
+
+  document.head.appendChild(link);
+}
+
+var seoAttrs = {"pageTitle":"51-57 Pearl Industrial Avenue, Hoschton, GA for sale","metaDescription":"For sale - 51-57 Pearl Industrial Avenue, Hoschton, GA 30548","schema":{"@context":"https://schema.org/","@type":"RealEstateListing","contentLocation":{"@type":"Place","address":{"@type":"PostalAddress","streetAddress":"51-57 Pearl Industrial Avenue","addressLocality":"Hoschton","addressRegion":"GA","postalCode":"30548","addressCountry":"US"}}},"overrideCanonicalLink":true,"canonicalLinkUrl":null};
+
+if (seoAttrs.pageTitle) {
+  document.title = seoAttrs.pageTitle;
+}
+
+if (seoAttrs.metaDescription) {
+  var metaDescTag = findOrCreateMetaTag("description");
+  setMetaTagContent(metaDescTag, seoAttrs.metaDescription, " ");
+}
+
+if (seoAttrs.schema) {
+  setSchema(JSON.stringify(seoAttrs.schema));
+}
+
+if (seoAttrs.overrideCanonicalLink) {
+  addOrUpdateCanonicalLink(seoAttrs.canonicalLinkUrl);
+}
+
+buildoutEmbed({ "content": "\u003cheader\u003e\u003ch1\u003eIndustrial For Sale\u003c/h1\u003e\u003cp\u003e51-57 Pearl Industrial Avenue, Hoschton, GA  30548\u003c/p\u003e\u003c/header\u003e\u003cimg src=\"https://d33y5rc9xva21v.cloudfront.net/eyJidWNrZXQiOiJidWlsZG91dC1wcm9kdWN0aW9uIiwia2V5IjoiZGF0YXMvMzU5OTkwMjUvMmJlZjY3OWMzYjgyNzRlYjY4NGViMDgwMTgyNjlmNjE0ODJkMzc1Mi9vcmlnaW5hbC5qcGciLCJlZGl0cyI6eyJyZXNpemUiOnsid2lkdGgiOjI1MDAsImhlaWdodCI6MjUwMCwiZml0IjoiaW5zaWRlIiwid2l0aG91dEVubGFyZ2VtZW50Ijp0cnVlfSwicm90YXRlIjpudWxsfSwidXBkYXRlZEF0IjoxNzg2NjMyOTU5fQ==\" /\u003e\u003csection id=\"overview\"\u003e\u003ch2\u003eOverview\u003c/h2\u003e\u003ctable id=\"summary-attributes\"\u003e\u003ctr\u003e\u003cth\u003ePrice:\u003c/th\u003e\u003ctd\u003eSee Agent\u003c/td\u003e\u003c/tr\u003e\u003ctr\u003e\u003cth\u003eBuilding Size:\u003c/th\u003e\u003ctd\u003e50,000 SF\u003c/td\u003e\u003c/tr\u003e\u003ctr\u003e\u003cth\u003eProperty Type:\u003c/th\u003e\u003ctd\u003eIndustrial\u003c/td\u003e\u003c/tr\u003e\u003ctr\u003e\u003cth\u003eTotal Lot Size:\u003c/th\u003e\u003ctd\u003e3.13 Acres\u003c/td\u003e\u003c/tr\u003e\u003c/table\u003e\u003ch3\u003eHighlights\u003c/h3\u003e\u003cul\u003e\u003cli\u003eFully Stabilized, 100% Leased\u003c/li\u003e\u003cli\u003eNewer Construction (Building between 2000-2004)\u003c/li\u003e\u003cli\u003eFront-Load Configuration Ideal for Small Contractors, Trade, and Light Distribution / Service Tenants\u003c/li\u003e\u003cli\u003eMix of Dock-High and Drive-In / Van-High Loading\u003c/li\u003e\u003cli\u003eLocated in the I-85 North Corridor\u003c/li\u003e\u003cli\u003eSubmarket Vacancy Below 8.25% in this Size Range\u003c/li\u003e\u003c/ul\u003e\u003ch3\u003eContact Broker\u003c/h3\u003e\u003cdiv id=\"broker\"\u003e\u003cp\u003eAndrew Johnson\u003cbr /\u003eVice President\u003cbr /\u003eKing Industrial Realty\u003c/p\u003e\u003ctable\u003e\u003ctr\u003e\u003cth\u003eOffice\u003c/th\u003e\u003ctd\u003e404.942.2029\u003c/td\u003e\u003c/tr\u003e\u003c/table\u003e\u003c/div\u003e\u003cdiv id=\"broker\"\u003e\u003cp\u003eBrian Bratton, SIOR\u003cbr /\u003eSenior Vice President\u003cbr /\u003eKing Industrial Realty\u003c/p\u003e\u003ctable\u003e\u003ctr\u003e\u003cth\u003eOffice\u003c/th\u003e\u003ctd\u003e404.942.2028\u003c/td\u003e\u003c/tr\u003e\u003c/table\u003e\u003c/div\u003e\u003c/section\u003e\u003cp\u003ePowered by Buildout\u003c/p\u003e" });
