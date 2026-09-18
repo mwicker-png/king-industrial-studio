@@ -1,19 +1,21 @@
-﻿# 👑 King Industrial Realty // Logistics & Underwriting Studio
+﻿# 👑 King Industrial Realty // Deal Studio & Logistics Underwriting Engine
 
-An institutional-grade industrial real estate underwriting, site engineering CAD, and submarket intelligence platform.
+A reusable, customizable institutional industrial real estate underwriting, site engineering CAD, and feasibility platform.
 
 ![Hero Rendering](apex_logistics_hub.jpg)
 
-## 🚀 Features
+## 🌟 Key Capabilities
 
+- **Multi-Property Deal Switcher:** Save, manage, and toggle between multiple listings and pipeline deals instantly.
+- **✨ Smart Flyer / Brochure Text Importer:** Paste raw text from marketing flyers, CoStar sheets, or listing emails to automatically extract square footage, clear heights, dock doors, asking rents, and truck court depths.
+- **🔗 1-Click Live Shareable URLs:** Generate instant self-contained web links encoded with your specific deal data to send directly to clients, partners, or investors.
 - **10-Year DCF Underwriting Engine:** Compounding rent escalations, debt amortization schedule (PMT), Newton-Raphson Levered IRR solver, and Equity Multiple.
-- **Dynamic 5x5 IRR Sensitivity Matrix:** Stress-tests exit cap rates against rental rate shifts.
-- **Interactive 2D Site CAD Simulator:** Live cross-dock vs. rear-load configurations, truck court depths (130'-210'), clear heights, and animated 53' semi-truck 60° swing-radius docking simulation.
-- **Greater Atlanta Submarket Intelligence:** Benchmark data and 1-click loading for I-85 North, I-20 West / Fulton Industrial, I-75 South / Henry, and Aerotropolis Airport corridors.
-- **Real-Time Investment Memorandum Compiler:** Generates narrative deal memos customized to active underwriting variables with 1-click clipboard export.
+- **Dynamic 5x5 IRR Sensitivity Matrix:** Real-time stress-testing of exit cap rates vs. market rent shifts.
+- **Interactive 2D Site CAD Simulator:** Live cross-dock vs. rear-load configurations, concrete apron sizing, and animated 53' semi-truck 60° swing-radius docking simulation.
+- **Automated Executive Deal Memo:** Formatted institutional memorandum that adapts dynamically to whatever property is active.
 
-## 💻 Quick Start
-Open `index.html` in any modern web browser. No external runtime or server installation required.
+## 🌐 Live Web App
+Access the deployed application at: **[https://mwicker-png.github.io/king-industrial-studio/](https://mwicker-png.github.io/king-industrial-studio/)**
 
 ---
-*Built for King Industrial Realty, Inc.*
+*King Industrial Realty, Inc.*
